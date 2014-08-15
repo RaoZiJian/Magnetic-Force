@@ -38,7 +38,6 @@ var GameLayer = cc.Layer.extend({
         this.space = Physics.world;
         // Gravity
         this.space.gravity = cp.v(0, -100);
-
     },
     setupDebugNode : function (){
         this.debugNode = cc.PhysicsDebugNode.create( this.space );
@@ -86,11 +85,10 @@ var GameLayer = cc.Layer.extend({
     update : function( delta ) {
         this.space.step( delta );
 
-//        MagneticSystem.update(dt);
+        //MagneticSystem.update(delta);
     },
     onEnter : function () {
         this._super();
-
         this.scheduleUpdate();
 
         //setup game begin.
@@ -98,6 +96,7 @@ var GameLayer = cc.Layer.extend({
     },
     onExit : function () {
         this.unscheduleUpdate();
+        this._super();
     }
 
 

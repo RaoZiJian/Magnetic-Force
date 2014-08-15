@@ -31,6 +31,15 @@ var Player = cc.Sprite.extend({
         this.initPhysics(x, y, r);
     },
 
+    onEnter: function() {
+        this._super();
+        this.scheduleUpdate();
+    },
+    onExit : function () {
+        this.unscheduleUpdate();
+        this._super();
+    },
+
     initPhysics : function (x, y, r) {
         var size = cc.size(r * 2, r * 2),
             origin = cc.p(x, y);
@@ -57,6 +66,12 @@ var Player = cc.Sprite.extend({
 //        this.rightSensor.setSensor(true);
 //        this.rightSensor.setCollisionType(Hero.RIGHT_COL_TYPE);
 //        Physics.world.addShape(this.rightSensor);
+    },
+
+    update : function() {
+        var pos = this.phyObj.getPosition();
+        this.x = pos.x;
+        this.y = pos.y;
     }
 
 });
