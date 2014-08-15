@@ -63,15 +63,22 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
+
+
     },
     createMagnetSystem : function () {
 
     },
     update : function( delta ) {
         this.space.step( delta );
+
+        MagneticSystem.update(dt);
     },
     onEnter : function () {
         this.scheduleUpdate();
+
+        //setup game begin.
+        this.isBegin = true;
     },
     onExit : function () {
         this.unscheduleUpdate();
