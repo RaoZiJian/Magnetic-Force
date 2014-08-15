@@ -8,10 +8,12 @@
     "renderMode" : 2,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["menus"],
+    "modules" : ["cocos2d", "extensions", "external"],
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js"
+        "src/app.js",
+        "src/MagneticSystem.js",
+        "src/GameLayer.js"
     ]
 }
