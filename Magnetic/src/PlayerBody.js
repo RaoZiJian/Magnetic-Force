@@ -46,7 +46,7 @@ var Player = cc.Sprite.extend({
         var size = cc.size(r * 2, r * 2),
             origin = cc.p(x, y);
 
-        this.phyObj = new PhysicsObject(this.weight, size, this.maxSpeed, this, origin);
+        this.phyObj = new CircleObject(this.weight, size.width/2, this.maxSpeed, this, origin);
         this.phyObj.setFriction(this.friction);
         this.phyObj.setElasticity(this.elasticity);
         var body = this.phyObj.body;
