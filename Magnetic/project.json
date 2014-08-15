@@ -15,6 +15,7 @@
         "src/app.js",
         "src/physics.js",
         "src/MagneticSystem.js",
-        "src/GameLayer.js"
+        "src/GameLayer.js",
+        "src/PlayerBody.js"
     ]
 }

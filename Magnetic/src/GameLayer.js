@@ -34,9 +34,11 @@ var GameLayer = cc.Layer.extend({
     },
     createPhysicsWorld : function () {
 
-        this.space = new cp.Space();
+        Physics.init(this.parent);
+        this.space = Physics.world;
         // Gravity
         this.space.gravity = cp.v(0, -100);
+
     },
     setupDebugNode : function (){
         this.debugNode = cc.PhysicsDebugNode.create( this.space );
@@ -63,6 +65,18 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
+        var f_player = new Player(res.CloseNormal_png, 30, 100, 100);
+        this.addChild(f_player);
+
+//        this.space.addBody(f_player.phyObj.body);
+//        this.space.addShape(f_player.phyObj.shape);
+
+
+        var s_player = new Player(res.CloseNormal_png, 50, 700, 100);
+        this.addChild(s_player);
+
+//        this.space.addBody(s_player.phyObj.body);
+//        this.space.addShape(s_player.phyObj.shape);
 
 
     },
@@ -72,9 +86,11 @@ var GameLayer = cc.Layer.extend({
     update : function( delta ) {
         this.space.step( delta );
 
-        MagneticSystem.update(dt);
+//        MagneticSystem.update(dt);
     },
     onEnter : function () {
+        this._super();
+
         this.scheduleUpdate();
 
         //setup game begin.
