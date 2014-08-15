@@ -152,6 +152,10 @@ var PhysicsObject = cc.Class.extend({
         this.shape.setFriction(u);
     },
 
+    setElasticity : function(e) {
+        this.shape.setElasticity(e);
+    },
+
     removeSelf: function () {
         Physics.world.removeShape(this.shape);
         Physics.world.removeBody(this.body);

@@ -15,6 +15,8 @@ var Player = cc.Sprite.extend({
     maxSpeed : 200,
     r : 0,
     friction : 0.1,
+    elasticity : 0.3,
+
     phyObj : null,
 
     ctor : function(file, r, x, y) {
@@ -35,6 +37,7 @@ var Player = cc.Sprite.extend({
 
         this.phyObj = new PhysicsObject(this.weight, size, this.maxSpeed, this, origin);
         this.phyObj.setFriction(this.friction);
+        this.phyObj.setElasticity(this.elasticity);
         var body = this.phyObj.body;
         body.setMoment(Infinity);
         this.phyObj.shape.setCollisionType(Player.COL_TYPE);
