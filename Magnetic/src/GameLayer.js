@@ -44,6 +44,10 @@ var GameLayer = cc.Layer.extend({
         this.debugNode.visible = true ;
         this.addChild( this.debugNode );
     },
+    onToggleDebug : function() {
+        var state = this.debugNode.visible;
+        this.debugNode.visible = !state ;
+    },
     createWalls : function () {
 
         var space = this.space ;
@@ -92,17 +96,17 @@ var GameLayer = cc.Layer.extend({
 });
 
 
-//GameLayer.create = function () {
-//    var gameLayer = new GameLayer();
-//    if (gameLayer && gameLayer.init()) {
-//        return gameLayer;
-//    }
-//    return null;
-//};
-//
-//GameLayer.createScene = function () {
-//    var gameScene = new cc.Scene();
-//    var gameLayer = GameLayer.create();
-//    gameScene.addChild(gameLayer);
-//    return gameScene;
-//};
+GameLayer.create = function () {
+    var gameLayer = new GameLayer();
+    if (gameLayer && gameLayer.init()) {
+        return gameLayer;
+    }
+    return null;
+};
+
+GameLayer.createScene = function () {
+    var gameScene = new cc.Scene();
+    gameLayer = GameLayer.create();
+    gameScene.addChild(gameLayer);
+    return gameScene;
+};
