@@ -112,8 +112,8 @@ var PhysicsObject = cc.Class.extend({
     view:null,
 
     ctor:function(weight, size, maxSpeed, view, pos){
-        this.body = new cp.Body(weight, cp.momentForCircle(weight, 0, size.width/2, cp.v(0, 0)));
-        this.shape = new cp.CircleShape(this.body, size.width/2, cp.v(0, 0));
+        this.body = new cp.Body(weight, cp.momentForBox(weight, size.width, size.height));
+        this.shape = new cp.BoxShape(this.body, size.width, size.height);
         Physics.world.addShape(this.shape);
         Physics.world.addBody(this.body);
         this.setMaxSpeed(maxSpeed);
@@ -164,4 +164,20 @@ var PhysicsObject = cc.Class.extend({
         Physics.world.removeShape(this.shape);
         Physics.world.removeBody(this.body);
     }
+});
+
+var CircleObject = PhysicsObject.extend({
+    ctor:function(weight, ratio, maxSpeed, view, pos){
+        this.body = new cp.Body(weight, cp.momentForCircle(weight, 0, ratio, cp.v(0, 0)));
+        this.shape = new cp.CircleShape(this.body, ratio, cp.v(0, 0));
+        Physics.world.addShape(this.shape);
+        Physics.world.addBody(this.body);
+        this.setMaxSpeed(maxSpeed);
+        this.setView(view);
+        if(pos)
+        {
+            this.setPosition(pos);
+        }
+        this.shape.obj = this;
+    },
 });

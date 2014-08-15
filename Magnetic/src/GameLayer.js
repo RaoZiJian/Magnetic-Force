@@ -61,7 +61,7 @@ var GameLayer = cc.Layer.extend({
 
         for ( var i = 0; i < walls.length; i++ ) {
             var shape = walls[i];
-            shape.setElasticity(1);
+            shape.setElasticity(2);
             shape.setFriction(1);
             space.addStaticShape( shape );
         }
