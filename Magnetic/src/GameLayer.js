@@ -36,7 +36,7 @@ var GameLayer = cc.Layer.extend({
 
         this.space = new cp.Space();
         // Gravity
-        space.gravity = cp.v(0, -100);
+        this.space.gravity = cp.v(0, -100);
     },
     setupDebugNode : function (){
         this.debugNode = cc.PhysicsDebugNode.create( this.space );
@@ -79,3 +79,17 @@ var GameLayer = cc.Layer.extend({
 
 
 });
+
+GameLayer.create = function () {
+    var gameLayer = new GameLayer();
+    if (gameLayer && gameLayer.init()) {
+        return gameLayer;
+    }
+    return null;
+}
+GameLayer.createScene = function () {
+    var gameScene = new cc.Scene();
+    var gameLayer = GameLayer.create();
+    gameScene.addChild(gameLayer);
+    return gameScene;
+}
