@@ -51,6 +51,8 @@ var MagneticSystem = {
         for (var i = 0; i<this.other_items.length; i++){
 
             var other_item = this.other_items[i];
+
+            //
             
 
         }
