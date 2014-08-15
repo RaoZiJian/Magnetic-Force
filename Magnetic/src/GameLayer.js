@@ -80,17 +80,18 @@ var GameLayer = cc.Layer.extend({
 
 });
 
-GameLayer.create = function () {
-    var gameLayer = new GameLayer();
-    if (gameLayer && gameLayer.init()) {
-        return gameLayer;
-    }
-    return null;
-};
 
-GameLayer.createScene = function () {
-    var gameScene = new cc.Scene();
-    var gameLayer = GameLayer.create();
-    gameScene.addChild(gameLayer);
-    return gameScene;
-};
+//GameLayer.create = function () {
+//    var gameLayer = new GameLayer();
+//    if (gameLayer && gameLayer.init()) {
+//        return gameLayer;
+//    }
+//    return null;
+//};
+//
+//GameLayer.createScene = function () {
+//    var gameScene = new cc.Scene();
+//    var gameLayer = GameLayer.create();
+//    gameScene.addChild(gameLayer);
+//    return gameScene;
+//};
