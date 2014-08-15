@@ -34,6 +34,8 @@ var MagneticSystem = {
 
         this.other_items = [];
 
+        cc.director.getScheduler().scheduleUpdateForTarget(this, 1, false);
+
     },
 
     update : function (dt){
