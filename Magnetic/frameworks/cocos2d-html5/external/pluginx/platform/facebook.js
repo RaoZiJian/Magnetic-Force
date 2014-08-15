@@ -1,271 +1,289 @@
-(function(P){
+plugin.extend('facebook', {
+    name: "",
+    version: "",
+    loggedIn: false,
+    userInfo: null,
 
+    HttpMethod: {
+        'Get': 'get',
+        'Post': 'post',
+        'Delete': 'delete'
+    },
 
-    var name = "facebook";
+    ctor: function(config){
+        this.name = "facebook";
+        this.version = "1.0";
+        this.userInfo = {};
 
-    var userInfo = {
-        //accessToken: "",
-        //expriesIn: "",
-        //signedRequest: "",
-        //userID: ""
-    };
+        if (!FB) {
+            return;
+        }
 
-    var errMsg = {
-        '0': 'success',
-        '1': 'Unknown error',
-        '2': 'Network error',
-        '3': 'Without permission',
-        '4': 'Interrupt operation'
-    };
-
-    var configCache = {};
-    var isInit = false;
-
-    P.extend(name, {
-        init: function(config){
-            if (!FB || isInit) {
-                return;
+        var self = this;
+        //This configuration will be read from the project.json.
+        FB.init(config);
+        FB.getLoginStatus(function(response) {
+            if (response && response.status === 'connected') {
+                //login
+                self._isLogined = true;
+                //save user info
+                self.userInfo = response.authResponse;
+            }else{
+                self._isLogined = false;
             }
+        });
+
+        plugin.FacebookAgent = this;
+    },
+
+    /**
+     * @returns {FacebookAgent}
+     */
+    getInstance: function(){
+        return this;
+    },
+
+    /**
+     * @param {Function} callback
+     *  callback @param {Number} code
+     *  callback @param {String} mag
+     */
+    login: function(callback){
+        var self = this;
+        FB.login(function(response) {
+            if (response.authResponse) {
+                //save user info
+                self.userInfo = response.authResponse;
+                typeof callback === 'function' && callback(0, "login success");
+            } else {
+                typeof callback === 'function' && callback(1, "login failed");
+            }
+        }, { scope: '' });
+    },
+
+    isLogedIn: function(callback){
+        return this.isLoggedIn(callback);
+    },
+
+    /**
+     * @param {Function} callback
+     * @return {Boolean}
+     */
+    isLoggedIn: function(callback){
+        var self = this;
+        FB.getLoginStatus(function(response) {
+            if (response && response.status === 'connected') {
+                //login - save user info
+                self.userInfo = response.authResponse;
+                typeof callback === 'function' && callback(0, "logged in");
+            }else{
+                typeof callback === 'function' && callback(1, "logged out");
+            }
+        });
+    },
+
+    /**
+     * @param {Function} callback
+     */
+    logout: function(callback){
+        var self = this;
+        FB.logout(function(response) {
+            if(response.authResponse){
+                // user is now logged out
+                self.userInfo = {};
+                typeof callback === 'function' && callback(0, "logout success");
+            }else{
+                typeof callback === 'function' && callback(1, "logout failed");
+            }
+        });
+    },
+
+    /**
+     * @param permissions
+     * @param callback
+     */
+    requestPermissions: function(permissions, callback){
+        var permissionsStr = permissions.join(',');
+        var self = this;
+        FB.login(function(response){
+            if (response.authResponse) {
+                var permissList = response.authResponse['grantedScopes'].split(",");
+                //save user info
+                self.userInfo = response.authResponse;
+                typeof callback === 'function' && callback(0, JSON.stringify(permissList));
+            } else {
+                typeof callback === 'function' && callback(1, "request failed");
+            }
+        }, {
+            scope: permissionsStr,
+            return_scopes: true
+        });
+    },
+
+    /**
+     * @param {Function} callback
+     */
+    requestAccessToken: function(callback){
+        if(typeof callback !== 'function'){
+            return;
+        }
+
+        if(this.userInfo.accessToken){
+            callback(0, this.userInfo.accessToken);
+        }else{
             var self = this;
-            self._isLogined = false;
-            configCache = config;
-            FB.init({
-                appId : config['appId'],
-                xfbml : config['xfbml'],
-                version : config['version']
-            });
             FB.getLoginStatus(function(response) {
                 if (response && response.status === 'connected') {
-                    //login
-                    self._isLogined = true;
-                    //save user info
-                    userInfo = response.authResponse;
+                    //login - save user info
+                    self.userInfo = response.authResponse;
+                    callback(0, response.authResponse.accessToken);
                 }else{
-                    self._isLogined = false;
+                    callback(1, undefined);
                 }
             });
-            isInit = true;
-        },
+        }
+    },
 
-        /*
-            User Class
-         */
-        user: {
-
-            login: function(callback){
-                var self = this;
-                FB.login(function(response) {
-                    if (response.authResponse) {
-                        self._isLogined = true;
-                        //save user info
-                        userInfo = response.authResponse;
-                        typeof callback === 'function' && callback(0, errMsg[0]);
-                    } else {
-                        typeof callback === 'function' && callback(1, errMsg[1]);
-                    }
-                }, { scope: '' });
+    /**
+     * @param info
+     * @param callback
+     */
+    share: function(info, callback){
+        FB.ui({
+                method: 'share',
+                name: info['title'],
+                caption: info['caption'],
+                description: info['text'],
+                href: info['link'],
+                picture: info['imageUrl']
             },
-
-            logout: function(callback){
-                FB.logout(function(response) {
-                    if(response.authResponse){
-                        // user is now logged out
-                        self._isLogined = false;
-                        userInfo = {};
-                        typeof callback === 'function' && callback(0, errMsg[0]);
-                    }else{
-                        typeof callback === 'function' && callback(1, errMsg[1]);
-                    }
-                });
-            },
-
-            isLogined: function(callback){
-                var self = this;
-
-                FB.getLoginStatus(function(response) {
-                    if (response && response.status === 'connected') {
-                        self._isLogined = true;
-                        //login - save user info
-                        userInfo = response.authResponse;
-                        typeof callback === 'function' && callback(0);
-                    }else{
-                        self._isLogined = false;
-                        typeof callback === 'function' && callback(1, errMsg[1]);
-                    }
-                });
-                return this._isLogined;
-            },
-
-            getUserId: function(){
-                return userInfo['userID'];
-            },
-
-            getToken: function(){
-                return userInfo['accessToken'];
-            }
-        },
-
-        /*
-            Share Class
-         */
-        share:{
-            /*
-
-            info: {
-                site:
-                title:
-                caption:
-                link:
-                text:
-                imagePath:
-                imageUrl:
-                location:
-
-                dialogMode:
-
-                notifyText:
-                notifyIcon:
-
-                comment:
-            }
-
-             */
-            share: function(info, callback){
-
-                FB.ui({
-                    method: 'share',
-                    name: info['title'],
-                    caption: info['caption'],
-                    description: info['text'],
-                    href: info['link'],
-                    picture: info['imageUrl']
-                },
-                function(response) {
-                    if (response) {
-                        if(response.post_id)
-                            typeof callback === 'function' && callback(0, errMsg[0]);
-                        else
-                            typeof callback === 'function' && callback(3, errMsg[3]);
-                    } else {
-                        typeof callback === 'function' && callback(4, errMsg[4]);
-                    }
-                });
-            }
-        },
-
-        /*
-            Social Class
-         */
-        social: {
-            submitScore: function(callback){
-                if(userInfo.userID){
-                    FB.api("/"+userInfo.userID+"/scores", 'post', {score: 100}, function(response){
-                        console.log(response);
-                        if(response){
-                            typeof callback === 'function' && callback(0, errMsg[0]);
-                        }else{
-                            typeof callback === 'function' && callback(1, errMsg[1]);
-                        }
-                    });
-                }else{
-                    callback(3, errMsg[3]);
-                }
-            },
-            showLeaderboard: function(callback){
-                if(configCache['appId']){
-                    FB.api("/"+configCache['appId']+"/scores", function(response){
-                        if(response['error']){
-                            typeof callback === 'function' && callback(1, response['message']);
-                        }else if(response['data']){
-                            typeof callback === 'function' && callback(0, response['data']);
-                        }
-                    });
-                }
-            },
-            unlockAchievement: function(){
-
-            },
-            showAchievements: function(){
-
-            }
-        },
-
-        /**
-         * shareInfo parameters support both AnySDK style and facebook style
-         *  1. AnySDK style
-         *      - title
-         *      - site
-         *      - siteUrl
-         *      - text
-         *      - imageUrl
-         *      - imagePath
-         *
-         *  2. Facebook style
-         *      - caption
-         *      - name
-         *      - link
-         *      - description
-         *      - picture
-         */
-        dialog: function(options, callback){
-
-            if(!options){
-                return;
-            }
-
-            options['method'] = options['dialog'] == 'share_open_graph' ? 'share_open_graph' : 'share';
-            delete options['dialog'];
-
-            options['name'] = options['site'] || options['name'];
-            delete options['site'];
-            delete options['name'];
-
-            options['href'] = options['siteUrl'] || options['link'];
-            delete options['siteUrl'];
-            delete options['link'];
-
-            options['picture'] = options['imageUrl'] || options['imagePath'] || options['photo'] || options['picture'];
-            delete options['imageUrl'];
-            delete options['imagePath'];
-            delete options['photo'];
-
-
-            options['caption'] = options['title'] || options['caption'];
-            delete options['title'];
-
-            options['description'] = options['text'] || options['description'];
-            delete options['text'];
-            delete options['description'];
-
-            if(options['method'] == 'share_open_graph' && options['url']){
-                if(options['url']){
-                    options['action_properties'] = JSON.stringify({
-                        object: options['url']
-                    });
-                }else{
-                    return;
-                }
-            }else{
-                if(!options['href']){
-                    return;
-                }
-            }
-            FB.ui(options,
             function(response) {
                 if (response) {
                     if(response.post_id)
-                        typeof callback === 'function' && callback(0, errMsg[0]);
+                        typeof callback === 'function' && callback(0, JSON.stringify(response));
                     else
-                        typeof callback === 'function' && callback(3, errMsg[3]);
+                        typeof callback === 'function' && callback(3, JSON.stringify(response));
                 } else {
-                    typeof callback === 'function' && callback(4, errMsg[4]);
+                    typeof callback === 'function' && callback(4, JSON.stringify(response));
                 }
             });
-        },
+    },
 
-        ui: FB.ui,
-        api: FB.api
-    });
+    /**
+     * @param info
+     * @param callback
+     */
+    dialog: function(info, callback){
+        if(!info){
+            return;
+        }
+
+        info['method'] = info['dialog'];
+        delete info['dialog'];
+
+        info['name'] = info['site'] || info['name'];
+        delete info['site'];
+
+        info['href'] = info['siteUrl'] || info['link'];
+        delete info['siteUrl'];
+        delete info['link'];
+
+        info['image'] = info['imageUrl'] || info['imagePath'] || info['photo'] || info['picture'] || info['image'];
+        delete info['imageUrl'];
+        delete info['imagePath'];
+        delete info['photo'];
 
 
-})(plugin);
+        info['caption'] = info['title'] || info['caption'];
+        delete info['title'];
+
+        info['description'] = info['text'] || info['description'];
+        delete info['text'];
+        delete info['description'];
+
+        if(info['method'] == 'share_open_graph' && info['url']){
+            if(info['url']){
+                var obj = {};
+                if(info["preview_property"])
+                    obj[info["preview_property"]] = info["url"];
+                else
+                    obj["object"] = info["url"];
+
+                for(var p in info){
+                    if(p != "method" && p != "action_type" && p != "action_properties"){
+                        info[p] && (obj[p] = info[p]);
+                        delete info[p];
+                    }
+                }
+
+                info['action_properties'] = JSON.stringify(obj);
+            }else{
+                return;
+            }
+        }else{
+            if(!info['href']){
+                return;
+            }
+        }
+
+        if(
+            info['method'] != 'share_open_graph' &&
+            info['method'] != 'share_link' &&
+            info['method'] != 'apprequests'
+        ){
+            cc.log('web is not supported what this it method');
+            return;
+        }
+
+        FB.ui(info,
+            function(response) {
+                if (response) {
+                    if(response.post_id)
+                        typeof callback === 'function' && callback(0, JSON.stringify(response));
+                    else
+                        typeof callback === 'function' && callback(response.error_code, response.error_message);
+                } else {
+                    typeof callback === 'function' && callback(1, "Unknow error");
+                }
+            });
+    },
+
+    /**
+     * @param {String} path
+     * @param {Number} httpmethod
+     * @param {Object} params
+     * @param {Function} callback
+     */
+    request: function(path, httpmethod, params, callback){
+        FB.api(path, httpmethod, params, function(response){
+            if(response.error){
+                callback(response.error.code, JSON.stringify(response))
+            }else{
+                callback(0, JSON.stringify(response));
+            }
+        });
+    },
+
+    destroyInstance: function(){},
+
+    /**
+     * @param {Object} info
+     * @param {Function} callback
+     */
+    pay: function(info, callback){
+        /*
+         * Reference document
+         * https://developers.facebook.com/docs/payments/reference/paydialog
+         */
+
+        info.method = 'pay';
+
+        FB.ui(info, function(response) {
+            if(response.error_code){
+                callback(response.error_code, JSON.stringify(response));
+            }else{
+                callback(0, JSON.stringify(response));
+            }
+        })
+    }
+});

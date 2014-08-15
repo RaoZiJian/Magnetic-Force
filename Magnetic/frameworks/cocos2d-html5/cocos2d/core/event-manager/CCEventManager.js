@@ -101,13 +101,14 @@ cc.__getListenerID = function (event) {
 };
 
 /**
- * @namespace cc.eventManager
  * <p>
  *  This class manages event listener subscriptions and event dispatching.                                      <br/>
  *                                                                                                              <br/>
  *  The EventListener list is managed in such a way that event listeners can be added and removed even          <br/>
  *  from within an EventListener, while events are being dispatched.
  * </p>
+ * @namespace
+ * @name cc.eventManager
  */
 cc.eventManager = /** @lends cc.eventManager# */{
     //Priority dirty flag
@@ -776,14 +777,13 @@ cc.eventManager = /** @lends cc.eventManager# */{
             // Don't want any dangling pointers or the possibility of dealing with deleted objects..
             delete _t._nodePriorityMap[listenerType.__instanceId];
             cc.arrayRemoveObject(_t._dirtyNodes, listenerType);
-            var listeners = _t._nodeListenersMap[listenerType.__instanceId];
-            if (!listeners)
-                return;
-
-            var listenersCopy = cc.copyArray(listeners), i;
-            for (i = 0; i < listenersCopy.length; i++)
-                _t.removeListener(listenersCopy[i]);
-            listenersCopy.length = 0;
+            var listeners = _t._nodeListenersMap[listenerType.__instanceId], i;
+            if (listeners) {
+                var listenersCopy = cc.copyArray(listeners);
+                for (i = 0; i < listenersCopy.length; i++)
+                    _t.removeListener(listenersCopy[i]);
+                listenersCopy.length = 0;
+            }
 
             // Bug fix: ensure there are no references to the node in the list of listeners to be added.
             // If we find any listeners associated with the destroyed node in this list then remove them.

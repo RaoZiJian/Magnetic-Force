@@ -1,3 +1,4 @@
-/Magnetic/frameworks/js-bindings/
-/Magnetic/runtime/
-/Magnetic/.idea/
+/Magnetic/Magnetic/frameworks/js-bindings/
+/Magnetic/Magnetic/runtime/
+.idea/
+/Magnetic/.idea/workspace.xml
