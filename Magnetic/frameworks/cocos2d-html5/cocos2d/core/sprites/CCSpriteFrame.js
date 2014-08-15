@@ -185,7 +185,7 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
      * @return {cc.Point}
      */
     getOffsetInPixels:function () {
-        return this._offsetInPixels;
+        return cc.p(this._offsetInPixels);
     },
 
     /**
@@ -204,7 +204,7 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
      * @return {cc.Size}
      */
     getOriginalSizeInPixels:function () {
-        return this._originalSizeInPixels;
+        return cc.size(this._originalSizeInPixels);
     },
 
     /**
@@ -222,7 +222,7 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
      * @return {cc.Size}
      */
     getOriginalSize:function () {
-        return this._originalSize;
+        return cc.size(this._originalSize);
     },
 
     /**
@@ -296,7 +296,7 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
      * @return {cc.Point}
      */
     getOffset:function () {
-        return this._offset;
+        return cc.p(this._offset);
     },
 
     /**
@@ -355,7 +355,11 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
         }
 
         texture = this.getTexture();
-        if(texture) {
+
+        this._rectInPixels = rect;
+        rect = this._rect = cc.rectPixelsToPoints(rect);
+        
+        if(texture && texture.url) {
             var _x, _y;
             if(rotated){
                 _x = rect.x + rect.height;
@@ -372,8 +376,6 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
             }
         }
 
-        this._rectInPixels = rect;
-        this._rect = cc.rectPixelsToPoints(rect);
         this._offsetInPixels.x = offset.x;
         this._offsetInPixels.y = offset.y;
         cc._pointPixelsToPointsOut(offset, this._offset);
@@ -390,6 +392,7 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
  *    Create a cc.SpriteFrame with a texture filename, rect, rotated, offset and originalSize in pixels.<br/>
  *    The originalSize is the size in pixels of the frame before being trimmed.
  * </p>
+ * @deprecated
  * @param {String|cc.Texture2D} filename
  * @param {cc.Rect} rect if parameters' length equal 2, rect in points, else rect in pixels
  * @param {Boolean} rotated
@@ -411,6 +414,12 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
 cc.SpriteFrame.create = function (filename, rect, rotated, offset, originalSize) {
     return new cc.SpriteFrame(filename,rect,rotated,offset,originalSize);
 };
+
+/**
+ * @deprecated
+ * @type {Function}
+ */
+cc.SpriteFrame.createWithTexture = cc.SpriteFrame.create;
 
 cc.SpriteFrame._frameWithTextureForCanvas = function (texture, rect, rotated, offset, originalSize) {
     var spriteFrame = new cc.SpriteFrame();
