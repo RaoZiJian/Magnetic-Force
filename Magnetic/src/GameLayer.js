@@ -86,10 +86,11 @@ GameLayer.create = function () {
         return gameLayer;
     }
     return null;
-}
+};
+
 GameLayer.createScene = function () {
     var gameScene = new cc.Scene();
     var gameLayer = GameLayer.create();
     gameScene.addChild(gameLayer);
     return gameScene;
-}
+};
