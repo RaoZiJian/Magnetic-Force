@@ -37,7 +37,7 @@ var GameLayer = cc.Layer.extend({
         Physics.init(this.parent);
         this.space = Physics.world;
         // Gravity
-        this.space.gravity = cp.v(0, -100);
+        this.space.gravity = cp.v(0, -300);
     },
     setupDebugNode : function (){
         this.debugNode = cc.PhysicsDebugNode.create( this.space );
@@ -67,18 +67,90 @@ var GameLayer = cc.Layer.extend({
         }
     },
     createPlayers : function () {
-        var playerA = new Player(res.CloseNormal_png, 60, 100, 100);
-        this.addChild(playerA);
-        var playerB = new Player(res.CloseNormal_png, 60, 200, 200);
-        this.addChild(playerB);
+
+        this.f_player = new Player(res.CloseNormal_png, 20, 100, 200);
+        this.addChild(this.f_player);
+
+//        this.space.addBody(f_player.phyObj.body);
+//        this.space.addShape(f_player.phyObj.shape);
+
+
+        this.s_player = new Player(res.CloseNormal_png, 20, 300, 200);
+        this.addChild(this.s_player);
+
+//        this.space.addBody(s_player.phyObj.body);
+//        this.space.addShape(s_player.phyObj.shape);
+
     },
     createMagnetSystem : function () {
+
+        MagneticSystem.init(this, this.f_player.phyObj.body, this.s_player.phyObj.body);
+
+        //test
+        this.f_player.phyObj.body.isMagnet = true;
+        this.s_player.phyObj.body.isMagnet = true;
+
+        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 20, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(300, 600) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+
+        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 15, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(500, 600) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 10, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(250, 800) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 10, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(550, 900) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 10, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(250, 1000) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
 
     },
     update : function( delta ) {
         this.space.step( delta );
 
-        //MagneticSystem.update(delta);
+        MagneticSystem.update(delta);
     },
     onEnter : function () {
         this._super();
