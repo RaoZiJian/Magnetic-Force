@@ -22,7 +22,12 @@ var MagneticSystem = {
 
         this.f_player = f_player;
         this.s_player = s_player;
-        this.f_player.
+
+        this.f_player.isMagnet = false;
+        this.f_player.isAttract = true;
+
+        this.s_player.isMagnet = false;
+        this.s_player.isAttract = true;
 
         this.f_player.mh = PLAYER_INIT_MH;
         this.s_player.mh = PLAYER_INIT_MH;
@@ -38,7 +43,18 @@ var MagneticSystem = {
             return;
         }
 
-        var fp_attract_dir =
+        var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
+        var sp_attract_dir = this.s_player.isAttract ? 1 : -1;
+
+
+        //iterate items.
+        for (var i = 0; i<this.other_items.length; i++){
+
+            var other_item = this.other_items[i];
+            
+
+        }
+
 
 
 
