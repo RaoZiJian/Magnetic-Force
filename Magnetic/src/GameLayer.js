@@ -75,7 +75,7 @@ var GameLayer = cc.Layer.extend({
 //        this.space.addShape(f_player.phyObj.shape);
 
 
-        this.s_player = new Player(res.CloseNormal_png, 20, 700, 200);
+        this.s_player = new Player(res.CloseNormal_png, 20, 300, 200);
         this.addChild(this.s_player);
 
 //        this.space.addBody(s_player.phyObj.body);
