@@ -4,7 +4,7 @@
 
 
 var EFFECTIVE_MAGNET_DIS = 250;
-var PLAYER_INIT_MH = 150;
+var PLAYER_INIT_MH = 250;
 
 
 var MagneticSystem = {
