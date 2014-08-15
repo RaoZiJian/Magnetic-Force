@@ -3,6 +3,7 @@ var CPSTEP = 1/60;
 var Physics = {
     world:null,
     scene:null,
+    inited: null,
 
     calculVector: function(a) {
         /*var s = a.a, d = a.b;
@@ -19,6 +20,8 @@ var Physics = {
 
     init:function(scene){
         this.scene = scene;
+        if (this.inited) return;
+
         this.world = null;
         var space = this.world = new cp.Space();
         space.iterations = 60;
@@ -29,6 +32,7 @@ var Physics = {
         space.collisionSlop = 0.5;
 
         var emptyFunction = function(){return true};
+        this.inited = true;
     },
     update:function(){
         this.world.step(CPSTEP);
@@ -150,6 +154,10 @@ var PhysicsObject = cc.Class.extend({
 
     setFriction: function(u) {
         this.shape.setFriction(u);
+    },
+
+    setElasticity : function(e) {
+        this.shape.setElasticity(e);
     },
 
     removeSelf: function () {

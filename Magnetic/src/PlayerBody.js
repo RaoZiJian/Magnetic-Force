@@ -15,6 +15,8 @@ var Player = cc.Sprite.extend({
     maxSpeed : 200,
     r : 0,
     friction : 0.1,
+    elasticity : 0.3,
+
     phyObj : null,
 
     ctor : function(file, r, x, y) {
@@ -29,12 +31,22 @@ var Player = cc.Sprite.extend({
         this.initPhysics(x, y, r);
     },
 
+    onEnter: function() {
+        this._super();
+        this.scheduleUpdate();
+    },
+    onExit : function () {
+        this.unscheduleUpdate();
+        this._super();
+    },
+
     initPhysics : function (x, y, r) {
         var size = cc.size(r * 2, r * 2),
             origin = cc.p(x, y);
 
         this.phyObj = new PhysicsObject(this.weight, size, this.maxSpeed, this, origin);
         this.phyObj.setFriction(this.friction);
+        this.phyObj.setElasticity(this.elasticity);
         var body = this.phyObj.body;
         body.setMoment(Infinity);
         this.phyObj.shape.setCollisionType(Player.COL_TYPE);
@@ -54,6 +66,12 @@ var Player = cc.Sprite.extend({
 //        this.rightSensor.setSensor(true);
 //        this.rightSensor.setCollisionType(Hero.RIGHT_COL_TYPE);
 //        Physics.world.addShape(this.rightSensor);
+    },
+
+    update : function() {
+        var pos = this.phyObj.getPosition();
+        this.x = pos.x;
+        this.y = pos.y;
     }
 
 });

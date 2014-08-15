@@ -34,7 +34,8 @@ var GameLayer = cc.Layer.extend({
     },
     createPhysicsWorld : function () {
 
-        this.space = new cp.Space();
+        Physics.init(this.parent);
+        this.space = Physics.world;
         // Gravity
         this.space.gravity = cp.v(0, -100);
     },
@@ -62,19 +63,29 @@ var GameLayer = cc.Layer.extend({
         }
     },
     createPlayers : function () {
-
+        var playerA = new Player(res.CloseNormal_png, 60, 100, 100);
+        this.addChild(playerA);
+        var playerB = new Player(res.CloseNormal_png, 60, 200, 200);
+        this.addChild(playerB);
     },
     createMagnetSystem : function () {
 
     },
     update : function( delta ) {
         this.space.step( delta );
+
+        //MagneticSystem.update(delta);
     },
     onEnter : function () {
+        this._super();
         this.scheduleUpdate();
+
+        //setup game begin.
+        this.isBegin = true;
     },
     onExit : function () {
         this.unscheduleUpdate();
+        this._super();
     }
 
 
