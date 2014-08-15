@@ -22,6 +22,7 @@ var MagneticSystem = {
 
         this.f_player = f_player;
         this.s_player = s_player;
+        this.f_player.
 
         this.f_player.mh = PLAYER_INIT_MH;
         this.s_player.mh = PLAYER_INIT_MH;
@@ -36,6 +37,8 @@ var MagneticSystem = {
         if ( !this.game_layer.isBegin){
             return;
         }
+
+        var fp_attract_dir =
 
 
 

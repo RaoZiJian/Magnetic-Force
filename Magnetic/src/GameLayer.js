@@ -13,6 +13,16 @@ var GameLayer = cc.Layer.extend({
             return false;
         }
 
+        this.createPhysicsWorld();
+
+        this.setupDebugNode();
+
+        this.createWalls();
+
+        this.createPlayers();
+
+        this.createMagnetSystem();
+
         return true;
     }
 
