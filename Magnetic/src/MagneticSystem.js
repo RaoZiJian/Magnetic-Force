@@ -43,8 +43,18 @@ var MagneticSystem = {
             return;
         }
 
+        if ( !this.f_player.isMagnet && !this.s_player.isMagnet ){
+            return;
+        }
+
         var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
         var sp_attract_dir = this.s_player.isAttract ? 1 : -1;
+
+        var fp_pos = this.f_player.getPos();
+        var sp_pos = this.s_player.getPos();
+
+        var fp_f = cp.v(0, 0);
+        var sp_f = cp.v(0, 0);
 
 
         //iterate items.
@@ -52,16 +62,93 @@ var MagneticSystem = {
 
             var other_item = this.other_items[i];
 
-            //
-            
+            var oi_pos = other_item.getPos();
+
+            var oi_f = cp.v(0, 0);
+
+            var dis_2_fp = p2pDis(fp_pos, oi_pos);
+            var dis_2_sp = p2pDis(sp_pos, oi_pos);
+
+            if (dis_2_fp < EFFECTIVE_MAGNET_DIS && this.f_player.isMagnet){
+
+                var magnet_f = this.f_player.mh / Math.pow( dis_2_fp/100 + 1, 3 );
+
+                var angle = p2pAngle(fp_pos, oi_pos);
+
+                oi_f.x += magnet_f * Math.cos(angle) * fp_attract_dir;
+                oi_f.y += magnet_f * Math.sin(angle) * fp_attract_dir;
+
+                fp_f.x += - magnet_f * Math.cos(angle) * fp_attract_dir;
+                fp_f.y += - magnet_f * Math.sin(angle) * fp_attract_dir;
+
+            }
+
+            if (dis_2_sp < EFFECTIVE_MAGNET_DIS && this.s_player.isMagnet){
+
+                var magnet_f = this.s_player.mh / Math.pow( dis_2_sp/100 + 1, 3 );
+
+                var angle = p2pAngle(sp_pos, oi_pos);
+
+                oi_f.x += magnet_f * Math.cos(angle) * sp_attract_dir;
+                oi_f.y += magnet_f * Math.sin(angle) * sp_attract_dir;
+
+                sp_f.x += - magnet_f * Math.cos(angle) * sp_attract_dir;
+                sp_f.y += - magnet_f * Math.sin(angle) * sp_attract_dir;
+
+            }
+
+
+            //set oi magnet.
+            other_item.f = oi_f;
+
 
         }
 
 
+        //fp ~ sp
+
+        var fpsp_dis = p2pDis(fp_pos, sp_pos);
+
+        if (fpsp_dis < EFFECTIVE_MAGNET_DIS){
 
 
+            //fp magnet
+            if (this.f_player.isMagnet){
+
+                var magnet_fp_f = this.f_player.mh / Math.pow(fpsp_dis/100 + 1, 3);
+
+                var sp_angle = p2pAngle(fp_pos, sp_pos);
+
+                sp_f.x += magnet_fp_f * Math.cos(sp_angle) * fp_attract_dir;
+                sp_f.y += magnet_fp_f * Math.sin(sp_angle) * fp_attract_dir;
+
+                fp_f.x += - magnet_fp_f * Math.cos(sp_angle) * fp_attract_dir;
+                fp_f.y += - magnet_fp_f * Math.sin(sp_angle) * fp_attract_dir;
+
+            }
+
+            //sp magnet
+            if (this.s_player.isMagnet){
+
+                var magnet_sp_f = this.s_player.mh / Math.pow(fpsp_dis/100 + 1, 3);
+
+                var fp_angle = p2pAngle(sp_angle, fp_pos);
+
+                fp_f.x += magnet_sp_f * Math.cos(fp_angle) * sp_attract_dir;
+                fp_f.y += magnet_sp_f * Math.sin(fp_angle) * sp_attract_dir;
+
+                sp_f.x += - magnet_sp_f * Math.cos(fp_angle) * sp_attract_dir;
+                sp_f.y += - magnet_sp_f * Math.sin(fp_angle) * sp_attract_dir;
 
 
+            }
+
+        }
+
+
+        //set fp sp receieve magnet
+        this.f_player.f = fp_f;
+        this.s_player.f = sp_f;
 
     },
 
