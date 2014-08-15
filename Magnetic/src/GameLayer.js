@@ -63,9 +63,10 @@ var GameLayer = cc.Layer.extend({
         }
     },
     createPlayers : function () {
-
-
-
+        var playerA = new Player(res.CloseNormal_png, 60, 100, 100);
+        this.addChild(playerA);
+        var playerB = new Player(res.CloseNormal_png, 60, 200, 200);
+        this.addChild(playerB);
     },
     createMagnetSystem : function () {
 
@@ -73,9 +74,10 @@ var GameLayer = cc.Layer.extend({
     update : function( delta ) {
         this.space.step( delta );
 
-        MagneticSystem.update(dt);
+        //MagneticSystem.update(delta);
     },
     onEnter : function () {
+        this._super();
         this.scheduleUpdate();
 
         //setup game begin.
@@ -83,6 +85,7 @@ var GameLayer = cc.Layer.extend({
     },
     onExit : function () {
         this.unscheduleUpdate();
+        this._super();
     }
 
 
