@@ -6,6 +6,7 @@ var TestLayer = GameLayer.extend({
         this._super();
         var sprite = this.createPhysicsSprite();
         this.addChild(sprite);
+        return true;
     },
     createPhysicsSprite : function () {
         var body = new cp.Body(1, cp.momentForBox(1, 48, 108) );
