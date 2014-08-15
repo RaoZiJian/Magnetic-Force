@@ -22,13 +22,15 @@ var Player = cc.Sprite.extend({
     ctor : function(file, r, x, y) {
         this._super(file);
 
-        this.width = r * 2;
-        this.height = r * 2;
-        this.r = r;
+        var size = this.texture.getContentSize();
+        this.r = size.width > size.height ? size.width/2 : size.height/2;
+
+        this.width = this.r * 2;
+        this.height = this.r * 2;
 
         this.maxSpeed = PLAYER_SPEED;
 
-        this.initPhysics(x, y, r);
+        this.initPhysics(x, y, this.r);
     },
 
     onEnter: function() {
