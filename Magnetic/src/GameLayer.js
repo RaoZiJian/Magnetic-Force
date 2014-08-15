@@ -34,7 +34,8 @@ var GameLayer = cc.Layer.extend({
     },
     createPhysicsWorld : function () {
 
-        this.space = new cp.Space();
+        Physics.init(this.parent);
+        this.space = Physics.world;
         // Gravity
         this.space.gravity = cp.v(0, -100);
     },
