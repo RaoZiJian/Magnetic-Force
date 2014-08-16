@@ -5,6 +5,7 @@
 var PLAYER_WEIGHT = 1,
     PLAYER_SPEED = 200;
 
+
 var Player = cc.Sprite.extend({
 
     _isMagnet : false,

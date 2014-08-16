@@ -6,6 +6,7 @@
 var BORN_IRON_INTERVAL = 0.5;
 var BORN_BOMB_INTERVAL = 0.5;
 
+
 var ItemsController = {
 
 
@@ -91,3 +92,5 @@ var ItemsController = {
 
 
 };
+
+ItemsController.Itens_COL_TYPE = 1;
