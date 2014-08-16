@@ -145,8 +145,8 @@ var Bomb = Item.extend({
         //console.log(this.time);
         if (!this.isExplode && this.time < 0) {
             bomb_armature = ccs.Armature.create("explode");
-            bomb_armature.scaleX = 2;
-            bomb_armature.scaleY = 2;
+            bomb_armature.scaleX = 1;
+            bomb_armature.scaleY = 1;
             bomb_armature.getAnimation().playWithIndex(0);
             bomb_armature.setPosition(this.getPosition());
             this.getParent().addChild(bomb_armature);
