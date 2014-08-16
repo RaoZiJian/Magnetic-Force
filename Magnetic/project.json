@@ -19,6 +19,7 @@
         "src/GameLayer.js",
         "src/PlayerBody.js",
         "src/TestLayer.js",
+        "src/Item.js",
         "src/ItemsController.js"
     ]
 }
