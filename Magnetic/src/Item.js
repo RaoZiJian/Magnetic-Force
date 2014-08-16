@@ -163,10 +163,12 @@ var Bomb = Item.extend({
         if (!this.isExplode && this.time < EXPLODE_WARNNING_TIME) {
             if (!this.isWarnning) {
                 this.isWarnning = true;
-                this.runAction(cc.repeatForever(cc.sequence(cc.tintTo(1,255,0,0),cc.tintTo(1,255,255,255))));
+                var repeatAction = cc.repeat(cc.sequence(cc.tintTo(1,128,0,0),cc.tintTo(1,255,200,200)),2);
+                this.runAction(cc.sequence(repeatAction,cc.tintTo(1,200,75,75)));
             }
             if (this.time < 0) {
                 this.isExplode = true;
+                this.stopAllActions();
                 this.bomb_armature = ccs.Armature.create("explode");
                 this.bomb_armature.retain();
                 var origin = this.getPosition();

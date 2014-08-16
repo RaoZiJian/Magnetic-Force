@@ -266,7 +266,8 @@ var GameLayer = cc.Layer.extend({
 
 //        var parentLayer = player.obj.view.parent;
 //        if(!parentLayer.isEffectPlaying){
-//            cc.audioEngine.playEffect(res.hit2_ogg,false);
+//
+//                cc.audioEngine.playEffect(res.hit2_ogg,false);
 //            parentLayer.isEffectPlaying = true;
 //            parentLayer.scheduleOnce(parentLayer.resetEffect, 2);
 //        }
