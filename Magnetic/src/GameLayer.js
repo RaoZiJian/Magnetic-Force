@@ -27,6 +27,8 @@ var GameLayer = cc.Layer.extend({
 
     itemLayer : null,
 
+    isEffectPlaying: false,
+
     init : function(){
 
         if ( !this._super() ){
@@ -229,7 +231,13 @@ var GameLayer = cc.Layer.extend({
 //            armature.eatItem();
 //        }
 
-//        cc.audioEngine.playEffect(res.hit3_ogg,false);
+        var parentLayer = player.obj.view.parent;
+        if(!parentLayer.isEffectPlaying){
+
+            cc.audioEngine.playEffect(res.hit2_ogg,false);
+            parentLayer.isEffectPlaying = true;
+            parentLayer.scheduleOnce(parentLayer.resetEffect,0.2);
+        }
         return true;
     },
     playerHitGround : function (arb, space, ptr) {
@@ -240,8 +248,12 @@ var GameLayer = cc.Layer.extend({
 //        console.log("ffffffff_hit ground");
 
         return true;
-    }
+    },
 
+    resetEffect:function(){
+
+        this.isEffectPlaying=false;
+    }
 });
 
 
