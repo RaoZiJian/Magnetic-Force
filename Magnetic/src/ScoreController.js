@@ -49,6 +49,13 @@ var ScoreController = {
             }
             if (rightSpriteFrame) {
                 rightGate.setSpriteFrame(rightSpriteFrame);
+
+//                var explode = ccs.Armature.create("explode");
+//                explode.setPosition(cc.p(50,300));
+//                explode.scaleX = 3;
+//                explode.scaleY = 3;
+//                explode.getAnimation().playWithIndex(0);
+//                this.game_layer.addChild(explode);
             }
 
         }
@@ -74,6 +81,13 @@ var ScoreController = {
             }
             if (leftSpriteFrame) {
                 leftGate.setSpriteFrame(leftSpriteFrame);
+
+//                var explode = ccs.Armature.create("explode");
+//                explode.setPosition(cc.p(50,300));
+//                explode.scaleX = 3;
+//                explode.scaleY = 3;
+//                explode.getAnimation().playWithIndex(0);
+//                this.game_layer.addChild(explode);
             }
         }
 

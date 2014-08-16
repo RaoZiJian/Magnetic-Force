@@ -15,6 +15,7 @@ var res = {
     hit1_ogg:"res/audio/hit1.ogg",
     hit2_ogg:"res/audio/hit2.ogg",
     hit3_ogg:"res/audio/hit3.ogg",
+    explosion_ogg:"res/audio/explosion.ogg",
 
     Fire_plist : "res/fire.plist",
     Gate_plist:"res/gate.plist",

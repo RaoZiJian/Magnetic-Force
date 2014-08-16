@@ -161,10 +161,10 @@ var Bomb = Item.extend({
         //console.log(this.time);
 
         if (!this.isExplode && this.time < EXPLODE_WARNNING_TIME) {
-//            if (!this.isWarnning) {
-//                this.isWarnning = true;
-//                this.runAction(cc.repeatForever(cc.tintTo(1,255,0,0)));
-//            }
+            if (!this.isWarnning) {
+                this.isWarnning = true;
+                this.runAction(cc.repeatForever(cc.sequence(cc.tintTo(1,255,0,0),cc.tintTo(1,255,255,255))));
+            }
             if (this.time < 0) {
                 this.isExplode = true;
                 this.bomb_armature = ccs.Armature.create("explode");
@@ -183,6 +183,7 @@ var Bomb = Item.extend({
                 this.bomb_armature.getAnimation().playWithIndex(0);
                 this.bomb_armature.setPosition(origin);
                 this.getParent().addChild(this.bomb_armature);
+                this.die();
             }
         }
 
@@ -214,7 +215,7 @@ var Bomb = Item.extend({
                 this.bomb_armature.phyObj.removeSelf();
                 this.bomb_armature.removeFromParent();
                 this.bomb_armature = null;
-                this.die();
+//                this.die();
             }
         }
     },
@@ -237,6 +238,8 @@ var Bomb = Item.extend({
         this.runAction(this.anime);
         this.isExplode = false;
         this.isEndExplode = false;
+        this.isWarnning = false;
+        this.color = cc.color(255,255,255);
         this.time = EXPLODE_TIME;
     }
 });
