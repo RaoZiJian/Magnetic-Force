@@ -62,6 +62,7 @@ var Item = cc.Sprite.extend({
     },
 
     update : function() {
+        if (!this.phyObj) return;
         var pos = this.phyObj.getPosition();
         if (pos.x < -50 || pos.x > cc.winSize.width + 50 || pos.y < -50) {
             this.die();
@@ -74,6 +75,9 @@ var Item = cc.Sprite.extend({
     },
 
     _realDie : function() {
+        MagneticSystem.removeOtherItem(this.phyObj.body);
+        this.phyObj.removeSelf();
+        this.phyObj = null;
         cc.pool.putInPool(this);
     },
 
@@ -86,9 +90,6 @@ var Item = cc.Sprite.extend({
     },
 
     unuse : function() {
-        MagneticSystem.removeOtherItem(this.phyObj.body);
-        this.phyObj.removeSelf();
-        this.phyObj = null;
         this.removeFromParent(true);
         this.retain();
     },
@@ -171,8 +172,9 @@ var Bomb = Item.extend({
                 this.stopAllActions();
                 this.bomb_armature = ccs.Armature.create("explode");
                 this.bomb_armature.retain();
+                var origin = this.getPosition();
 
-                this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, cc.p(0, 0));
+                this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
                 this.bomb_armature.phyObj.setFriction(0);
                 this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
 //        var body = this.phyObj.body;
@@ -181,9 +183,12 @@ var Bomb = Item.extend({
 
                 this.bomb_armature.scaleX = 2;
                 this.bomb_armature.scaleY = 2;
+                this.bomb_armature.setPosition(origin);
+                this.bomb_armature.rotation = this.rotation;
                 this.bomb_armature.getAnimation().playWithIndex(0);
+
                 cc.audioEngine.playEffect(res.explosion_ogg,false);
-                this.addChild(this.bomb_armature);
+                this.parent.addChild(this.bomb_armature);
                 this.die();
             }
         }
@@ -226,6 +231,9 @@ var Bomb = Item.extend({
     },
 
     _realDie : function() {
+        MagneticSystem.removeOtherItem(this.phyObj.body);
+        this.phyObj.removeSelf();
+        this.phyObj = null;
         this.scheduleOnce(this._realDieWithArmature, 0.7);
         this.opacity = 0;
     },
