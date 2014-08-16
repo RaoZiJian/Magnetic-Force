@@ -9,17 +9,24 @@ var Item = cc.Sprite.extend({
 
     phyObj : null,
 
-    ctor : function(file, w, h, x, y) {
+    ctor : function(file, type, x, y, sOrR) {
         this._super(file);
 
+        var isCircle = type == Item.CIRCLE_SHAPE;
+
         var size = this.texture.getContentSize();
-        this.scaleX = w / size.width;
-        this.scaleY = h / size.height;
-
+        if (isCircle) {
+            this.scale = sOrR * 2 / size.width;
+            this.weight = sOrR * 4 / ITEM_WEIGHT_FACTOR;
+        }
+        else {
+            this.scaleX = sOrR.width / size.width;
+            this.scaleY = sOrR.height / size.height;
+            this.weight = sOrR.width + sOrR.height / ITEM_WEIGHT_FACTOR;
+        }
         this.maxSpeed = ITEM_MAXSPEED;
-        this.weight = (w + h) / ITEM_WEIGHT_FACTOR;
 
-        this.initPhysics(x, y, w, h);
+        this.initPhysics(isCircle, x, y, sOrR);
     },
 
     getFriction : function() {
@@ -38,14 +45,18 @@ var Item = cc.Sprite.extend({
         this.phyObj.setElasticity(this._elasticity);
     },
 
-    initPhysics : function (x, y, width, height) {
-        var size = cc.size(width, height),
-            origin = cc.p(x, y);
+    initPhysics : function (isCircle, x, y, sOrR) {
+        var origin = cc.p(x, y);
 
-        this.phyObj = new PhysicsObject(this.weight, size, this.maxSpeed, this, origin);
+        if (isCircle) {
+            this.phyObj = new CircleObject(this.weight, sOrR, this.maxSpeed, this, origin);
+        }
+        else {
+            this.phyObj = new PhysicsObject(this.weight, sOrR, this.maxSpeed, this, origin);
+        }
         this.phyObj.setFriction(this._friction);
         this.phyObj.setElasticity(this._elasticity);
-        this.phyObj.shape.setCollisionType(Item.COL_TYPE);
+        this.phyObj.shape.setCollisionType(Player.COL_TYPE);
     },
 
     update : function() {
@@ -60,4 +71,7 @@ var p = Item.prototype;
 cc.defineGetterSetter(p, "friction", p.getFriction, p.setFriction);
 cc.defineGetterSetter(p, "elasticity", p.getElasticity, p.setElasticity);
 
-Item.COL_TYPE = 1;
+Item.COL_TYPE = 0;
+
+Item.CIRCLE_SHAPE = 0;
+Item.RECT_SHAPE = 1;

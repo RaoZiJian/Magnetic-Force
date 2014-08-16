@@ -80,7 +80,22 @@ var Player = cc.Sprite.extend({
 
     },
     eatItem : function () {
-        
+        // create sprite sheet
+//        cc.spriteFrameCache.addSpriteFrames(res.Robot_plist);
+//        this.spriteSheet = cc.SpriteBatchNode.create(res.Robot_png);
+//        this.addChild(this.spriteSheet);
+//
+//        // init runningAction
+//        var animFrames = [];
+//        for (var i = 0; i < 8; i++) {
+//            var str = "runner" + i + ".png";
+//            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+//            animFrames.push(frame);
+//        }
+//
+//        var animation = cc.Animation.create(animFrames, 0.1);
+//        this.runningAction = cc.RepeatForever.create(cc.Animate.create(animation));
+
     }
 
 

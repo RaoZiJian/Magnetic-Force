@@ -166,6 +166,11 @@ var GameLayer = cc.Layer.extend({
         //setup game begin.
         this.isBegin = true;
 
+        cc.armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
+        var armature = new cc.Armature("robot");
+        armature.getAnimation.playActionByName("AmouthOpen");
+        this.addChild(armature);
+
     },
     onExit : function () {
         this.unscheduleUpdate();

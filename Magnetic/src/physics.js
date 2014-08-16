@@ -167,9 +167,9 @@ var PhysicsObject = cc.Class.extend({
 });
 
 var CircleObject = PhysicsObject.extend({
-    ctor:function(weight, ratio, maxSpeed, view, pos){
-        this.body = new cp.Body(weight, cp.momentForCircle(weight, 0, ratio, cp.v(0, 0)));
-        this.shape = new cp.CircleShape(this.body, ratio, cp.v(0, 0));
+    ctor:function(weight, r, maxSpeed, view, pos){
+        this.body = new cp.Body(weight, cp.momentForCircle(weight, 0, r, cp.v(0, 0)));
+        this.shape = new cp.CircleShape(this.body, r, cp.v(0, 0));
         Physics.world.addShape(this.shape);
         Physics.world.addBody(this.body);
         this.setMaxSpeed(maxSpeed);
