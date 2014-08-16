@@ -76,6 +76,7 @@ var Item = cc.Sprite.extend({
     },
 
     unuse : function() {
+        MagneticSystem.removeOtherItem(this.phyObj.body);
         this.phyObj.removeSelf();
         this.phyObj = null;
         this.removeFromParent(true);

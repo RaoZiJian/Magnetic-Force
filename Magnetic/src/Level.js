@@ -47,6 +47,9 @@ var Level = {
 
         var staticBody = space.staticBody;
 
+        this.fp_gate_info = cc.rect(0, winSize.height/2 - 120, winSize.width/20 - 20, 120);
+        this.sp_gate_info = cc.rect(winSize.width * 19/20 + 20, winSize.height/2 - 120, winSize.width/20 - 20, 120);
+
         // Walls
         var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 15 ),				// bottom
             new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 15),				// left
@@ -71,8 +74,7 @@ var Level = {
             space.addStaticShape( shape );
         }
 
-        this.fp_gate_info = cc.rect(0, winSize.height/2 - 120, winSize.width/20 - 20, 120);
-        this.sp_gate_info = cc.rect(winSize.width * 19/20 + 20, winSize.height/2 - 120, winSize.width/20 - 20, 120);
+
 
     }
 
