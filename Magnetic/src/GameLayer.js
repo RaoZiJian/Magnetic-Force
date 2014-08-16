@@ -89,9 +89,7 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
-        this.f_player = new Player(res.RobotA, 50, winSize.width/6, 57);
-
-        this.f_player = new Player("robot", 50, 300, 57);
+        this.f_player = new Player("robot", 50, winSize.width/6, 57);
         //var index = [5];
         this.f_player.getAnimation().playWithIndex(0);
         this.addChild(this.f_player, PLAYER_ZORDER);
@@ -106,8 +104,7 @@ var GameLayer = cc.Layer.extend({
 //            //console.log(s_player_label.innerHTML);
 //        };
 
-        this.s_player = new Player(res.RobotB, 50, winSize.width/6*5, 57);
-        this.s_player = new Player("robot", 50, 400, 57);
+        this.s_player = new Player("robot", 50, winSize.width/6*5, 57);
         this.s_player.getAnimation().playWithIndex(3);
         this.addChild(this.s_player, PLAYER_ZORDER);
 //        this.s_player.isMagnetUpdated = function () {
