@@ -9,6 +9,10 @@ var KeyCode_X = 88;
 var KeyCode_N = 78;
 var KeyCode_M = 77;
 
+var SpaceGravite = -300;
+var WallElastricity = 2.0;
+var BackGroundElastricity = 1.2;
+
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
@@ -65,14 +69,20 @@ var GameLayer = cc.Layer.extend({
         var staticBody = space.staticBody;
 
         // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 20 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 20),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 20)	// right
+        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 10 ),				// bottom
+            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 10),				// left
+            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 10)	// right
         ];
 
-        for ( var i = 0; i < walls.length; i++ ) {
+
+        var shape = walls[0];
+        shape.setElasticity(BackGroundElastricity);
+        shape.setFriction(1);
+        space.addStaticShape( shape );
+
+        for ( var i = 1; i < walls.length; i++ ) {
             var shape = walls[i];
-            shape.setElasticity(1.2);
+            shape.setElasticity(WallElastricity);
             shape.setFriction(1);
             space.addStaticShape( shape );
         }
