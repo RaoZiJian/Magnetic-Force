@@ -19,7 +19,10 @@ var res = {
     Fire_plist : "res/fire.plist",
     Gate_plist:"res/gate.plist",
     House_png : "res/house.png",
-    House_plist : "res/house.plist"
+    House_plist : "res/house.plist",
+
+    Spring: "res/spring.png",
+    Ground: "res/ground.png"
 };
 
 var g_resources = [];
