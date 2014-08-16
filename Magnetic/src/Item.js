@@ -137,6 +137,7 @@ var Bomb = Item.extend({
     time : EXPLODE_TIME,
     isExplode : false,
     isEndExplode : false,
+    isWarnning : false,
     anime : null,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
@@ -156,25 +157,52 @@ var Bomb = Item.extend({
         this._super();
         this.time -= dt;
         //console.log(this.time);
-        if (!this.isExplode && this.time < 0) {
-            this.isExplode = true;
-            this.bomb_armature = ccs.Armature.create("explode");
-            this.bomb_armature.retain();
-            var origin = this.getPosition();
 
-            this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
-            this.bomb_armature.phyObj.setFriction(0);
-            this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
+        if (!this.isExplode && this.time < EXPLODE_WARNNING_TIME) {
+//            if (!this.isWarnning) {
+//                this.isWarnning = true;
+//                this.runAction(cc.repeatForever(cc.tintTo(1,255,0,0)));
+//            }
+            if (this.time < 0) {
+                this.isExplode = true;
+                this.bomb_armature = ccs.Armature.create("explode");
+                this.bomb_armature.retain();
+                var origin = this.getPosition();
+
+                this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
+                this.bomb_armature.phyObj.setFriction(0);
+                this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
 //        var body = this.phyObj.body;
 //        body.setMoment(Infinity);
-            this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
+                this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
 
-            this.bomb_armature.scaleX = 2;
-            this.bomb_armature.scaleY = 2;
-            this.bomb_armature.getAnimation().playWithIndex(0);
-            this.bomb_armature.setPosition(origin);
-            this.getParent().addChild(this.bomb_armature);
+                this.bomb_armature.scaleX = 2;
+                this.bomb_armature.scaleY = 2;
+                this.bomb_armature.getAnimation().playWithIndex(0);
+                this.bomb_armature.setPosition(origin);
+                this.getParent().addChild(this.bomb_armature);
+            }
         }
+
+//        if (!this.isExplode && this.time < 0) {
+//            this.isExplode = true;
+//            this.bomb_armature = ccs.Armature.create("explode");
+//            this.bomb_armature.retain();
+//            var origin = this.getPosition();
+//
+//            this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
+//            this.bomb_armature.phyObj.setFriction(0);
+//            this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
+////        var body = this.phyObj.body;
+////        body.setMoment(Infinity);
+//            this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
+//
+//            this.bomb_armature.scaleX = 2;
+//            this.bomb_armature.scaleY = 2;
+//            this.bomb_armature.getAnimation().playWithIndex(0);
+//            this.bomb_armature.setPosition(origin);
+//            this.getParent().addChild(this.bomb_armature);
+//        }
 //        console.log("explode : " + this.isExplode + "ecplodedddd " + this.isEndExplode);
         if (this.isExplode && !this.isEndExplode) {
 

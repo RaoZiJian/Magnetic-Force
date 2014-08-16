@@ -39,7 +39,8 @@ var PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 2);
 
 
 //bomb
-var EXPLODE_TIME = 300;
+var EXPLODE_TIME = 3;
+var EXPLODE_WARNNING_TIME = 10;//the bomb will be explode
 var EXPLODE_WEIGHT = 10;
 var EXPLODE_RADIUS = 50;
 var EXPLODE_ELASTICITY = 10;
