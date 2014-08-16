@@ -15,7 +15,8 @@ var KeyCode_Z = 90,
     ITEM_ZORDER = 11,
     MAP_ZORDER = 1,
     LEFT_GATE_TAG = 103,
-    RIGHT_GATE_TAG = 104;
+    RIGHT_GATE_TAG = 104,
+    MenuUI_ZORDER = 300;
 
 var GameLayer = cc.Layer.extend({
 
@@ -73,6 +74,7 @@ var GameLayer = cc.Layer.extend({
         back.x = cc.winSize.width/2;
         back.y = 0;
         back.anchorY = 0;
+//        this.showMenu();
 
         var ground = new cc.Sprite(res.Ground);
         ground.x = cc.winSize.width/2;
@@ -315,7 +317,28 @@ var GameLayer = cc.Layer.extend({
         var spriteFrameCache = cc.spriteFrameCache;
         spriteFrameCache.addSpriteFrames(res.Bomb_plist);
         spriteFrameCache.addSpriteFrames(res.House_plist);
+        spriteFrameCache.addSpriteFrames(res.Menu_plist);
 
+    },
+    showMenu : function () {
+        var back = new cc.Sprite(res.BackgroundA);
+        back.x = cc.winSize.width/2;
+        back.y = 0;
+        back.scaleX = 1.3;
+        back.scaleY = 1.13;
+        back.anchorY = 0;
+
+        var spriteFrame = cc.spriteFrameCache;
+        var btn_1p = new cc.Sprite(spriteFrame.getSpriteFrame("1pBtn.png"));
+        var btn_2p = new cc.Sprite(spriteFrame.getSpriteFrame("2pBtn.png"));
+        var btn_4p = new cc.Sprite(spriteFrame.getSpriteFrame("4pBtn.png"));
+        var btn_help = new cc.Sprite(spriteFrame.getSpriteFrame("helpBtn.png"));
+        var btn_setting = new cc.Sprite(spriteFrame.getSpriteFrame("settingsBtn.png"));
+        var logo_png = new cc.Sprite(spriteFrame.getSpriteFrame("logo.png"));
+        logo_png.setAnchorPoint(cc.p(0,0));
+        logo_png.setPosition(cc.p(50,300));
+        this.addChild(logo_png,MenuUI_ZORDER);
+        this.addChild(back, BACK_ZORDER);
     }
 });
 
