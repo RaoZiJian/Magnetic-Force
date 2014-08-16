@@ -3,8 +3,8 @@
 var ItemsLayer = cc.Layer.extend({
     game_layer : null,
 
-    born_iron_interval : 5,
-    born_bomb_interval : 5,
+    born_iron_interval : 1,
+    born_bomb_interval : 1,
 
     ctor : function(game_layer){
         this._super();
