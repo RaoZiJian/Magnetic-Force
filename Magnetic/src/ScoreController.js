@@ -51,7 +51,7 @@ var ScoreController = {
                 rightGate.setSpriteFrame(rightSpriteFrame);
 
 //                var explode = ccs.Armature.create("explode");
-//                explode.setPosition(cc.p(50,300));
+//                explode.setPosition(cc.p(cc.winSize.width - 50 ,320));
 //                explode.scaleX = 3;
 //                explode.scaleY = 3;
 //                explode.getAnimation().playWithIndex(0);
@@ -83,7 +83,7 @@ var ScoreController = {
                 leftGate.setSpriteFrame(leftSpriteFrame);
 
 //                var explode = ccs.Armature.create("explode");
-//                explode.setPosition(cc.p(50,300));
+//                explode.setPosition(cc.p(50,320));
 //                explode.scaleX = 3;
 //                explode.scaleY = 3;
 //                explode.getAnimation().playWithIndex(0);
