@@ -84,6 +84,7 @@ var Player = ccs.Armature.extend({
 
     },
     eatItem : function () {
+        console.log("aaa");
         // create sprite sheet
 //        cc.spriteFrameCache.addSpriteFrames(res.Robot_plist);
 //        this.spriteSheet = cc.SpriteBatchNode.create(res.Robot_png);
@@ -100,15 +101,15 @@ var Player = ccs.Armature.extend({
 //        var animation = cc.Animation.create(animFrames, 0.1);
 //        this.runningAction = cc.RepeatForever.create(cc.Animate.create(animation));
 
-        var frameCache = cc.spriteFrameCache;
-        frameCache.addSpriteFrames(res.Robot_plist);
-        var animCache = cc.animationCache;
-        animCache.addAnimations(res.Robot_plist);
-
-        var mouthOpen = animCache.getAnimation("Awaiting");
-        mouthOpen.setRestoreOriginalFrame(true);
-
-        this.runAction(cc.animate(mouthOpen));
+//        var frameCache = cc.spriteFrameCache;
+//        frameCache.addSpriteFrames(res.Robot_plist);
+//        var animCache = cc.animationCache;
+//        animCache.addAnimations(res.Robot_plist);
+//
+//        var mouthOpen = animCache.getAnimation("Awaiting");
+//        mouthOpen.setRestoreOriginalFrame(true);
+//
+//        this.runAction(cc.animate(mouthOpen));
 
     }
 
