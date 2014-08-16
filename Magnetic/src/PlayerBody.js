@@ -36,15 +36,6 @@ var Player = cc.Sprite.extend({
         this.initPhysics(x, y, this.r);
     },
 
-    onEnter: function() {
-        this._super();
-        this.scheduleUpdate();
-    },
-    onExit : function () {
-        this.unscheduleUpdate();
-        this._super();
-    },
-
     setMagnet : function(magnet) {
         this._isMagnet = magnet;
         if (this.isMagnetUpdated)
