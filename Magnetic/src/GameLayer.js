@@ -161,7 +161,8 @@ var GameLayer = cc.Layer.extend({
 
         //ccs.A
 
-        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
+        this.space.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
+        this.space.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
 
     },
     onExit : function () {
@@ -224,6 +225,15 @@ var GameLayer = cc.Layer.extend({
 
         //console.log(armature);
 //       armature.eatItem();
+
+        return true;
+    },
+    playerHitGround : function (arb, space, ptr) {
+        var shapes = arb.getShapes();
+        var player = shapes[0];
+        var ground = shapes[1];
+
+//        console.log("ffffffff_hit ground");
 
         return true;
     }
