@@ -4,10 +4,16 @@
 
 var winSize = null;
 
-var KeyCode_Z = 90;
-var KeyCode_X = 98;
-var KeyCode_N = 78;
-var KeyCode_M = 77;
+var KeyCode_Z = 90,
+    KeyCode_X = 98,
+    KeyCode_N = 78,
+    KeyCode_M = 77,
+
+    BACK_ZORDER = 0,
+    PLAYER_ZORDER = 10,
+    ITEM_ZORDER = 11;
+
+
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
@@ -28,6 +34,8 @@ var GameLayer = cc.Layer.extend({
 
         winSize = cc.director.getWinSize();
 
+        this.createBackground();
+
         this.createPhysicsWorld();
 
         this.setupDebugNode();
@@ -42,6 +50,15 @@ var GameLayer = cc.Layer.extend({
 
         return true;
     },
+
+    createBackground : function() {
+        var back = new cc.Sprite(res.BackgroundA);
+        back.x = cc.winSize.width/2;
+        back.y = 0;
+        back.anchorY = 0;
+        this.addChild(back, BACK_ZORDER);
+    },
+
     createPhysicsWorld : function () {
 
         Physics.init(this.parent);
@@ -78,13 +95,13 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
-        this.f_player = new Player(res.CloseNormal_png, 20, 100, 25);
-        this.addChild(this.f_player);
+        this.f_player = new Player(res.RobotA, 50, 100, 25);
+        this.addChild(this.f_player, PLAYER_ZORDER);
 
 
 
-        this.s_player = new Player(res.CloseNormal_png, 20, 300, 25);
-        this.addChild(this.s_player);
+        this.s_player = new Player(res.RobotB, 50, 300, 25);
+        this.addChild(this.s_player, PLAYER_ZORDER);
 
     },
     createMagnetSystem : function () {
