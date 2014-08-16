@@ -4,7 +4,7 @@
 
 
 
-var Player = cc.Sprite.extend({
+var Player = ccs.Armature.extend({
 
     _isMagnet : false,
     _isAttract : true,
@@ -25,7 +25,7 @@ var Player = cc.Sprite.extend({
     ctor : function(file, r, x, y) {
         this._super(file);
 
-        var size = this.texture.getContentSize(),
+        var size = this.getContentSize(),
             sx = r / size.width, sy = r / size.height;
         this.scale = sx > sy ? sx * 2 : sy * 2;
         this.r = r;
@@ -35,6 +35,7 @@ var Player = cc.Sprite.extend({
         this.initPhysics(x, y, this.r);
 
         //this.eatItem();
+
     },
 
     setMagnet : function(magnet) {
@@ -66,7 +67,8 @@ var Player = cc.Sprite.extend({
         this.phyObj.shape.setCollisionType(Player.COL_TYPE);
     },
 
-    update : function() {
+    phyUpdate : function() {
+
         var pos = this.phyObj.getPosition();
         this.x = pos.x;
         this.y = pos.y;
@@ -76,12 +78,13 @@ var Player = cc.Sprite.extend({
 
     jump : function (){
 
-        if(this.y < 80){
+        if(this.y < 90){
             this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y;
         }
 
     },
     eatItem : function () {
+        console.log("aaa");
         // create sprite sheet
 //        cc.spriteFrameCache.addSpriteFrames(res.Robot_plist);
 //        this.spriteSheet = cc.SpriteBatchNode.create(res.Robot_png);
@@ -98,15 +101,15 @@ var Player = cc.Sprite.extend({
 //        var animation = cc.Animation.create(animFrames, 0.1);
 //        this.runningAction = cc.RepeatForever.create(cc.Animate.create(animation));
 
-        var frameCache = cc.spriteFrameCache;
-        frameCache.addSpriteFrames(res.Robot_plist);
-        var animCache = cc.animationCache;
-        animCache.addAnimations(res.Robot_plist);
-
-        var mouthOpen = animCache.getAnimation("Awaiting");
-        mouthOpen.setRestoreOriginalFrame(true);
-
-        this.runAction(cc.animate(mouthOpen));
+//        var frameCache = cc.spriteFrameCache;
+//        frameCache.addSpriteFrames(res.Robot_plist);
+//        var animCache = cc.animationCache;
+//        animCache.addAnimations(res.Robot_plist);
+//
+//        var mouthOpen = animCache.getAnimation("Awaiting");
+//        mouthOpen.setRestoreOriginalFrame(true);
+//
+//        this.runAction(cc.animate(mouthOpen));
 
     }
 

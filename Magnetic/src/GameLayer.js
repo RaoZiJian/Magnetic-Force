@@ -35,6 +35,12 @@ var GameLayer = cc.Layer.extend({
 
         winSize = cc.director.getWinSize();
 
+        ccs.armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
+//        var armature = ccs.Armature.create("robot");
+//        armature.getAnimation().playWithIndex(2);
+//        armature.setPosition(200,300);
+//        this.addChild(armature,100);
+
         this.createBackground();
 
         this.createPhysicsWorld();
@@ -78,58 +84,42 @@ var GameLayer = cc.Layer.extend({
     },
     createWalls : function () {
 
-        var space = this.space ;
-        var staticBody = space.staticBody;
+        Level.createLevel_1(this, this.space);
 
-        // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 20 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 20),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 20)	// right
-        ];
-
-
-        var shape = walls[0];
-        shape.setElasticity(BackGroundElastricity);
-        shape.setFriction(1);
-        space.addStaticShape( shape );
-
-
-        for ( var i = 1; i < walls.length; i++ ) {
-            var shape = walls[i];
-            shape.setElasticity(WallElastricity);
-            shape.setFriction(1);
-            space.addStaticShape( shape );
-        }
     },
     createPlayers : function () {
 
         this.f_player = new Player(res.RobotA, 50, winSize.width/6, 57);
 
+        this.f_player = new Player("robot", 50, 300, 57);
+        var index = [0,1,2];
+        this.f_player.getAnimation().playWithIndexes(index,true);
         this.addChild(this.f_player, PLAYER_ZORDER);
-        this.f_player.isMagnetUpdated = function () {
-           var f_player_label = window.document.getElementById("f_player_magnet");
-            f_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;f_megnet : " + this.isMagnet;
-            //console.log(s_player_label.innerHTML);
-        };
-        this.f_player.isAttractUpdated = function () {
-            var f_player_label = window.document.getElementById("f_player_attratic");
-            f_player_label.innerHTML =  "&nbsp;&nbsp;&nbsp;f_attratic : " + this.isAttract;
-            //console.log(s_player_label.innerHTML);
-        };
+//        this.f_player.isMagnetUpdated = function () {
+//           var f_player_label = window.document.getElementById("f_player_magnet");
+//            f_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;f_megnet : " + this.isMagnet;
+//            //console.log(s_player_label.innerHTML);
+//        };
+//        this.f_player.isAttractUpdated = function () {
+//            var f_player_label = window.document.getElementById("f_player_attratic");
+//            f_player_label.innerHTML =  "&nbsp;&nbsp;&nbsp;f_attratic : " + this.isAttract;
+//            //console.log(s_player_label.innerHTML);
+//        };
 
         this.s_player = new Player(res.RobotB, 50, winSize.width/6*5, 57);
+        this.s_player = new Player("robot", 50, 400, 57);
 
         this.addChild(this.s_player, PLAYER_ZORDER);
-        this.s_player.isMagnetUpdated = function () {
-            var s_player_label = window.document.getElementById("s_player_magnet");
-            s_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;s_megnet : " +this.isMagnet;
-            //console.log(s_player_label.innerHTML);
-        };
-        this.s_player.isAttractUpdated = function () {
-            var s_player_label = window.document.getElementById("s_player_attratic");
-            s_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;s_attratic : " +this.isAttract;
-            //console.log(s_player_label.innerHTML);
-        };
+//        this.s_player.isMagnetUpdated = function () {
+//            var s_player_label = window.document.getElementById("s_player_magnet");
+//            s_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;s_megnet : " +this.isMagnet;
+//            //console.log(s_player_label.innerHTML);
+//        };
+//        this.s_player.isAttractUpdated = function () {
+//            var s_player_label = window.document.getElementById("s_player_attratic");
+//            s_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;s_attratic : " +this.isAttract;
+//            //console.log(s_player_label.innerHTML);
+//        };
 
     },
     createMagnetSystem : function () {
@@ -146,8 +136,8 @@ var GameLayer = cc.Layer.extend({
         this.space.step( delta );
 
         MagneticSystem.update(delta);
-        this.f_player.update();
-        this.s_player.update();
+        this.f_player.phyUpdate();
+        this.s_player.phyUpdate();
 
         this.itemLayer.update(delta);
     },
@@ -165,6 +155,7 @@ var GameLayer = cc.Layer.extend({
         this.isBegin = true;
 
         //ccs.A
+
         this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
 
     },
@@ -221,8 +212,13 @@ var GameLayer = cc.Layer.extend({
         var shapes = arb.getShapes();
         var player = shapes[0];
         var item = shapes[1];
-        console.log(player);
         //player.eatItem();
+        var armature = player.date;
+        if(armature){
+            console.log(armature);
+        }
+        //console.log(armature);
+       // armature.eatItem();
 
         return true;
     }
