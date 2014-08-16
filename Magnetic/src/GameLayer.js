@@ -5,7 +5,7 @@
 var winSize = null;
 
 var KeyCode_Z = 90;
-var KeyCode_X = 98;
+var KeyCode_X = 88;
 var KeyCode_N = 78;
 var KeyCode_M = 77;
 var GameLayer = cc.Layer.extend({
@@ -190,6 +190,7 @@ var GameLayer = cc.Layer.extend({
     },
     onKeyPressed : function (key,event) {
         var target = event.getCurrentTarget();
+        console.log(key.toString());
         switch (key) {
             case KeyCode_M:
                 console.log("press m");
