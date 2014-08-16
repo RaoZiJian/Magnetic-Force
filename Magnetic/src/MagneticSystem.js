@@ -45,9 +45,13 @@ var MagneticSystem = {
             return;
         }
 
-        if ( !this.f_player.isMagnet && !this.s_player.isMagnet ){
-            return;
-        }
+
+        //don't do this.
+//        if ( !this.f_player.isMagnet && !this.s_player.isMagnet ){
+//            return;
+//        }
+
+
 
 //        var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
         var fp_attract_dir = this.f_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
