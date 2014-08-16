@@ -14,13 +14,13 @@
         "src/resource.js",
         "src/app.js",
         "src/physics.js",
+        "src/GlobalValue.js",
         "src/PlayerBody.js",
         "src/MagneticSystem.js",
         "src/GameLayer.js",
         "src/PlayerBody.js",
         "src/TestLayer.js",
         "src/Item.js",
-        "src/ItemsController.js",
-        "src/GlobalValues.js"
+        "src/ItemsController.js"
     ]
 }

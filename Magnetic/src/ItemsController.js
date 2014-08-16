@@ -12,10 +12,10 @@ var ItemsLayer = cc.Layer.extend({
         this.items = [];
     },
 
-    addItem : function (tex, w, h, friction, elasticity) {
+    addItem : function (tex, type, sOrR, friction, elasticity) {
         var x = Math.random() * 750 + 50;
         var y = Math.random() * 200 + 450;
-        var item = new Item(tex, w, h, x, y);
+        var item = new Item(tex, type, x, y, sOrR);
         friction !== undefined && (item.friction = friction);
         elasticity !== undefined && (item.elasticity = elasticity);
 
@@ -34,13 +34,13 @@ var ItemsLayer = cc.Layer.extend({
         //born iron.
         if (this.born_iron_interval < 0){
             this.born_iron_interval = BORN_IRON_INTERVAL;BORN_IRON_INTERVAL+= 1;
-            this.addItem(res.BombA, 45, 45);
+            this.addItem(res.BombA, Item.CIRCLE_SHAPE, 22);
         }
 
         //born bomb.
         if (this.born_bomb_interval < 0){
             this.born_bomb_interval = BORN_BOMB_INTERVAL;BORN_BOMB_INTERVAL+=1;
-            this.addItem(res.BombA, 30, 50, 0.1);
+            this.addItem(res.BombA, Item.RECT_SHAPE, cc.size(30, 50), 0.08);
         }
 
         var children = this.children;
