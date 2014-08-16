@@ -229,7 +229,7 @@ var GameLayer = cc.Layer.extend({
 //            armature.eatItem();
 //        }
 
-
+//        cc.audioEngine.playEffect(res.hit3_ogg,false);
         return true;
     },
     playerHitGround : function (arb, space, ptr) {
