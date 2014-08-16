@@ -57,4 +57,4 @@ var BOMB_JUMP_ADD_SPEED = 200;
 
 var GLOBAL_COL_TYPE = 0;
 
-var GAME_OVER_SCORE = 3;
+var GAME_INIT_HP = 1;

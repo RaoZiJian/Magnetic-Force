@@ -18,17 +18,44 @@ var OverLayer = cc.Layer.extend({
 
         this._super();
 
-        var win_logo = null;
 
         if ( this.isNaughtyWin ){
-            win_logo = new cc.Sprite("prupleWinUI.png");
+            this.win_logo = new cc.Sprite("#prupleWinUI.png");
         }else{
-            win_logo = new cc.Sprite("redWinUI.png");
+            this.win_logo = new cc.Sprite("#redWinUI.png");
         }
 
-        win_logo.setPosition(winSize.width/2, winSize.height/2);
-        this.addChild(win_logo);
+        this.win_logo.setPosition(winSize.width/2, winSize.height/2);
+        this.win_logo.setScale(0, 0);
+        this.addChild(this.win_logo);
 
+        this.win_logo.runAction(
+            new cc.Sequence(
+                new cc.EaseBackOut(new cc.ScaleTo(0.8, 1.0, 1.0)),
+                new cc.DelayTime(2),
+                new cc.EaseBackIn(new cc.ScaleTo(0.5, 0.0, 0.0)),
+                new cc.CallFunc(this.showOverMenu, this),
+                null
+            )
+        );
+
+
+    },
+
+    showOverMenu : function (){
+
+        var game_over_logo = new cc.Sprite("#gameOverUI.png");
+
+        var play_again_btn = new cc.MenuItemSprite();
+
+
+    },
+
+    playAgain : function(){
+
+    },
+
+    backToMainMenu : function (){
 
     }
 

@@ -70,14 +70,13 @@ var ItemsLayer = cc.Layer.extend({
             if (cc.rectContainsPoint(Level.fp_gate_info, i_pos)){
                 //sp get goal.
 //                item.time = -1;
-                ScoreController.addSpScore();
-
+                ScoreController.hitFpHouse();
                 delete_items.push(item);
             }
 
             else if (cc.rectContainsPoint(Level.sp_gate_info, i_pos)){
                 //fp get goal
-                ScoreController.addFpScore();
+                ScoreController.hitSpHouse();
                 delete_items.push(item);
             }
         }

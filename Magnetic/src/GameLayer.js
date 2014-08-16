@@ -315,6 +315,8 @@ var GameLayer = cc.Layer.extend({
         var spriteFrameCache = cc.spriteFrameCache;
         spriteFrameCache.addSpriteFrames(res.Bomb_plist);
         spriteFrameCache.addSpriteFrames(res.House_plist);
+        spriteFrameCache.addSpriteFrames(res.game_ui_plist);
+        spriteFrameCache.addSpriteFrames(res.over_ui_plist);
 
     }
 });
