@@ -10,12 +10,14 @@ var KeyCode_Z = 90,
     KeyCode_M = 77,
 
     BACK_ZORDER = 0,
+    BACK_TAG = 33,
     PLAYER_ZORDER = 10,
     TUBE_ZORDER = 200,
     ITEM_ZORDER = 11,
     MAP_ZORDER = 1,
     LEFT_GATE_TAG = 103,
-    RIGHT_GATE_TAG = 104;
+    RIGHT_GATE_TAG = 104,
+    MenuUI_ZORDER = 300;
 
 var GameLayer = cc.Layer.extend({
 
@@ -69,36 +71,42 @@ var GameLayer = cc.Layer.extend({
     },
 
     createBackground : function() {
-        var back = new cc.Sprite(res.BackgroundA);
-        back.x = cc.winSize.width/2;
-        back.y = 0;
-        back.anchorY = 0;
+//        var back = new cc.Sprite(res.BackgroundA);
+//        back.x = cc.winSize.width/2;
+//        back.y = 0;
+//        back.anchorY = 0;
 
-        var ground = new cc.Sprite(res.Ground);
-        ground.x = cc.winSize.width/2;
-        ground.y = ground.height/2;
-
+//
+//        var ground = new cc.Sprite(res.Ground);
+//        ground.x = cc.winSize.width/2;
+//        ground.y = ground.height/2;
+//
         var tube = new cc.Sprite(res.Tube);
         tube.x = cc.winSize.width / 2 - 5;
         tube.y = cc.winSize.height - 185;
         tube.anchorY = 0;
-
-        //left gate
-        var spriteFrameCache = cc.spriteFrameCache;
-        var left_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("purpleA.png"));
-        left_gate.setPosition(cc.p(0,0));
-        left_gate.setAnchorPoint(cc.p(0,0));
-
-        //right gate
-        var right_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("redA.png"));
-        right_gate.setPosition(cc.p(cc.winSize.width, 0));
-        right_gate.setAnchorPoint(cc.p(1,0));
-
-        this.addChild(back, BACK_ZORDER);
-        this.addChild(ground, BACK_ZORDER);
+//
+//        //left gate
+//        var spriteFrameCache = cc.spriteFrameCache;
+//        var left_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("purpleA.png"));
+//        left_gate.setPosition(cc.p(0,0));
+//        left_gate.setAnchorPoint(cc.p(0,0));
+//
+//        //right gate
+//        var right_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("redA.png"));
+//        right_gate.setPosition(cc.p(cc.winSize.width, 0));
+//        right_gate.setAnchorPoint(cc.p(1,0));
+//
+////        this.addChild(back, BACK_ZORDER);
+//        this.addChild(ground, BACK_ZORDER);
         this.addChild(tube, TUBE_ZORDER);
-        this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
-        this.addChild(right_gate,BACK_ZORDER,RIGHT_GATE_TAG);
+//        this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
+//        this.addChild(right_gate,BACK_ZORDER,RIGHT_GATE_TAG);
+
+        var backGround = new BackGroundLayer();
+        this.addChild(backGround,BACK_ZORDER,BACK_TAG);
+
+//        this.showMenu();
     },
 
     createPhysicsWorld : function () {
@@ -317,7 +325,24 @@ var GameLayer = cc.Layer.extend({
         spriteFrameCache.addSpriteFrames(res.House_plist);
         spriteFrameCache.addSpriteFrames(res.game_ui_plist);
         spriteFrameCache.addSpriteFrames(res.over_ui_plist);
+        spriteFrameCache.addSpriteFrames(res.Menu_plist);
 
+    },
+    showMenu : function () {
+        var back = this.getChildByTag(BACK_TAG);
+        back.scaleX = 1.4;
+        back.scaleY = 1.2;
+
+        var spriteFrame = cc.spriteFrameCache;
+        var btn_1p = new cc.Sprite(spriteFrame.getSpriteFrame("1pBtn.png"));
+        var btn_2p = new cc.Sprite(spriteFrame.getSpriteFrame("2pBtn.png"));
+        var btn_4p = new cc.Sprite(spriteFrame.getSpriteFrame("4pBtn.png"));
+        var btn_help = new cc.Sprite(spriteFrame.getSpriteFrame("helpBtn.png"));
+        var btn_setting = new cc.Sprite(spriteFrame.getSpriteFrame("settingsBtn.png"));
+        var logo_png = new cc.Sprite(spriteFrame.getSpriteFrame("logo.png"));
+        logo_png.setAnchorPoint(cc.p(0,0));
+        logo_png.setPosition(cc.p(50,300));
+        this.addChild(logo_png,MenuUI_ZORDER);
     }
 });
 

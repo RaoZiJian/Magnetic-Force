@@ -26,6 +26,8 @@
         "src/ItemsController.js",
         "src/Level.js",
         "src/ScoreController.js",
-        "src/OverLayer.js"
+        "src/OverLayer.js",
+        "src/BackGroundLayer.js"
+
     ]
 }

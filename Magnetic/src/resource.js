@@ -25,6 +25,8 @@ var res = {
     Spring: "res/spring.png",
     Ground: "res/ground.png",
 
+    Menu_png : "res/menuUI.png",
+    Menu_plist : "res/menuUI.plist",
     game_ui_plist : "res/gameUI.plist",
     game_ui_png : "res/gameUI.png",
 
