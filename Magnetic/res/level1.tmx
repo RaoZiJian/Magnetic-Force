@@ -13,21 +13,24 @@
   <properties>
    <property name="className" value="null"/>
   </properties>
-  <object x="-170" y="382">
-   <polygon points="0,0 496,379 2,382"/>
+  <object x="-9" y="734" width="1303" height="42"/>
+  <object x="-22" y="492" width="63" height="332"/>
+  <object x="1244" y="551" width="55" height="242"/>
+  <object type="Gate" x="-18" y="369" width="44" height="119"/>
+  <object type="Gate" x="1240" y="381" width="44" height="119"/>
+  <object x="6" y="263">
+   <polygon points="0,0 86,26 87,79 -4,115"/>
   </object>
-  <object x="-9" y="749" width="1303" height="42"/>
-  <object x="-8" y="380" width="28" height="461"/>
-  <object x="1251" y="374" width="51" height="412"/>
-  <object x="606" y="821">
-   <polygon points="0,0 254,-199 408,-111 372,5 67,28"/>
+  <object x="7" y="479">
+   <polygon points="0,0 82,-3 76,98 2,137"/>
   </object>
-  <object x="339" y="724">
-   <polygon points="0,0 285,-26 359,23 309,121 -66,81"/>
+  <object x="1172" y="501">
+   <polygon points="0,0 30,-16 104,5 106,184"/>
   </object>
-  <object type="Gate" x="-26" y="260" width="44" height="119"/>
-  <object type="Gate" x="1256" y="252" width="44" height="119"/>
-  <object x="-36" y="96" width="61" height="163"/>
-  <object x="1245" y="100" width="56" height="148"/>
+  <object x="1148" y="180" width="116" height="47"/>
+  <object x="5" y="64" width="49" height="256"/>
+  <object x="1237" y="60">
+   <polygon points="3,-7 57,-43 54,339 -72,275"/>
+  </object>
  </objectgroup>
 </map>
