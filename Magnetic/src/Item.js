@@ -135,13 +135,14 @@ Item.RECT_SHAPE = 1;
 
 var Bomb = Item.extend({
     bomb_armature : null,
-    time : EXPLODE_TIME + EXPLODE_DEVIATION_TIME,
+    time : EXPLODE_TIME,
     isExplode : false,
     isEndExplode : false,
     isWarnning : false,
     anime : null,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
+        this.time = EXPLODE_TIME + EXPLODE_DEVIATION_TIME * Math.random();
         this.phyObj.shape.setCollisionType(Bomb.COL_TYPE);
         this.setAnchorPoint(cc.p(0.35,0.35));
         var animFrames = [];
@@ -248,7 +249,7 @@ var Bomb = Item.extend({
         this.isEndExplode = false;
         this.isWarnning = false;
         this.color = cc.color(255,255,255);
-        this.time = EXPLODE_TIME + EXPLODE_DEVIATION_TIME;
+        this.time = EXPLODE_TIME + EXPLODE_DEVIATION_TIME * Math.random();
     }
 });
 
