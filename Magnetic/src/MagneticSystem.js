@@ -144,10 +144,24 @@ var MagneticSystem = {
 
         }
 
+        //if attract , add top f
+        if ( this.f_player.isMagnet && this.f_player.isAttract){
+
+            fp_f.x += PLAYER_ATTRACT_TOP_FORCE.x;
+            fp_f.y += PLAYER_ATTRACT_TOP_FORCE.y;
+
+        }
+        if ( this.s_player.isMagnet && this.s_player.isAttract){
+
+            sp_f.x += PLAYER_ATTRACT_TOP_FORCE.x;
+            sp_f.y += PLAYER_ATTRACT_TOP_FORCE.y;
+        }
+
 
         //set fp sp receieve magnet
         this.f_player.phyObj.body.f = fp_f;
         this.s_player.phyObj.body.f = sp_f;
+
 
     },
 
