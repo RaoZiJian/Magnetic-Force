@@ -59,25 +59,22 @@ var ItemsLayer = cc.Layer.extend({
         for (var i = 0; i<items.length; i++){
 
             var item = items[i];
+            if (item.dead) continue;
 
             var i_pos = item.getPosition();
 
             if (cc.rectContainsPoint(Level.fp_gate_info, i_pos)){
                 //sp get goal.
-                !item.dead && ScoreController.addSpScore();
+                ScoreController.addSpScore();
                 delete_items.push(item);
-
             }
 
             else if (cc.rectContainsPoint(Level.sp_gate_info, i_pos)){
                 //fp get goal
-                !item.dead && ScoreController.addFpScore();
+                ScoreController.addFpScore();
                 delete_items.push(item);
-
             }
-
         }
-
 
         for ( var i = 0; i < delete_items.length; i++){
             var deleteItem = delete_items[i];

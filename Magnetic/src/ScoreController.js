@@ -35,7 +35,7 @@ var ScoreController = {
             this.fp_score_label.setString(this.fp_score);
             var rightGate = this.game_layer.getChildByTag(RIGHT_GATE_TAG);
             var spriteFrameCache = cc.spriteFrameCache;
-            var rightSpriteFrame = rightGate.getSpriteFrame();
+            var rightSpriteFrame = null;
             switch (this.fp_score) {
                 case 1:
                     rightSpriteFrame = spriteFrameCache.getSpriteFrame("redB.png");
@@ -47,7 +47,16 @@ var ScoreController = {
                     rightSpriteFrame = spriteFrameCache.getSpriteFrame("redD.png");
                     break;
             }
-            rightGate.setSpriteFrame(rightSpriteFrame);
+            if (rightSpriteFrame) {
+                rightGate.setSpriteFrame(rightSpriteFrame);
+
+//                var explode = ccs.Armature.create("explode");
+//                explode.setPosition(cc.p(50,300));
+//                explode.scaleX = 3;
+//                explode.scaleY = 3;
+//                explode.getAnimation().playWithIndex(0);
+//                this.game_layer.addChild(explode);
+            }
 
         }
     },
@@ -58,7 +67,7 @@ var ScoreController = {
             this.sp_score_label.setString(this.sp_score);
             var leftGate = this.game_layer.getChildByTag(LEFT_GATE_TAG);
             var spriteFrameCache = cc.spriteFrameCache;
-            var leftSpriteFrame = leftGate.getSpriteFrame();
+            var leftSpriteFrame = null;
             switch (this.sp_score) {
                 case 1:
                     leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleB.png");;
@@ -70,7 +79,16 @@ var ScoreController = {
                     leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleD.png");
                     break;
             }
+            if (leftSpriteFrame) {
+                leftGate.setSpriteFrame(leftSpriteFrame);
 
+//                var explode = ccs.Armature.create("explode");
+//                explode.setPosition(cc.p(50,300));
+//                explode.scaleX = 3;
+//                explode.scaleY = 3;
+//                explode.getAnimation().playWithIndex(0);
+//                this.game_layer.addChild(explode);
+            }
         }
 
     }

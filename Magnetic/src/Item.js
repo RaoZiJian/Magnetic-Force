@@ -80,7 +80,8 @@ var Item = cc.Sprite.extend({
     die : function () {
         if (this.dead)
             return;
-        this.scheduleOnce(this._realDie, 0);
+
+        this.scheduleOnce(this._realDie, 0.5);
         this.dead = true;
     },
 
@@ -126,7 +127,7 @@ var p = Item.prototype;
 cc.defineGetterSetter(p, "friction", p.getFriction, p.setFriction);
 cc.defineGetterSetter(p, "elasticity", p.getElasticity, p.setElasticity);
 
-Item.COL_TYPE = 11;
+Item.COL_TYPE = GLOBAL_COL_TYPE++;
 
 Item.CIRCLE_SHAPE = 0;
 Item.RECT_SHAPE = 1;
@@ -137,6 +138,7 @@ var Bomb = Item.extend({
     time : EXPLODE_TIME,
     isExplode : false,
     isEndExplode : false,
+    isWarnning : false,
     anime : null,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
@@ -156,25 +158,53 @@ var Bomb = Item.extend({
         this._super();
         this.time -= dt;
         //console.log(this.time);
-        if (!this.isExplode && this.time < 0) {
-            this.isExplode = true;
-            this.bomb_armature = ccs.Armature.create("explode");
-            this.bomb_armature.retain();
-            var origin = this.getPosition();
 
-            this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
-            this.bomb_armature.phyObj.setFriction(0);
-            this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
+        if (!this.isExplode && this.time < EXPLODE_WARNNING_TIME) {
+            if (!this.isWarnning) {
+                this.isWarnning = true;
+                this.runAction(cc.repeatForever(cc.sequence(cc.tintTo(1,255,0,0),cc.tintTo(1,255,255,255))));
+            }
+            if (this.time < 0) {
+                this.isExplode = true;
+                this.bomb_armature = ccs.Armature.create("explode");
+                this.bomb_armature.retain();
+                var origin = this.getPosition();
+
+                this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
+                this.bomb_armature.phyObj.setFriction(0);
+                this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
 //        var body = this.phyObj.body;
 //        body.setMoment(Infinity);
-            this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
+                this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
 
-            this.bomb_armature.scaleX = 2;
-            this.bomb_armature.scaleY = 2;
-            this.bomb_armature.getAnimation().playWithIndex(0);
-            this.bomb_armature.setPosition(origin);
-            this.getParent().addChild(this.bomb_armature);
+                this.bomb_armature.scaleX = 2;
+                this.bomb_armature.scaleY = 2;
+                this.bomb_armature.getAnimation().playWithIndex(0);
+                this.bomb_armature.setPosition(origin);
+                this.getParent().addChild(this.bomb_armature);
+                this.die();
+            }
         }
+
+//        if (!this.isExplode && this.time < 0) {
+//            this.isExplode = true;
+//            this.bomb_armature = ccs.Armature.create("explode");
+//            this.bomb_armature.retain();
+//            var origin = this.getPosition();
+//
+//            this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
+//            this.bomb_armature.phyObj.setFriction(0);
+//            this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
+////        var body = this.phyObj.body;
+////        body.setMoment(Infinity);
+//            this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
+//
+//            this.bomb_armature.scaleX = 2;
+//            this.bomb_armature.scaleY = 2;
+//            this.bomb_armature.getAnimation().playWithIndex(0);
+//            this.bomb_armature.setPosition(origin);
+//            this.getParent().addChild(this.bomb_armature);
+//        }
 //        console.log("explode : " + this.isExplode + "ecplodedddd " + this.isEndExplode);
         if (this.isExplode && !this.isEndExplode) {
 
@@ -184,7 +214,7 @@ var Bomb = Item.extend({
                 this.bomb_armature.phyObj.removeSelf();
                 this.bomb_armature.removeFromParent();
                 this.bomb_armature = null;
-                this.die();
+//                this.die();
             }
         }
     },
@@ -207,11 +237,13 @@ var Bomb = Item.extend({
         this.runAction(this.anime);
         this.isExplode = false;
         this.isEndExplode = false;
+        this.isWarnning = false;
+        this.color = cc.color(255,255,255);
         this.time = EXPLODE_TIME;
     }
 });
 
-Bomb.EXPLODE_COL_TYPE = 22;
+Bomb.EXPLODE_COL_TYPE = GLOBAL_COL_TYPE++;
 Bomb.create = function (file, type, x, y, sOrR) {
     var ret = null;
     if (cc.pool.hasObj(Bomb))
@@ -219,4 +251,27 @@ Bomb.create = function (file, type, x, y, sOrR) {
     else
         ret = new Bomb(file, type, x, y, sOrR);
     return ret;
-}
+};
+
+
+
+var Trampoline = cc.Sprite.extend({
+    texfile : res.Tube,
+    phyObj : null,
+
+    ctor : function (objDesc) {
+        this._super(this.texfile);
+        var x = parseInt(objDesc.x), y = parseInt(objDesc.y), w = parseInt(objDesc.width), h = parseInt(objDesc.height);
+        this.x = x + w/2;
+        this.y = y + h;
+        this.scaleX = w / this.width;
+        this.scaleY = h / this.height;
+        this.rotation = 180;
+
+        this.phyObj = new StaticObject(x, y, w, h, this);
+        this.phyObj.top.setCollisionType(Trampoline.COL_TYPE);
+    }
+});
+
+Trampoline.COL_TYPE = GLOBAL_COL_TYPE++;
+Trampoline.JUMP_FACTOR = 5;
