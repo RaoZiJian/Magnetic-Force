@@ -138,7 +138,7 @@ var Bomb = Item.extend({
         }
         var animation = cc.Animation.create(animFrames, 0.1);
 
-        this.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
+        //this.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
     },
     update : function (dt) {
         this._super();
