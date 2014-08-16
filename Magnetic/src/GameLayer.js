@@ -262,7 +262,17 @@ var GameLayer = cc.Layer.extend({
         var player = shapes[0];
         var ground = shapes[1];
 
-//        console.log("ffffffff_hit ground");
+//        var n = arb.getNormal(0);
+//        var angle = cc.pToAngle( cc.p(n.x, n.y) );
+        var angle = Physics.calculAngle(arb);
+
+//        console.log(angle);
+
+//        console.log(v.x + "   " + v.y);
+//        var angle = Math.atan2(v.y , v.x);
+
+        var player_armature = player.obj.view;
+        player_armature.hitGround(arb.getPoint(0), angle);
 
         return true;
     },
