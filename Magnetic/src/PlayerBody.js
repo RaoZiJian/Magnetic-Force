@@ -96,7 +96,21 @@ var Player = cc.Sprite.extend({
         this.x = pos.x;
         this.y = pos.y;
         this.rotation = -180 * this.phyObj.body.a / Math.PI;
+    },
+
+
+    jump : function (){
+
+
+
+        this.phyObj.body.applyImpulse();
+
+
+
+
     }
+
+
 
 });
 

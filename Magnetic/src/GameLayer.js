@@ -125,66 +125,6 @@ var GameLayer = cc.Layer.extend({
 
         MagneticSystem.init(this, this.f_player, this.s_player);
 
-        //test
-        this.f_player.isMagnet = false;
-        this.s_player.isMagnet = false;
-
-        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 20, cp.v(0, 0)));
-        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
-        test_shape.setFriction(0.5);
-        test_shape.setElasticity(0.5);
-        test_body.setPos( cp.v(300, 600) );
-
-        this.space.addBody(test_body);
-        this.space.addShape(test_shape);
-
-        MagneticSystem.addOtherItem(test_body);
-
-
-        var test_body = new cp.Body(0.5, cp.momentForCircle(0.5, 0, 15, cp.v(0, 0)));
-        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
-        test_shape.setFriction(0.5);
-        test_shape.setElasticity(0.5);
-        test_body.setPos( cp.v(500, 600) );
-
-        this.space.addBody(test_body);
-        this.space.addShape(test_shape);
-
-        MagneticSystem.addOtherItem(test_body);
-
-        var test_body = new cp.Body(0.5, cp.momentForCircle(0.5, 0, 10, cp.v(0, 0)));
-        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
-        test_shape.setFriction(0.5);
-        test_shape.setElasticity(0.5);
-        test_body.setPos( cp.v(250, 800) );
-
-        this.space.addBody(test_body);
-        this.space.addShape(test_shape);
-
-        MagneticSystem.addOtherItem(test_body);
-
-        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 10, cp.v(0, 0)));
-        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
-        test_shape.setFriction(0.5);
-        test_shape.setElasticity(0.5);
-        test_body.setPos( cp.v(550, 900) );
-
-        this.space.addBody(test_body);
-        this.space.addShape(test_shape);
-
-        MagneticSystem.addOtherItem(test_body);
-
-        var test_body = new cp.Body(0.5, cp.momentForCircle(0.5, 0, 10, cp.v(0, 0)));
-        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
-        test_shape.setFriction(0.5);
-        test_shape.setElasticity(0.5);
-        test_body.setPos( cp.v(250, 1000) );
-
-        this.space.addBody(test_body);
-        this.space.addShape(test_shape);
-
-        MagneticSystem.addOtherItem(test_body);
-
     },
     createController : function (){
 
