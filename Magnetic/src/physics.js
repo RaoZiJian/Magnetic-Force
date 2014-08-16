@@ -179,5 +179,5 @@ var CircleObject = PhysicsObject.extend({
             this.setPosition(pos);
         }
         this.shape.obj = this;
-    },
+    }
 });

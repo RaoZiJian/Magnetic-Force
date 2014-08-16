@@ -3,9 +3,10 @@
  */
 
 
-var EFFECTIVE_MAGNET_DIS = 250;
-var PLAYER_INIT_MH = 250;
+var EFFECTIVE_MAGNET_DIS = 300;
+var PLAYER_INIT_MH = 200;
 
+var SAFE_DIS_ADD = 0.5;
 
 var MagneticSystem = {
 
@@ -51,8 +52,8 @@ var MagneticSystem = {
         var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
         var sp_attract_dir = this.s_player.isAttract ? 1 : -1;
 
-        var fp_pos = this.f_player.getPos();
-        var sp_pos = this.s_player.getPos();
+        var fp_pos = this.f_player.phyObj.body.getPos();
+        var sp_pos = this.s_player.phyObj.body.getPos();
 
         var fp_f = cp.v(0, 0);
         var sp_f = cp.v(0, 0);
@@ -71,7 +72,7 @@ var MagneticSystem = {
 
             if (dis_2_fp < EFFECTIVE_MAGNET_DIS && this.f_player.isMagnet){
 
-                var magnet_f = this.f_player.mh / Math.pow( dis_2_fp/100 + 1, 3 );
+                var magnet_f = this.f_player.mh / Math.pow( dis_2_fp/100 + SAFE_DIS_ADD, 3 );
 
                 var angle = p2pAngle(fp_pos, oi_pos);
 
@@ -85,7 +86,7 @@ var MagneticSystem = {
 
             if (dis_2_sp < EFFECTIVE_MAGNET_DIS && this.s_player.isMagnet){
 
-                var magnet_f = this.s_player.mh / Math.pow( dis_2_sp/100 + 1, 3 );
+                var magnet_f = this.s_player.mh / Math.pow( dis_2_sp/100 + SAFE_DIS_ADD, 3 );
 
                 var angle = p2pAngle(sp_pos, oi_pos);
 
@@ -114,7 +115,7 @@ var MagneticSystem = {
             //fp magnet
             if (this.f_player.isMagnet){
 
-                var magnet_fp_f = this.f_player.mh / Math.pow(fpsp_dis/100 + 1, 3);
+                var magnet_fp_f = this.f_player.mh / Math.pow(fpsp_dis/100 + SAFE_DIS_ADD, 3);
 
                 var sp_angle = p2pAngle(fp_pos, sp_pos);
 
@@ -129,7 +130,7 @@ var MagneticSystem = {
             //sp magnet
             if (this.s_player.isMagnet){
 
-                var magnet_sp_f = this.s_player.mh / Math.pow(fpsp_dis/100 + 1, 3);
+                var magnet_sp_f = this.s_player.mh / Math.pow(fpsp_dis/100 + SAFE_DIS_ADD, 3);
 
                 var fp_angle = p2pAngle(sp_pos, fp_pos);
 
@@ -146,8 +147,8 @@ var MagneticSystem = {
 
 
         //set fp sp receieve magnet
-        this.f_player.f = fp_f;
-        this.s_player.f = sp_f;
+        this.f_player.phyObj.body.f = fp_f;
+        this.s_player.phyObj.body.f = sp_f;
 
     },
 
