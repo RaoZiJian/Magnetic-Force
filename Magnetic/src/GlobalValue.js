@@ -18,8 +18,8 @@ var ITEM_MAX_SPEED = 500;
 
 
 //item controller
-var BORN_IRON_INTERVAL = 20;
-var BORN_BOMB_INTERVAL = 20;
+var BORN_IRON_INTERVAL = 5;
+var BORN_BOMB_INTERVAL = 5;
 
 
 //magnet system
