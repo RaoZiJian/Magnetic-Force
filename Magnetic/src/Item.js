@@ -80,7 +80,8 @@ var Item = cc.Sprite.extend({
     die : function () {
         if (this.dead)
             return;
-        this.scheduleOnce(this._realDie, 0);
+
+        this.scheduleOnce(this._realDie, 0.5);
         this.dead = true;
     },
 
@@ -126,7 +127,7 @@ var p = Item.prototype;
 cc.defineGetterSetter(p, "friction", p.getFriction, p.setFriction);
 cc.defineGetterSetter(p, "elasticity", p.getElasticity, p.setElasticity);
 
-Item.COL_TYPE = 11;
+Item.COL_TYPE = GLOBAL_COL_TYPE++;
 
 Item.CIRCLE_SHAPE = 0;
 Item.RECT_SHAPE = 1;
@@ -211,7 +212,7 @@ var Bomb = Item.extend({
     }
 });
 
-Bomb.EXPLODE_COL_TYPE = 22;
+Bomb.EXPLODE_COL_TYPE = GLOBAL_COL_TYPE++;
 Bomb.create = function (file, type, x, y, sOrR) {
     var ret = null;
     if (cc.pool.hasObj(Bomb))
@@ -219,4 +220,27 @@ Bomb.create = function (file, type, x, y, sOrR) {
     else
         ret = new Bomb(file, type, x, y, sOrR);
     return ret;
-}
+};
+
+
+
+var Trampoline = cc.Sprite.extend({
+    texfile : res.Tube,
+    phyObj : null,
+
+    ctor : function (objDesc) {
+        this._super(this.texfile);
+        var x = parseInt(objDesc.x), y = parseInt(objDesc.y), w = parseInt(objDesc.width), h = parseInt(objDesc.height);
+        this.x = x + w/2;
+        this.y = y + h;
+        this.scaleX = w / this.width;
+        this.scaleY = h / this.height;
+        this.rotation = 180;
+
+        this.phyObj = new StaticObject(x, y, w, h, this);
+        this.phyObj.top.setCollisionType(Trampoline.COL_TYPE);
+    }
+});
+
+Trampoline.COL_TYPE = GLOBAL_COL_TYPE++;
+Trampoline.JUMP_FACTOR = 5;
