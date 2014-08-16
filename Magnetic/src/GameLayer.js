@@ -114,11 +114,6 @@ var GameLayer = cc.Layer.extend({
     createWalls : function () {
 
         Level.createLevel(res.Level1);
-        var gateParticle = new cc.ParticleSystem(res.Gate_plist);
-        gateParticle.x=Level.sp_gate_info.x+20;
-        gateParticle.y=Level.sp_gate_info.y+50;
-        this.addChild(gateParticle);
-
 
     },
     createPlayers : function () {
@@ -260,13 +255,6 @@ var GameLayer = cc.Layer.extend({
 //            armature.eatItem();
 //        }
 
-        var parentLayer = player.obj.view.parent;
-        if(!parentLayer.isEffectPlaying){
-
-            cc.audioEngine.playEffect(res.hit2_ogg,false);
-            parentLayer.isEffectPlaying = true;
-            parentLayer.scheduleOnce(parentLayer.resetEffect,0.2);
-        }
         return true;
     },
     playerHitGround : function (arb, space, ptr) {
@@ -283,9 +271,6 @@ var GameLayer = cc.Layer.extend({
 
     },
 
-    resetEffect:function(){
-        this.isEffectPlaying=false;
-    },
     loadResoure : function () {
         var armatureDataManager = ccs.armatureDataManager;
         armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
