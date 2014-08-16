@@ -4,7 +4,7 @@
 
 
 
-var Player = cc.Sprite.extend({
+var Player = ccs.Armature.extend({
 
     _isMagnet : false,
     _isAttract : true,
@@ -25,7 +25,7 @@ var Player = cc.Sprite.extend({
     ctor : function(file, r, x, y) {
         this._super(file);
 
-        var size = this.texture.getContentSize(),
+        var size = this.getContentSize(),
             sx = r / size.width, sy = r / size.height;
         this.scale = sx > sy ? sx * 2 : sy * 2;
         this.r = r;
@@ -35,6 +35,7 @@ var Player = cc.Sprite.extend({
         this.initPhysics(x, y, this.r);
 
         //this.eatItem();
+
     },
 
     setMagnet : function(magnet) {
@@ -66,7 +67,8 @@ var Player = cc.Sprite.extend({
         this.phyObj.shape.setCollisionType(Player.COL_TYPE);
     },
 
-    update : function() {
+    phyUpdate : function() {
+
         var pos = this.phyObj.getPosition();
         this.x = pos.x;
         this.y = pos.y;
@@ -76,7 +78,7 @@ var Player = cc.Sprite.extend({
 
     jump : function (){
 
-        if(this.y < 80){
+        if(this.y < 90){
             this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y;
         }
 

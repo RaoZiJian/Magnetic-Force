@@ -21,6 +21,7 @@
         "src/PlayerBody.js",
         "src/TestLayer.js",
         "src/Item.js",
-        "src/ItemsController.js"
+        "src/ItemsController.js",
+        "src/Level.js"
     ]
 }
