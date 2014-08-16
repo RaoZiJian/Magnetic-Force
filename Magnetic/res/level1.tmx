@@ -10,7 +10,7 @@
   <object x="-9" y="749" width="1303" height="42"/>
   <object x="-4" y="114" width="17" height="751"/>
   <object x="1259" y="209" width="23" height="686"/>
-  <object x="792" y="823">
+  <object x="606" y="821">
    <polygon points="0,0 254,-199 408,-111 372,5 67,28"/>
   </object>
  </objectgroup>

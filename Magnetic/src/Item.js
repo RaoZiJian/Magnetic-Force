@@ -131,6 +131,7 @@ var Bomb = Item.extend({
     time : EXPLODE_TIME,
     isExplode : false,
     isEndExplode : false,
+    anime : null,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
         this.scale = 1;
@@ -141,9 +142,9 @@ var Bomb = Item.extend({
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
             animFrames.push(frame);
         }
-        var animation = cc.Animation.create(animFrames, 0.1);
-
-        this.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
+        var animation = new cc.Animation(animFrames, 0.1);
+        this.anime = cc.animate(animation).repeatForever();
+        this.runAction(this.anime);
     },
     update : function (dt) {
         this._super();
@@ -157,17 +158,25 @@ var Bomb = Item.extend({
             bomb_armature.getAnimation().playWithIndex(0);
             bomb_armature.setPosition(this.getPosition());
             this.getParent().addChild(bomb_armature);
-
         }
 
         if (this.isExplode & !this.isEndExplode) {
             if (bomb_armature.getAnimation().isComplete()) {
                 this.isEndExplode = true;
-                this.die();
                 bomb_armature.removeFromParent();
-
+                this.die();
             }
         }
+    },
+    unuse : function () {
+        this.stopAllActions();
+        this._super();
+    },
+    reuse : function (file, type, x, y, sOrR) {
+        this._super(file, type, x, y, sOrR);
+        this.scale = 1;
+        this.setAnchorPoint(cc.p(0.35,0.35));
+        this.time = EXPLODE_TIME;
     }
 });
 

@@ -1,12 +1,9 @@
 var res = {
     BackgroundA : "res/sceneA.jpg",
-    RobotA: "res/robotA.png",
-    RobotB: "res/robotB.png",
-    BombA: "res/bombA.png",
     Robot_plist : "res/animation/robot/robot0.plist",
     Robot_png : "res/animation/robot/robot0.png",
     Robot_exportJSON : "res/animation/robot/robot.ExportJson",
-    Level1 : "res/level1.tmx"
+    Level1 : "res/level1.tmx",
     Explode_exportJSON : "res/animation/explode/explode.ExportJson",
     Explode_png : "res/animation/explode/explode0.png",
     Explode_plist : "res/animation/explode/explode0.plist",

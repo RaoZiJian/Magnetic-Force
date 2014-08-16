@@ -2,7 +2,7 @@
 var Wall = cc.Class.extend({
     phyObj : null,
     o : cc.p(),
-    friction : 0.3,
+    friction : 1,
 
     ctor : function(objDesc) {
         var x = parseInt(objDesc.x), y = parseInt(objDesc.y), w = parseInt(objDesc.width), h = parseInt(objDesc.height),
@@ -16,14 +16,14 @@ var Wall = cc.Class.extend({
                 verts.push(y - parseInt(polygon[i].y));
             }
             this.phyObj = new StaticPolyObject(this, verts, cp.vzero);
-            this.phyObj.setFriction(this.friction);
             this.phyObj.shape.setCollisionType(Wall.COL_TYPE);
         }
         else {
             this.phyObj = new StaticObject(x, y, w, h, this);
-            this.phyObj.setFriction(this.friction);
             this.phyObj.top.setCollisionType(Wall.COL_TYPE);
         }
+        this.phyObj.setElasticity(WallElastricity);
+        this.phyObj.setFriction(this.friction);
     }
 });
 

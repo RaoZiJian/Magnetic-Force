@@ -68,6 +68,10 @@ var StaticObject = cc.Class.extend({
         //this.right.setFriction(u);
     },
 
+    setElasticity : function(e) {
+        this.top.setElasticity(e);
+    },
+
     removeSelf: function () {
         Physics.world.removeShape(this.top);
         Physics.world.removeShape(this.left);
@@ -86,6 +90,10 @@ var StaticPolyObject = cc.Class.extend({
 
     setFriction: function(u) {
         this.shape.setFriction(u);
+    },
+
+    setElasticity : function(e) {
+        this.shape.setElasticity(e);
     },
 
     removeSelf: function () {
