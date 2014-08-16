@@ -110,7 +110,7 @@ var Player = ccs.Armature.extend({
             var vx = this.phyObj.body.vx;
 
 //            console.log(veloci);
-            console.log(vx);
+//            console.log(vx);
             if(Math.abs(vx) > 130 ){
                 this.isFrictPlaying = true;
 
@@ -135,7 +135,6 @@ var Player = ccs.Armature.extend({
     resetHitGround : function(){
         this.isHitGround = false;
         this.fire_emitter.setPosition(cc.p(0, 0));
-        console.log("hit ground");
     },
 
     eatItem : function () {
