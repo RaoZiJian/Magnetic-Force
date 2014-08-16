@@ -118,8 +118,6 @@ var GameLayer = cc.Layer.extend({
             //console.log(s_player_label.innerHTML);
         };
 
-//        this.space.addBody(f_player.phyObj.body);
-//        this.space.addShape(f_player.phyObj.shape);
 
 
         this.s_player = new Player(res.RobotB, 50, 400, 57);
@@ -135,18 +133,11 @@ var GameLayer = cc.Layer.extend({
             s_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;s_attratic : " +this.isAttract;
             //console.log(s_player_label.innerHTML);
         };
-//        this.space.addBody(s_player.phyObj.body);
-//        this.space.addShape(s_player.phyObj.shape);
 
     },
     createMagnetSystem : function () {
 
         MagneticSystem.init(this, this.f_player, this.s_player);
-
-        //test
-        this.f_player.isMagnet = false;
-        this.s_player.isMagnet = false;
-
 
     },
     createController : function (){
@@ -184,7 +175,6 @@ var GameLayer = cc.Layer.extend({
         var target = event.getCurrentTarget();
         switch (key) {
             case KeyCode_M:
-                console.log("press m");
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = false;
                 break;
@@ -209,11 +199,13 @@ var GameLayer = cc.Layer.extend({
         switch (key) {
             case KeyCode_M:
                 target.s_player.isMagnet = false;
+                break;
             case KeyCode_N:
                 target.s_player.isMagnet = false;
                 break;
             case KeyCode_X:
                 target.f_player.isMagnet = false;
+                break;
             case KeyCode_Z:
                 target.f_player.isMagnet = false;
                 break;

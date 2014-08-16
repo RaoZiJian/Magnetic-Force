@@ -3,8 +3,8 @@
  */
 
 
-var BORN_IRON_INTERVAL = 0.5;
-var BORN_BOMB_INTERVAL = 0.5;
+var BORN_IRON_INTERVAL = 3;
+var BORN_BOMB_INTERVAL = 5;
 
 var ItemsController = {
 
