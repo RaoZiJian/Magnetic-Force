@@ -4,9 +4,13 @@
 
 var Level = {
 
+    levelReader : new TMXReader(),
+
+    createLevel : function(tmxFile) {
+        this.levelReader.read(tmxFile);
+    },
     fp_gate_info : cc.rect(0, 0, 0, 0),
     sp_gate_info : cc.rect(0, 0, 0, 0),
-
 
     createLevel_1 : function (gameLayer, space){
 
@@ -23,9 +27,7 @@ var Level = {
             new cp.SegmentShape( staticBody, cp.v(winSize.width * 4/10, 0), cp.v(winSize.width * 4.5/10, winSize.height * 0.5/10), 10),
             new cp.SegmentShape( staticBody, cp.v(winSize.width * 4.5/10, winSize.height * 0.5/10), cp.v(winSize.width * 5.5/10, winSize.height * 0.5/10), 10),
             new cp.SegmentShape( staticBody, cp.v(winSize.width * 5.5/10, winSize.height * 0.5/10), cp.v(winSize.width * 6/10, 0), 10)
-
         ];
-
 
         var shape = walls[0];
         shape.setElasticity(BackGroundElastricity);

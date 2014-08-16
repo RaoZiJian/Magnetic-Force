@@ -33,13 +33,13 @@ var ItemsLayer = cc.Layer.extend({
         //born iron.
         if (this.born_iron_interval < 0){
             this.born_iron_interval = BORN_IRON_INTERVAL;BORN_IRON_INTERVAL+= 1;
-            this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 22);
+            this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 18);
         }
 
         //born bomb.
         if (this.born_bomb_interval < 0){
             this.born_bomb_interval = BORN_BOMB_INTERVAL;BORN_BOMB_INTERVAL+=1;
-            this.addItem("#bomb1.png", Item.RECT_SHAPE, cc.size(30, 50), 0.08);
+            this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 18);
         }
 
         var children = this.children;

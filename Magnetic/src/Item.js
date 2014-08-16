@@ -14,7 +14,7 @@ var Item = cc.Sprite.extend({
 
         var isCircle = type == Item.CIRCLE_SHAPE;
 
-        var size = this.texture.getContentSize();
+        var size = this.getContentSize();
         if (isCircle) {
             this.scale = sOrR * 2 / size.width;
             this.weight = sOrR * 4 / ITEM_WEIGHT_FACTOR;
@@ -71,8 +71,12 @@ var Item = cc.Sprite.extend({
         this.rotation = -180 * this.phyObj.body.a / Math.PI;
     },
 
-    die : function () {
+    _realDie : function() {
         cc.pool.putInPool(this);
+    },
+
+    die : function () {
+        this.scheduleOnce(this._realDie, 0);
     },
 
     unuse : function() {
@@ -83,6 +87,7 @@ var Item = cc.Sprite.extend({
         this.retain();
     },
     reuse : function(file, type, x, y, sOrR) {
+        this.release();
         this.setSpriteFrame(file.substr(1));
         var size = this.getContentSize();
 
@@ -123,40 +128,55 @@ Item.RECT_SHAPE = 1;
 
 var Bomb = Item.extend({
     bomb_armature : null,
-    time : 8,
+    time : EXPLODE_TIME,
     isExplode : false,
+    isEndExplode : false,
+    anime : null,
     ctor : function (file, type, x, y, sOrR) {
-        this._super(file, type, x, y, sOrR);
+        this._super(file, type, x, y , sOrR);
         this.scale = 1;
+        this.setAnchorPoint(cc.p(0.35,0.35));
         var animFrames = [];
         for (var i = 1; i < 4; i++) {
             var str = "bomb" + i + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
             animFrames.push(frame);
         }
-        var animation = cc.Animation.create(animFrames, 0.1);
-        this.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
+        var animation = new cc.Animation(animFrames, 0.1);
+        this.anime = cc.animate(animation).repeatForever();
+        this.runAction(this.anime);
     },
     update : function (dt) {
         this._super();
         this.time -= dt;
         //console.log(this.time);
         if (!this.isExplode && this.time < 0) {
+            this.isExplode = true;
             bomb_armature = ccs.Armature.create("explode");
             bomb_armature.scaleX = 2;
             bomb_armature.scaleY = 2;
             bomb_armature.getAnimation().playWithIndex(0);
             bomb_armature.setPosition(this.getPosition());
             this.getParent().addChild(bomb_armature);
-            this.isExplode = true;
         }
 
-        if (this.isExplode) {
+        if (this.isExplode & !this.isEndExplode) {
             if (bomb_armature.getAnimation().isComplete()) {
+                this.isEndExplode = true;
                 bomb_armature.removeFromParent();
                 this.die();
             }
         }
+    },
+    unuse : function () {
+        this.stopAllActions();
+        this._super();
+    },
+    reuse : function (file, type, x, y, sOrR) {
+        this._super(file, type, x, y, sOrR);
+        this.scale = 1;
+        this.setAnchorPoint(cc.p(0.35,0.35));
+        this.time = EXPLODE_TIME;
     }
 });
 
