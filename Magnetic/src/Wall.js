@@ -18,6 +18,8 @@ var Wall = cc.Class.extend({
         else {
             phyObj = new StaticObject(x, y, w, h, null);
             phyObj.top.setCollisionType(Wall.COL_TYPE);
+            phyObj.left.setCollisionType(Wall.COL_TYPE);
+            phyObj.right.setCollisionType(Wall.COL_TYPE);
         }
         phyObj.setElasticity(WallElasticity);
         phyObj.setFriction(WallFriction);
