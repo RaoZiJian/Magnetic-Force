@@ -223,7 +223,6 @@ var GameLayer = cc.Layer.extend({
         var shapes = arb.getShapes();
         var player = shapes[0];
         var item = shapes[1];
-        console.log(player);
         //player.eatItem();
 
         return true;

@@ -61,6 +61,11 @@ var Item = cc.Sprite.extend({
 
     update : function() {
         var pos = this.phyObj.getPosition();
+        if (pos.x < -50 || pos.x > cc.winSize.width + 50 || pos.y < -50) {
+            this.die();
+            return;
+        }
+
         this.x = pos.x;
         this.y = pos.y;
         this.rotation = -180 * this.phyObj.body.a / Math.PI;

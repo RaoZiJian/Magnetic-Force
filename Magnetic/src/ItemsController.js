@@ -44,7 +44,7 @@ var ItemsLayer = cc.Layer.extend({
         }
 
         var children = this.children;
-        for (var i = 0, l = children.length; i < l; ++i) {
+        for (var i = 0; i < children.length; ++i) {
             children[i].update && children[i].update();
         }
     }
