@@ -125,6 +125,7 @@ var Bomb = Item.extend({
     bomb_armature : null,
     time : EXPLODE_TIME,
     isExplode : false,
+    isEndExplode : false,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
         this.scale = 1;
@@ -154,10 +155,12 @@ var Bomb = Item.extend({
 
         }
 
-        if (this.isExplode) {
+        if (this.isExplode & !this.isEndExplode) {
             if (bomb_armature.getAnimation().isComplete()) {
+                this.isEndExplode = true;
                 this.die();
-                bomb_armature.removeFromParentAndCleanup(true);
+                bomb_armature.removeFromParent();
+
             }
         }
     }
