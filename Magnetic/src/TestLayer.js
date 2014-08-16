@@ -3,9 +3,10 @@
  */
 var TestLayer = GameLayer.extend({
     init : function () {
-        this._super();
-        var sprite = this.createPhysicsSprite();
-        this.addChild(sprite);
+        if(!this._super()){
+            return false;
+        }
+
         return true;
     },
     createPhysicsSprite : function () {
@@ -34,7 +35,7 @@ TestLayer.create = function () {
 
 TestLayer.createScene = function () {
     var gameScene = new cc.Scene();
-    var testLayer = TestLayer.create();
+    gameLayer = TestLayer.create();
     gameScene.addChild(testLayer);
     return gameScene;
 };

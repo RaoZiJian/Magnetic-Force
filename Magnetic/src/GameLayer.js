@@ -4,10 +4,19 @@
 
 var winSize = null;
 
-var KeyCode_Z = 90;
-var KeyCode_X = 88;
-var KeyCode_N = 78;
-var KeyCode_M = 77;
+var SpaceGravite = -300;
+var WallElastricity = 2.0;
+var BackGroundElastricity = 1.2;
+
+var KeyCode_Z = 90,
+    KeyCode_X = 98,
+    KeyCode_N = 78,
+    KeyCode_M = 77,
+
+    BACK_ZORDER = 0,
+    PLAYER_ZORDER = 10,
+    ITEM_ZORDER = 11;
+
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
@@ -28,6 +37,8 @@ var GameLayer = cc.Layer.extend({
 
         winSize = cc.director.getWinSize();
 
+        this.createBackground();
+
         this.createPhysicsWorld();
 
         this.setupDebugNode();
@@ -42,6 +53,15 @@ var GameLayer = cc.Layer.extend({
 
         return true;
     },
+
+    createBackground : function() {
+        var back = new cc.Sprite(res.BackgroundA);
+        back.x = cc.winSize.width/2;
+        back.y = 0;
+        back.anchorY = 0;
+        this.addChild(back, BACK_ZORDER);
+    },
+
     createPhysicsWorld : function () {
 
         Physics.init(this.parent);
@@ -64,29 +84,35 @@ var GameLayer = cc.Layer.extend({
         var staticBody = space.staticBody;
 
         // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 5 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 5),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 5)	// right
+        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 10 ),				// bottom
+            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 10),				// left
+            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 10)	// right
         ];
 
-        for ( var i = 0; i < walls.length; i++ ) {
+
+        var shape = walls[0];
+        shape.setElasticity(BackGroundElastricity);
+        shape.setFriction(1);
+        space.addStaticShape( shape );
+
+        for ( var i = 1; i < walls.length; i++ ) {
             var shape = walls[i];
-            shape.setElasticity(1.2);
+            shape.setElasticity(WallElastricity);
             shape.setFriction(1);
             space.addStaticShape( shape );
         }
     },
     createPlayers : function () {
 
-        this.f_player = new Player(res.CloseNormal_png, 20, 100, 25);
-        this.addChild(this.f_player);
+        this.f_player = new Player(res.RobotA, 50, 100, 25);
+        this.addChild(this.f_player, PLAYER_ZORDER);
 
 //        this.space.addBody(f_player.phyObj.body);
 //        this.space.addShape(f_player.phyObj.shape);
 
 
-        this.s_player = new Player(res.CloseNormal_png, 20, 300, 25);
-        this.addChild(this.s_player);
+        this.s_player = new Player(res.RobotB, 50, 300, 25);
+        this.addChild(this.s_player, PLAYER_ZORDER);
 
 //        this.space.addBody(s_player.phyObj.body);
 //        this.space.addShape(s_player.phyObj.shape);

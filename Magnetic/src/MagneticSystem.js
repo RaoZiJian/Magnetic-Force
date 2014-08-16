@@ -36,8 +36,6 @@ var MagneticSystem = {
         this.s_player.mh = PLAYER_INIT_MH;
 
         this.other_items = [];
-
-
     },
 
     update : function (dt){
