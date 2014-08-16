@@ -29,6 +29,8 @@ var GameLayer = cc.Layer.extend({
 
     s_player:null,
 
+    itemLayer : null,
+
     init : function(){
 
         if ( !this._super() ){
@@ -49,7 +51,7 @@ var GameLayer = cc.Layer.extend({
 
         this.createMagnetSystem();
 
-        this.createController();
+        this.createItems();
 
         return true;
     },
@@ -140,19 +142,19 @@ var GameLayer = cc.Layer.extend({
         MagneticSystem.init(this, this.f_player, this.s_player);
 
     },
-    createController : function (){
-
-        ItemsController.init(this);
-
+    createItems : function (){
+        this.itemLayer = new ItemsLayer(this);
+        this.addChild(this.itemLayer, ITEM_ZORDER);
     },
 
     update : function( delta ) {
         this.space.step( delta );
 
         MagneticSystem.update(delta);
+        this.f_player.update();
+        this.s_player.update();
 
-        ItemsController.update(delta);
-
+        this.itemLayer.update(delta);
     },
     onEnter : function () {
         this._super();
