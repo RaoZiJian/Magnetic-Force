@@ -3,6 +3,7 @@
  */
 
 
+
 var Player = cc.Sprite.extend({
 
     _isMagnet : false,
@@ -32,6 +33,8 @@ var Player = cc.Sprite.extend({
         this.maxSpeed = PLAYER_MAX_SPEED;
 
         this.initPhysics(x, y, this.r);
+
+        //this.eatItem();
     },
 
     setMagnet : function(magnet) {
@@ -76,6 +79,34 @@ var Player = cc.Sprite.extend({
         if(this.y < 80){
             this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y;
         }
+
+    },
+    eatItem : function () {
+        // create sprite sheet
+//        cc.spriteFrameCache.addSpriteFrames(res.Robot_plist);
+//        this.spriteSheet = cc.SpriteBatchNode.create(res.Robot_png);
+//        this.addChild(this.spriteSheet);
+//
+//        // init runningAction
+//        var animFrames = [];
+//        for (var i = 0; i < 8; i++) {
+//            var str = "runner" + i + ".png";
+//            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+//            animFrames.push(frame);
+//        }
+//
+//        var animation = cc.Animation.create(animFrames, 0.1);
+//        this.runningAction = cc.RepeatForever.create(cc.Animate.create(animation));
+
+        var frameCache = cc.spriteFrameCache;
+        frameCache.addSpriteFrames(res.Robot_plist);
+        var animCache = cc.animationCache;
+        animCache.addAnimations(res.Robot_plist);
+
+        var mouthOpen = animCache.getAnimation("Awaiting");
+        mouthOpen.setRestoreOriginalFrame(true);
+
+        this.runAction(cc.animate(mouthOpen));
 
     }
 

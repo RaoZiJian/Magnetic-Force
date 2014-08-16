@@ -145,9 +145,14 @@ var GameLayer = cc.Layer.extend({
         }, this);
         //setup game begin.
         this.isBegin = true;
+
+        //ccs.A
+        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
+
     },
     onExit : function () {
         this.unscheduleUpdate();
+        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
         this._super();
     },
     onKeyPressed : function (key,event) {
@@ -160,6 +165,7 @@ var GameLayer = cc.Layer.extend({
             case KeyCode_N:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
+                target.s_player.jump();
                 break;
             case KeyCode_X:
                 target.f_player.isMagnet = true;
@@ -168,6 +174,7 @@ var GameLayer = cc.Layer.extend({
             case KeyCode_Z:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
+                target.f_player.jump();
                 break;
             default :
                 break;
@@ -191,8 +198,16 @@ var GameLayer = cc.Layer.extend({
             default :
                 break;
         }
-    }
+    },
+    playerTouchItem : function (arb, space, ptr) {
+        var shapes = arb.getShapes();
+        var player = shapes[0];
+        var item = shapes[1];
+        console.log(player);
+        //player.eatItem();
 
+        return true;
+    }
 
 });
 
