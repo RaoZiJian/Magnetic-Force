@@ -84,9 +84,9 @@ var GameLayer = cc.Layer.extend({
         var staticBody = space.staticBody;
 
         // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 10 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 10),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 10)	// right
+        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 20 ),				// bottom
+            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 20),				// left
+            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 20)	// right
         ];
 
 
