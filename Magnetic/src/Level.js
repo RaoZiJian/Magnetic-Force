@@ -17,9 +17,9 @@ var Level = {
             new cp.SegmentShape( staticBody, cp.v(0, winSize.height/6), cp.v(winSize.width/10, 0), 10),
             new cp.SegmentShape( staticBody, cp.v(winSize.width * 9/10, 0), cp.v(winSize.width, winSize.height/6), 10),
 
-            new cp.SegmentShape( staticBody, cp.v(winSize.width * 4/10, 0), cp.v(winSize.width * 4.5/10, winSize.height * 1/10), 10),
-            new cp.SegmentShape( staticBody, cp.v(winSize.width * 4.5/10, winSize.height * 1/10), cp.v(winSize.width * 5.5/10, winSize.height * 1/10), 10),
-            new cp.SegmentShape( staticBody, cp.v(winSize.width * 5.5/10, winSize.height * 1/10), cp.v(winSize.width * 6/10, 0), 10)
+            new cp.SegmentShape( staticBody, cp.v(winSize.width * 4/10, 0), cp.v(winSize.width * 4.5/10, winSize.height * 0.5/10), 10),
+            new cp.SegmentShape( staticBody, cp.v(winSize.width * 4.5/10, winSize.height * 0.5/10), cp.v(winSize.width * 5.5/10, winSize.height * 0.5/10), 10),
+            new cp.SegmentShape( staticBody, cp.v(winSize.width * 5.5/10, winSize.height * 0.5/10), cp.v(winSize.width * 6/10, 0), 10)
 
         ];
 
