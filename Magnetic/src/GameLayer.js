@@ -255,13 +255,6 @@ var GameLayer = cc.Layer.extend({
 //            armature.eatItem();
 //        }
 
-        var parentLayer = player.obj.view.parent;
-        if(!parentLayer.isEffectPlaying){
-
-            cc.audioEngine.playEffect(res.hit2_ogg,false);
-            parentLayer.isEffectPlaying = true;
-            parentLayer.scheduleOnce(parentLayer.resetEffect,0.2);
-        }
         return true;
     },
     playerHitGround : function (arb, space, ptr) {
@@ -288,9 +281,6 @@ var GameLayer = cc.Layer.extend({
 
     },
 
-    resetEffect:function(){
-        this.isEffectPlaying=false;
-    },
     loadResoure : function () {
         var armatureDataManager = ccs.armatureDataManager;
         armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
