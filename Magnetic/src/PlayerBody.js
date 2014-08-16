@@ -2,9 +2,6 @@
  * Created by chenryoutou on 14-8-15.
  */
 
-var PLAYER_WEIGHT = 1,
-    PLAYER_MAX_SPEED = 350,
-    PLAYER_JUMP_ADD_SPEED_Y = 300;
 
 var Player = cc.Sprite.extend({
 
@@ -17,8 +14,8 @@ var Player = cc.Sprite.extend({
     weight : PLAYER_WEIGHT,
     maxSpeed : 200,
     r : 0,
-    friction : 0.8,
-    elasticity : 0.3,
+    friction : PLAYER_INIT_FRICTION,
+    elasticity : PLAYER_INIT_ELASTICITY,
 
     phyObj : null,
 

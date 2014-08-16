@@ -1,12 +1,11 @@
-var ITEM_MAXSPEED = 300;
-var ITEM_WEIGHT_FACTOR = 600;
+
 
 var Item = cc.Sprite.extend({
 
     weight : 50,
-    maxSpeed : 300,
-    _friction : 0.25,
-    _elasticity : 0.3,
+    maxSpeed : ITEM_MAX_SPEED,
+    _friction : ITEM_INIT_FRICTION,
+    _elasticity : ITEM_INIT_ELASTICITY,
 
     phyObj : null,
 

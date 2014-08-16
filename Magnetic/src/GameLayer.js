@@ -4,10 +4,6 @@
 
 var winSize = null;
 
-var SpaceGravite = -300;
-var WallElastricity = 2.0;
-var BackGroundElastricity = 1.2;
-
 var KeyCode_Z = 90,
     KeyCode_X = 88,
     KeyCode_N = 78,
