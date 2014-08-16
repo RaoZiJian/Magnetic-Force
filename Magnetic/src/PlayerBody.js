@@ -93,15 +93,17 @@ var Player = ccs.Armature.extend({
 
     hitGround : function (point){
 
+        if (this.fire_emitter) {
+            var emitter_pos = this.convertToNodeSpace(point);
+            this.fire_emitter.setPosition( emitter_pos );
+        }
+
         if (this.isHitGround){
 
             return;
         }
         this.isHitGround = true;
-        this.scheduleOnce(this.resetHitGround, 0.1);
-
-        var emitter_pos = this.convertToNodeSpace(point);
-        this.fire_emitter.setPosition( emitter_pos );
+        this.scheduleOnce(this.resetHitGround, PLAYER_PARTICLE_RESET_POS_INTERVAL);
 
         if(!this.isFrictPlaying && this.y < 100){
 
@@ -115,18 +117,10 @@ var Player = ccs.Armature.extend({
                 this.isFrictPlaying = true;
 
                 cc.audioEngine.playEffect(res.Frict1_ogg , false);
-                this.scheduleOnce(this.resetFrictPlaying, 2.5);
+                this.scheduleOnce(this.resetFrictPlaying, 3.5);
             }
 
         }
-
-
-//        console.log("fire emitter");
-//        this.fire_emitter = new cc.ParticleSystem(res.Fire_plist);
-//        this.addChild(this.fire_emitter, 0);
-
-
-
 
     },
     resetFrictPlaying : function() {
