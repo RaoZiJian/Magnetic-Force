@@ -233,7 +233,8 @@ var GameLayer = cc.Layer.extend({
         var player = shapes[0];
         var ground = shapes[1];
 
-//        console.log("ffffffff_hit ground");
+        
+
 
         return true;
     }
