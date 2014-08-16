@@ -4,7 +4,8 @@ var res = {
     CloseSelected_png : "res/CloseSelected.png",
     BackgroundA : "res/sceneAbg.png",
     RobotA: "res/robotA.png",
-    RobotB: "res/robotB.png"
+    RobotB: "res/robotB.png",
+    BombA: "res/bombA.png"
 };
 
 var g_resources = [];
