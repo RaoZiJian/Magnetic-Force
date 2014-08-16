@@ -120,3 +120,52 @@ Item.COL_TYPE = 0;
 
 Item.CIRCLE_SHAPE = 0;
 Item.RECT_SHAPE = 1;
+
+
+var Bomb = Item.extend({
+    bomb_armature : null,
+    time : 3,
+    isExplode : false,
+    ctor : function (file, type, x, y, sOrR) {
+        this._super(file, type, x, y, sOrR);
+        this.scale = 1;
+        var animFrames = [];
+        for (var i = 1; i < 4; i++) {
+            var str = "bomb" + i + ".png";
+            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            animFrames.push(frame);
+        }
+        var animation = cc.Animation.create(animFrames, 0.1);
+        this.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
+    },
+    update : function (dt) {
+        this._super();
+        this.time -= dt;
+        console.log(this.time);
+        if (!this.isExplode && this.time < 0) {
+            bomb_armature = ccs.Armature.create("explode");
+            bomb_armature.scaleX = 2;
+            bomb_armature.scaleY = 2;
+            bomb_armature.getAnimation().playWithIndex(0);
+            bomb_armature.setPosition(this.getPosition());
+            this.getParent().addChild(bomb_armature);
+            this.isExplode = true;
+        }
+
+        if (this.isExplode) {
+            if (bomb_armature.getAnimation().isComplete()) {
+                bomb_armature.removeFromParent();
+                this.die();
+            }
+        }
+    }
+});
+
+Bomb.create = function (file, type, x, y, sOrR) {
+    var ret = null;
+    if (cc.pool.hasObj(Bomb))
+        ret = cc.pool.getFromPool(Bomb, file, type, x, y, sOrR);
+    else
+        ret = new Bomb(file, type, x, y, sOrR);
+    return ret;
+}

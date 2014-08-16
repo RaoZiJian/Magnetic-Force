@@ -36,6 +36,8 @@ var GameLayer = cc.Layer.extend({
         winSize = cc.director.getWinSize();
 
         ccs.armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
+        ccs.armatureDataManager.addArmatureFileInfo(res.Explode_exportJSON);
+        cc.spriteFrameCache.addSpriteFrames(res.Bomb_plist);
 //        var armature = ccs.Armature.create("robot");
 //        armature.getAnimation().playWithIndex(2);
 //        armature.setPosition(200,300);
