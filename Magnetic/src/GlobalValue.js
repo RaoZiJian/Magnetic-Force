@@ -9,7 +9,7 @@ var BackGroundElastricity = 1.2;
 
 
 //item
-var ITEM_MAXSPEED = 800;
+var ITEM_MAXSPEED = 600;
 var ITEM_WEIGHT_FACTOR = 800;
 var ITEM_INIT_FRICTION = 0.15;
 var ITEM_INIT_ELASTICITY = 0.3;
@@ -17,15 +17,15 @@ var ITEM_MAX_SPEED = 500;
 
 
 //item controller
-var BORN_IRON_INTERVAL = 1;
-var BORN_BOMB_INTERVAL = 1;
+var BORN_IRON_INTERVAL = 100;
+var BORN_BOMB_INTERVAL = 100;
 
 
 //magnet system
 var EFFECTIVE_MAGNET_DIS = 800;
-var PLAYER_INIT_MH = 400;
-var SAFE_DIS_ADD = 0.375;
-var REPULSIVE_FORCE_MUTIPLE = 4;
+var PLAYER_INIT_MH = 350;
+var SAFE_DIS_ADD = 0.4;
+var REPULSIVE_FORCE_MUTIPLE = 2;
 
 
 //player
