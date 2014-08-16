@@ -37,4 +37,5 @@ var PLAYER_INIT_ELASTICITY = 0.3;
 var PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 0);
 
 
-
+//bomb
+var EXPLODE_TIME = 8;
