@@ -55,6 +55,8 @@ var GameLayer = cc.Layer.extend({
 
         this.createItems();
 
+        this.createScoreController();
+
         return true;
     },
 
@@ -127,6 +129,10 @@ var GameLayer = cc.Layer.extend({
     createItems : function (){
         this.itemLayer = new ItemsLayer(this);
         this.addChild(this.itemLayer, ITEM_ZORDER);
+    },
+
+    createScoreController : function(){
+      ScoreController.init(this);
     },
 
     update : function( delta ) {
