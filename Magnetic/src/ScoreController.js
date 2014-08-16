@@ -63,7 +63,7 @@ var ScoreController = {
 
         }
 
-        if (this.fp_score && this.fp_score == this.gameOver_score && !this.isGameOver){
+        if (this.fp_score && this.fp_score === this.gameOver_score && !this.isGameOver){
             this.gameOver();
         }
     },
@@ -98,7 +98,7 @@ var ScoreController = {
             }
         }
 
-        if ( this.sp_score && this.sp_score == this.gameOver_score && !this.isGameOver){
+        if ( this.sp_score && this.sp_score === this.gameOver_score && !this.isGameOver){
             this.gameOver();
         }
 
@@ -107,6 +107,12 @@ var ScoreController = {
     gameOver : function (){
 
         this.isGameOver = true;
+
+        var isNaughtyWin = this.fp_score === this.gameOver_score;
+
+        var over_layer = OverLayer.create(isNaughtyWin);
+
+        this.game_layer.getParent().addChild( over_layer );
 
     }
 
