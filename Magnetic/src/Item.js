@@ -142,7 +142,7 @@ var Bomb = Item.extend({
     update : function (dt) {
         this._super();
         this.time -= dt;
-        console.log(this.time);
+        //console.log(this.time);
         if (!this.isExplode && this.time < 0) {
             bomb_armature = ccs.Armature.create("explode");
             bomb_armature.scaleX = 2;
