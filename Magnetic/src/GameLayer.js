@@ -8,6 +8,7 @@ var KeyCode_Z = 90;
 var KeyCode_X = 88;
 var KeyCode_N = 78;
 var KeyCode_M = 77;
+
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
@@ -62,9 +63,9 @@ var GameLayer = cc.Layer.extend({
         var staticBody = space.staticBody;
 
         // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 5 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 5),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 5)	// right
+        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 20 ),				// bottom
+            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 20),				// left
+            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 20)	// right
         ];
 
         for ( var i = 0; i < walls.length; i++ ) {
