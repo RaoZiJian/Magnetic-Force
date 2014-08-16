@@ -9,7 +9,7 @@ var WallElastricity = 2.0;
 var BackGroundElastricity = 1.2;
 
 var KeyCode_Z = 90,
-    KeyCode_X = 98,
+    KeyCode_X = 88,
     KeyCode_N = 78,
     KeyCode_M = 77,
 
