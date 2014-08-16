@@ -161,12 +161,12 @@ var GameLayer = cc.Layer.extend({
 
         //ccs.A
 
-//        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
+        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
 
     },
     onExit : function () {
         this.unscheduleUpdate();
-//        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
+        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
         this._super();
     },
     onKeyPressed : function (key,event) {

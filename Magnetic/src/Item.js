@@ -126,8 +126,9 @@ var Bomb = Item.extend({
     time : EXPLODE_TIME,
     isExplode : false,
     ctor : function (file, type, x, y, sOrR) {
-        this._super(file, type, x, y, sOrR);
-        //this.scale = 1;
+        this._super(file, type, x, y , sOrR);
+        this.scale = 1;
+        this.setAnchorPoint(cc.p(0.35,0.35));
         var animFrames = [];
         for (var i = 1; i < 4; i++) {
             var str = "bomb" + i + ".png";
@@ -135,7 +136,7 @@ var Bomb = Item.extend({
             animFrames.push(frame);
         }
         var animation = cc.Animation.create(animFrames, 0.1);
-        this.scale = 1;
+
         this.runAction(cc.RepeatForever.create(cc.Animate.create(animation)));
     },
     update : function (dt) {
