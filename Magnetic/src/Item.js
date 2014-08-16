@@ -98,6 +98,15 @@ var Item = cc.Sprite.extend({
     }
 });
 
+Item.create = function(file, type, x, y, sOrR) {
+    var ret = null;
+    if (cc.pool.hasObj(Item))
+        ret = cc.pool.getFromPool(Item, file, type, x, y, sOrR);
+    else
+        ret = new Item(file, type, x, y, sOrR);
+    return ret;
+};
+
 var p = Item.prototype;
 cc.defineGetterSetter(p, "friction", p.getFriction, p.setFriction);
 cc.defineGetterSetter(p, "elasticity", p.getElasticity, p.setElasticity);
