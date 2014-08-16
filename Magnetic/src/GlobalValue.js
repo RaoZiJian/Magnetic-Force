@@ -12,7 +12,7 @@ var BackGroundElastricity = 1.2;
 //item
 var ITEM_MAXSPEED = 600,
     ITEM_WEIGHT_FACTOR = 800,
-    ITEM_INIT_FRICTION = 0.15,
+    ITEM_INIT_FRICTION = 0.25,
     ITEM_INIT_ELASTICITY = 0.3,
     ITEM_MAX_SPEED = 500,
     ITEM_SCALE_FACTOR = 2.5;
