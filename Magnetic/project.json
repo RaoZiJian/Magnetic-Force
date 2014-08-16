@@ -18,6 +18,7 @@
         "src/MagneticSystem.js",
         "src/GameLayer.js",
         "src/PlayerBody.js",
-        "src/TestLayer.js"
+        "src/TestLayer.js",
+        "src/ItemsController.js"
     ]
 }
