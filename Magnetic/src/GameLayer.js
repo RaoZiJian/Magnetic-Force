@@ -109,12 +109,12 @@ var GameLayer = cc.Layer.extend({
         this.addChild(this.f_player, PLAYER_ZORDER);
         this.f_player.isMagnetUpdated = function () {
            var f_player_label = window.document.getElementById("f_player_magnet");
-            f_player_label.innerHTML = "  s_megnet : " + this.isMagnet;
+            f_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;f_megnet : " + this.isMagnet;
             //console.log(s_player_label.innerHTML);
         };
         this.f_player.isAttractUpdated = function () {
             var f_player_label = window.document.getElementById("f_player_attratic");
-            f_player_label.innerHTML =  "  s_attratic : " + this.isAttract;
+            f_player_label.innerHTML =  "&nbsp;&nbsp;&nbsp;f_attratic : " + this.isAttract;
             //console.log(s_player_label.innerHTML);
         };
 
@@ -125,12 +125,12 @@ var GameLayer = cc.Layer.extend({
         this.addChild(this.s_player, PLAYER_ZORDER);
         this.s_player.isMagnetUpdated = function () {
             var s_player_label = window.document.getElementById("s_player_magnet");
-            s_player_label.innerHTML = "  f_megnet : " +this.isMagnet;
+            s_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;s_megnet : " +this.isMagnet;
             //console.log(s_player_label.innerHTML);
         };
         this.s_player.isAttractUpdated = function () {
             var s_player_label = window.document.getElementById("s_player_attratic");
-            s_player_label.innerHTML = "f_attratic : " +this.isAttract;
+            s_player_label.innerHTML = "&nbsp;&nbsp;&nbsp;s_attratic : " +this.isAttract;
             //console.log(s_player_label.innerHTML);
         };
 
