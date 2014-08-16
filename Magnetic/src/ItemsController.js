@@ -64,14 +64,14 @@ var ItemsLayer = cc.Layer.extend({
 
             if (cc.rectContainsPoint(Level.fp_gate_info, i_pos)){
                 //sp get goal.
-                ScoreController.addSpScore();
+                !item.dead && ScoreController.addSpScore();
                 delete_items.push(item);
 
             }
 
             else if (cc.rectContainsPoint(Level.sp_gate_info, i_pos)){
                 //fp get goal
-                ScoreController.addFpScore();
+                !item.dead && ScoreController.addFpScore();
                 delete_items.push(item);
 
             }
@@ -84,6 +84,5 @@ var ItemsLayer = cc.Layer.extend({
 
             deleteItem.die();
         }
-
     }
 });
