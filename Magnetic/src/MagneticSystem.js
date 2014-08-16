@@ -4,7 +4,7 @@
 
 
 var EFFECTIVE_MAGNET_DIS = 250;
-var PLAYER_INIT_MH = 150;
+var PLAYER_INIT_MH = 250;
 
 
 var MagneticSystem = {
@@ -57,7 +57,6 @@ var MagneticSystem = {
         var fp_f = cp.v(0, 0);
         var sp_f = cp.v(0, 0);
 
-
         //iterate items.
         for (var i = 0; i<this.other_items.length; i++){
 
@@ -98,7 +97,6 @@ var MagneticSystem = {
 
             }
 
-
             //set oi magnet.
             other_item.f = oi_f;
 
@@ -133,7 +131,7 @@ var MagneticSystem = {
 
                 var magnet_sp_f = this.s_player.mh / Math.pow(fpsp_dis/100 + 1, 3);
 
-                var fp_angle = p2pAngle(sp_angle, fp_pos);
+                var fp_angle = p2pAngle(sp_pos, fp_pos);
 
                 fp_f.x += magnet_sp_f * Math.cos(fp_angle) * sp_attract_dir;
                 fp_f.y += magnet_sp_f * Math.sin(fp_angle) * sp_attract_dir;

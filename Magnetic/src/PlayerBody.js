@@ -2,7 +2,7 @@
  * Created by chenryoutou on 14-8-15.
  */
 
-var PLAYER_WEIGHT = 10,
+var PLAYER_WEIGHT = 1,
     PLAYER_SPEED = 200;
 
 var Player = cc.Sprite.extend({
@@ -14,7 +14,7 @@ var Player = cc.Sprite.extend({
     weight : PLAYER_WEIGHT,
     maxSpeed : 200,
     r : 0,
-    friction : 0.1,
+    friction : 0.8,
     elasticity : 0.3,
 
     phyObj : null,
