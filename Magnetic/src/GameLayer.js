@@ -36,6 +36,8 @@ var GameLayer = cc.Layer.extend({
         winSize = cc.director.getWinSize();
 
         ccs.armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
+        ccs.armatureDataManager.addArmatureFileInfo(res.Explode_exportJSON);
+        cc.spriteFrameCache.addSpriteFrames(res.Bomb_plist);
 //        var armature = ccs.Armature.create("robot");
 //        armature.getAnimation().playWithIndex(2);
 //        armature.setPosition(200,300);
@@ -54,6 +56,8 @@ var GameLayer = cc.Layer.extend({
         this.createMagnetSystem();
 
         this.createItems();
+
+        this.createScoreController();
 
         return true;
     },
@@ -89,9 +93,9 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
-        this.f_player = new Player("robot", 50, 300, 57);
-        var index = [0,1,2];
-        this.f_player.getAnimation().playWithIndexes(index,true);
+        this.f_player = new Player("robot", 50, winSize.width/6, 57);
+        //var index = [5];
+        this.f_player.getAnimation().playWithIndex(0);
         this.addChild(this.f_player, PLAYER_ZORDER);
 //        this.f_player.isMagnetUpdated = function () {
 //           var f_player_label = window.document.getElementById("f_player_magnet");
@@ -104,10 +108,8 @@ var GameLayer = cc.Layer.extend({
 //            //console.log(s_player_label.innerHTML);
 //        };
 
-
-
-        this.s_player = new Player("robot", 50, 400, 57);
-
+        this.s_player = new Player("robot", 50, winSize.width/6*5, 57);
+        this.s_player.getAnimation().playWithIndex(3);
         this.addChild(this.s_player, PLAYER_ZORDER);
 //        this.s_player.isMagnetUpdated = function () {
 //            var s_player_label = window.document.getElementById("s_player_magnet");
@@ -129,6 +131,10 @@ var GameLayer = cc.Layer.extend({
     createItems : function (){
         this.itemLayer = new ItemsLayer(this);
         this.addChild(this.itemLayer, ITEM_ZORDER);
+    },
+
+    createScoreController : function(){
+      ScoreController.init(this);
     },
 
     update : function( delta ) {
@@ -211,13 +217,13 @@ var GameLayer = cc.Layer.extend({
         var shapes = arb.getShapes();
         var player = shapes[0];
         var item = shapes[1];
-        //player.eatItem();
-        var armature = player.date;
-        if(armature){
-            console.log(armature);
-        }
+        var armature = player.obj.view;
+//        if(armature){
+//            console.log(armature);
+//        }
+
         //console.log(armature);
-       // armature.eatItem();
+//       armature.eatItem();
 
         return true;
     }
