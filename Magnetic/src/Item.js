@@ -144,19 +144,20 @@ var Bomb = Item.extend({
         this.time -= dt;
         //console.log(this.time);
         if (!this.isExplode && this.time < 0) {
+            this.isExplode = true;
             bomb_armature = ccs.Armature.create("explode");
-            bomb_armature.scaleX = 1;
-            bomb_armature.scaleY = 1;
+            bomb_armature.scaleX = 2;
+            bomb_armature.scaleY = 2;
             bomb_armature.getAnimation().playWithIndex(0);
             bomb_armature.setPosition(this.getPosition());
             this.getParent().addChild(bomb_armature);
-            this.isExplode = true;
+
         }
 
         if (this.isExplode) {
             if (bomb_armature.getAnimation().isComplete()) {
-                bomb_armature.removeFromParent();
                 this.die();
+                bomb_armature.removeFromParentAndCleanup(true);
             }
         }
     }

@@ -367,7 +367,7 @@
       "mov_data": [
         {
           "name": "explode",
-          "dr": 41,
+          "dr": 54,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -408,7 +408,28 @@
                   "cY": 0.6999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 30,
+                  "fi": 28,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 0,
+                  "x": -0.33063411712646484,
+                  "y": 23.771881103515625,
+                  "z": 0,
+                  "cX": 0.6999999,
+                  "cY": 0.6999999,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 38,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -429,7 +450,7 @@
                   "cY": 0.799999952,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -477,7 +498,7 @@
                   "cY": 0.4,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -498,7 +519,7 @@
                   "cY": 0.5,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -519,7 +540,7 @@
                   "cY": 0.799999952,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -540,7 +561,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -588,7 +609,7 @@
                   "cY": 0.3,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -609,7 +630,7 @@
                   "cY": 0.5,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -630,7 +651,7 @@
                   "cY": 0.799999952,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -651,7 +672,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -699,7 +720,7 @@
                   "cY": 0.5999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -720,7 +741,7 @@
                   "cY": 0.5999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -741,7 +762,7 @@
                   "cY": 0.799999952,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -762,7 +783,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -810,7 +831,7 @@
                   "cY": 0.5,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -831,7 +852,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -852,7 +873,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -873,7 +894,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -921,7 +942,7 @@
                   "cY": 0.5,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -942,7 +963,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -963,7 +984,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -984,7 +1005,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1032,7 +1053,7 @@
                   "cY": 0.4999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -1053,7 +1074,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1074,7 +1095,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1095,7 +1116,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1143,7 +1164,7 @@
                   "cY": 0.4999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -1164,7 +1185,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1185,7 +1206,7 @@
                   "cY": 0.4999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1206,7 +1227,7 @@
                   "cY": 0.4999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1254,7 +1275,7 @@
                   "cY": 0.4999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -1275,7 +1296,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1296,7 +1317,7 @@
                   "cY": 0.4999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1317,7 +1338,7 @@
                   "cY": 0.4999999,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1365,7 +1386,7 @@
                   "cY": 0.4999999,
                   "kX": -0.4886922,
                   "kY": 0.4886922,
-                  "fi": 8,
+                  "fi": 10,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -1386,7 +1407,7 @@
                   "cY": 1.0,
                   "kX": -0.4886922,
                   "kY": 0.4886922,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1407,7 +1428,7 @@
                   "cY": 0.4999999,
                   "kX": -0.4886922,
                   "kY": 0.4886922,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1428,7 +1449,7 @@
                   "cY": 0.4999999,
                   "kX": -0.4886922,
                   "kY": 0.4886922,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1476,7 +1497,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 20,
+                  "fi": 23,
                   "twE": 2,
                   "tweenFrame": true,
                   "color": {
@@ -1497,7 +1518,7 @@
                   "cY": 1.4000001,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 35,
+                  "fi": 44,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
@@ -1518,7 +1539,7 @@
                   "cY": 1.4000001,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 40,
+                  "fi": 53,
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
