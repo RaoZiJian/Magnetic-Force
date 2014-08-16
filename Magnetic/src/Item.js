@@ -56,7 +56,7 @@ var Item = cc.Sprite.extend({
         }
         this.phyObj.setFriction(this._friction);
         this.phyObj.setElasticity(this._elasticity);
-        this.phyObj.shape.setCollisionType(Player.COL_TYPE);
+        this.phyObj.shape.setCollisionType(Item.COL_TYPE);
     },
 
     update : function() {
@@ -120,7 +120,7 @@ var p = Item.prototype;
 cc.defineGetterSetter(p, "friction", p.getFriction, p.setFriction);
 cc.defineGetterSetter(p, "elasticity", p.getElasticity, p.setElasticity);
 
-Item.COL_TYPE = 0;
+Item.COL_TYPE = 1;
 
 Item.CIRCLE_SHAPE = 0;
 Item.RECT_SHAPE = 1;
