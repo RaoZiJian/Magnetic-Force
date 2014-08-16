@@ -8,6 +8,8 @@ var PLAYER_INIT_MH = 200;
 
 var SAFE_DIS_ADD = 0.5;
 
+var REPULSIVE_FORCE_MUTIPLE = 1.0;
+
 var MagneticSystem = {
 
     f_player : null,
@@ -47,8 +49,10 @@ var MagneticSystem = {
             return;
         }
 
-        var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
-        var sp_attract_dir = this.s_player.isAttract ? 1 : -1;
+//        var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
+        var fp_attract_dir = this.f_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
+//        var sp_attract_dir = this.s_player.isAttract ? 1 : -1;
+        var sp_attract_dir = this.s_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
 
         var fp_pos = this.f_player.phyObj.body.getPos();
         var sp_pos = this.s_player.phyObj.body.getPos();
