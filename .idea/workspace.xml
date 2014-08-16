@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d497aa4-09d9-4efa-bf55-8a285b7208e7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Magnetic/src/GameLayer.js" afterPath="$PROJECT_DIR$/Magnetic/src/GameLayer.js" />
     </list>
     <ignored path="Magnetic.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +28,23 @@
       <file leaf-file-name="GameLayer.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Magnetic/src/GameLayer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37397036" vertical-offset="1578" max-vertical-offset="2242">
-              <caret line="95" column="3" selection-start-line="95" selection-start-column="3" selection-end-line="95" selection-end-column="3" />
+            <state vertical-scroll-proportion="-0.016949153" vertical-offset="1203" max-vertical-offset="3971">
+              <caret line="93" column="42" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="42" />
+              <folding>
+                <element signature="e#613#755#0" expanded="false" />
+                <element signature="e#789#944#0" expanded="false" />
+                <element signature="e#977#1070#0" expanded="false" />
+                <element signature="e#1102#1742#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayerBody.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Magnetic/src/PlayerBody.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="1634">
+              <caret line="9" column="12" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -45,14 +60,26 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Magnetic/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="266">
+              <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="project.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Magnetic/project.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.571428" vertical-offset="0" max-vertical-offset="532">
-              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+            <state vertical-scroll-proportion="-13.571428" vertical-offset="38" max-vertical-offset="551">
+              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
               <folding>
-                <marker date="1408120601186" expanded="true" signature="36:466" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
-                <marker date="1408120601186" expanded="true" signature="309:464" placeholder="[...]" />
+                <marker date="1408150457632" expanded="true" signature="36:495" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
+                <marker date="1408150457632" expanded="true" signature="36:495" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
+                <marker date="1408150457632" expanded="true" signature="309:493" placeholder="[...]" />
+                <marker date="1408150457632" expanded="true" signature="309:493" placeholder="[...]" />
               </folding>
             </state>
           </provider>
@@ -73,9 +100,9 @@
       <list>
         <option value="$PROJECT_DIR$/Magnetic/project.json" />
         <option value="$PROJECT_DIR$/Magnetic/index.html" />
-        <option value="$PROJECT_DIR$/Magnetic/src/GameLayer.js" />
         <option value="$PROJECT_DIR$/Magnetic/main.js" />
         <option value="$PROJECT_DIR$/Magnetic/src/TestLayer.js" />
+        <option value="$PROJECT_DIR$/Magnetic/src/GameLayer.js" />
       </list>
     </option>
   </component>
@@ -140,6 +167,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Magnetic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Magnetic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Magnetic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Magnetic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -232,7 +277,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1647145" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39905363" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39905363" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -263,14 +308,21 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Magnetic/src/GameLayer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1774" max-vertical-offset="2242">
           <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-          <folding />
+          <folding>
+            <element signature="e#613#755#0" expanded="false" />
+            <element signature="e#789#944#0" expanded="false" />
+            <element signature="e#977#1070#0" expanded="false" />
+            <element signature="e#1102#1742#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -287,8 +339,10 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="532">
           <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding>
-            <marker date="1408120601186" expanded="true" signature="36:466" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
-            <marker date="1408120601186" expanded="true" signature="309:464" placeholder="[...]" />
+            <marker date="1408150457632" expanded="true" signature="36:495" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
+            <marker date="1408150457632" expanded="true" signature="36:495" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
+            <marker date="1408150457632" expanded="true" signature="309:493" placeholder="[...]" />
+            <marker date="1408150457632" expanded="true" signature="309:493" placeholder="[...]" />
           </folding>
         </state>
       </provider>
@@ -328,17 +382,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Magnetic/src/PlayerBody.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6101695" vertical-offset="570" max-vertical-offset="1596">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Magnetic/src/physics.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.9661017" vertical-offset="342" max-vertical-offset="3268">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -362,22 +410,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Magnetic/main.js">
+    <entry file="file://$PROJECT_DIR$/Magnetic/project.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12520593" vertical-offset="0" max-vertical-offset="607">
-          <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
+        <state vertical-scroll-proportion="-13.571428" vertical-offset="38" max-vertical-offset="551">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <marker date="1408150457632" expanded="true" signature="36:495" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
+            <marker date="1408150457632" expanded="true" signature="36:495" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
+            <marker date="1408150457632" expanded="true" signature="309:493" placeholder="[...]" />
+            <marker date="1408150457632" expanded="true" signature="309:493" placeholder="[...]" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Magnetic/frameworks/cocos2d-html5/cocos2d/core/event-manager/CCEvent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1174" max-vertical-offset="7353">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Magnetic/project.json">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.571428" vertical-offset="0" max-vertical-offset="532">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding>
-            <marker date="1408120601186" expanded="true" signature="36:466" placeholder="{&quot;id&quot;: &quot;gameCanvas&quot;...}" />
-            <marker date="1408120601186" expanded="true" signature="309:464" placeholder="[...]" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="40917" max-vertical-offset="72504">
+          <caret line="526" column="0" selection-start-line="526" selection-start-column="0" selection-end-line="526" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -389,11 +447,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Magnetic/res/CloseNormal.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Magnetic/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="266">
+          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Magnetic/src/PlayerBody.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="1634">
+          <caret line="9" column="12" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Magnetic/src/GameLayer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37397036" vertical-offset="1578" max-vertical-offset="2242">
-          <caret line="95" column="3" selection-start-line="95" selection-start-column="3" selection-end-line="95" selection-end-column="3" />
-          <folding />
+        <state vertical-scroll-proportion="-0.016949153" vertical-offset="1203" max-vertical-offset="3971">
+          <caret line="93" column="42" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="42" />
+          <folding>
+            <element signature="e#613#755#0" expanded="false" />
+            <element signature="e#789#944#0" expanded="false" />
+            <element signature="e#977#1070#0" expanded="false" />
+            <element signature="e#1102#1742#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

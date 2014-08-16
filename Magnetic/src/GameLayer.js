@@ -4,6 +4,10 @@
 
 var winSize = null;
 
+var KeyCode_Z = 90;
+var KeyCode_X = 98;
+var KeyCode_N = 78;
+var KeyCode_M = 77;
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
@@ -68,14 +72,14 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
-        this.f_player = new Player(res.CloseNormal_png, 20, 100, 200);
+        this.f_player = new Player(res.CloseNormal_png, 20, 100, 25);
         this.addChild(this.f_player);
 
 //        this.space.addBody(f_player.phyObj.body);
 //        this.space.addShape(f_player.phyObj.shape);
 
 
-        this.s_player = new Player(res.CloseNormal_png, 20, 300, 200);
+        this.s_player = new Player(res.CloseNormal_png, 20, 300, 25);
         this.addChild(this.s_player);
 
 //        this.space.addBody(s_player.phyObj.body);
@@ -87,8 +91,8 @@ var GameLayer = cc.Layer.extend({
         MagneticSystem.init(this, this.f_player.phyObj.body, this.s_player.phyObj.body);
 
         //test
-        this.f_player.phyObj.body.isMagnet = true;
-        this.s_player.phyObj.body.isMagnet = true;
+        this.f_player.phyObj.body.isMagnet = false;
+        this.s_player.phyObj.body.isMagnet = false;
 
         var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 20, cp.v(0, 0)));
         var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
@@ -156,12 +160,57 @@ var GameLayer = cc.Layer.extend({
         this._super();
         this.scheduleUpdate();
 
+        //button listener
+        cc.eventManager.addListener({
+            event : cc.EventListener.KEYBOARD,
+            onKeyPressed : this.onKeyReleased,
+            onKeyReleased: this.onKeyPressed
+        },this);
         //setup game begin.
         this.isBegin = true;
     },
     onExit : function () {
         this.unscheduleUpdate();
         this._super();
+    },
+    onKeyPressed : function (key,event) {
+        console.log(key.toString());
+        switch (key) {
+            case KeyCode_M:
+                this.s_player.phyObj.body.isMagnet = true;
+                this.s_player.phyObj.body.isAttract = false;
+                break;
+            case KeyCode_N:
+                this.s_player.phyObj.body.isMagnet = true;
+                this.s_player.phyObj.body.isAttract = true;
+                break;
+                break;
+            case KeyCode_X:
+                this.f_player.phyObj.body.isMagnet = true;
+                this.f_player.phyObj.body.isAttract = false;
+                break;
+            case KeyCode_Z:
+                this.f_player.phyObj.body.isMagnet = true;
+                this.f_player.phyObj.body.isAttract = true;
+                break;
+            default :
+                break;
+        }
+    },
+    onKeyReleased : function (key,event) {
+        console.log(key.toString());
+        switch (key) {
+            case KeyCode_M:
+            case KeyCode_N:
+                this.s_player.phyObj.body.isMagnet = false;
+                break;
+            case KeyCode_X:
+            case KeyCode_Z:
+                this.f_player.phyObj.body.isMagnet = false;
+                break;
+            default :
+                break;
+        }
     }
 
 
