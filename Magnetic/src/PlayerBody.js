@@ -84,7 +84,7 @@ var Player = ccs.Armature.extend({
 
     },
     eatItem : function () {
-        console.log("aaa");
+        console.log("bbbbbbbbbbbbbb");
         // create sprite sheet
 //        cc.spriteFrameCache.addSpriteFrames(res.Robot_plist);
 //        this.spriteSheet = cc.SpriteBatchNode.create(res.Robot_png);

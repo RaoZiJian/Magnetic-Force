@@ -161,7 +161,8 @@ var GameLayer = cc.Layer.extend({
 
         //ccs.A
 
-        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
+        this.space.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
+        this.space.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
 
     },
     onExit : function () {
@@ -218,12 +219,25 @@ var GameLayer = cc.Layer.extend({
         var player = shapes[0];
         var item = shapes[1];
         var armature = player.obj.view;
+//        console.log("aaaaaaaa");
 //        if(armature){
-//            console.log(armature);
+//            console.log(armature.eatItem());
 //        }
 
         //console.log(armature);
-//       armature.eatItem();
+//        if(armature){
+//            armature.eatItem();
+//        }
+
+
+        return true;
+    },
+    playerHitGround : function (arb, space, ptr) {
+        var shapes = arb.getShapes();
+        var player = shapes[0];
+        var ground = shapes[1];
+
+//        console.log("ffffffff_hit ground");
 
         return true;
     }
