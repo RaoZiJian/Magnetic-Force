@@ -77,7 +77,7 @@ var Player = cc.Sprite.extend({
     jump : function (){
 
         if(this.y < 80){
-            this.phyObj.body.vy += 300;
+            this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y;
         }
 
     }
