@@ -22,7 +22,7 @@ var Item = cc.Sprite.extend({
         else {
             this.scaleX = sOrR.width / size.width;
             this.scaleY = sOrR.height / size.height;
-            this.weight = sOrR.width + sOrR.height / ITEM_WEIGHT_FACTOR;
+            this.weight =(sOrR.width + sOrR.height) / ITEM_WEIGHT_FACTOR;
         }
         this.maxSpeed = ITEM_MAXSPEED;
 
