@@ -142,6 +142,7 @@ var Bomb = Item.extend({
     anime : null,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
+        this.phyObj.shape.setCollisionType(Bomb.COL_TYPE);
         this.scale = 1;
         this.setAnchorPoint(cc.p(0.35,0.35));
         var animFrames = [];
@@ -245,6 +246,7 @@ var Bomb = Item.extend({
     }
 });
 
+Bomb.COL_TYPE = GLOBAL_COL_TYPE++;
 Bomb.EXPLODE_COL_TYPE = GLOBAL_COL_TYPE++;
 Bomb.create = function (file, type, x, y, sOrR) {
     var ret = null;
@@ -271,9 +273,25 @@ var Trampoline = cc.Sprite.extend({
         this.rotation = 180;
 
         this.phyObj = new StaticObject(x, y, w, h, this);
-        this.phyObj.top.setCollisionType(Trampoline.COL_TYPE);
+        this.phyObj.shape.setCollisionType(Trampoline.COL_TYPE);
     }
 });
 
 Trampoline.COL_TYPE = GLOBAL_COL_TYPE++;
 Trampoline.JUMP_FACTOR = 5;
+
+var CornerTrampoline = Trampoline.extend({
+    texfile : res.Spring,
+
+    ctor : function (objDesc) {
+        this._super(objDesc);
+        this.phyObj.shape.setCollisionType(CornerTrampoline.COL_TYPE);
+
+        if (this.x > cc.winSize.width/2) {
+            this.flippedX = true;
+            this.rotation = 45;
+        }
+        else this.rotation = -45;
+    }
+});
+CornerTrampoline.COL_TYPE = GLOBAL_COL_TYPE++;

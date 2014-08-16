@@ -74,6 +74,10 @@ var GameLayer = cc.Layer.extend({
         back.y = 0;
         back.anchorY = 0;
 
+        var ground = new cc.Sprite(res.Ground);
+        ground.x = cc.winSize.width/2;
+        ground.y = ground.height/2;
+
         var tube = new cc.Sprite(res.Tube);
         tube.x = cc.winSize.width / 2 - 5;
         tube.y = cc.winSize.height - 185;
@@ -91,6 +95,7 @@ var GameLayer = cc.Layer.extend({
         right_gate.setAnchorPoint(cc.p(1,0));
 
         this.addChild(back, BACK_ZORDER);
+        this.addChild(ground, BACK_ZORDER);
         this.addChild(tube, TUBE_ZORDER);
         this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
         this.addChild(right_gate,BACK_ZORDER,RIGHT_GATE_TAG);
@@ -190,6 +195,8 @@ var GameLayer = cc.Layer.extend({
         this.space.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
         this.space.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
         this.space.addCollisionHandler(Player.COL_TYPE, Trampoline.COL_TYPE, null, this.playerHitTrampoline, null, null);
+        this.space.addCollisionHandler(Player.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
+        this.space.addCollisionHandler(Bomb.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
 //        this.space.addCollisionHandler(Player.COL_TYPE, Bomb.EXPLODE_COL_TYPE, null, this.playerHitGround, null, null);
 
     },
@@ -259,7 +266,8 @@ var GameLayer = cc.Layer.extend({
 
 //        var parentLayer = player.obj.view.parent;
 //        if(!parentLayer.isEffectPlaying){
-//            cc.audioEngine.playEffect(res.hit2_ogg,false);
+//
+//                cc.audioEngine.playEffect(res.hit2_ogg,false);
 //            parentLayer.isEffectPlaying = true;
 //            parentLayer.scheduleOnce(parentLayer.resetEffect, 2);
 //        }
@@ -288,6 +296,12 @@ var GameLayer = cc.Layer.extend({
         var shapes = arb.getShapes();
         var player = shapes[0].obj.view;
         player.jump(Trampoline.JUMP_FACTOR);
+    },
+    hitTrampoline : function (arb) {
+        var shapes = arb.getShapes();
+        var target = shapes[0];
+        target.body.vx += BOMB_JUMP_ADD_SPEED * Trampoline.JUMP_FACTOR;
+        target.body.vy += BOMB_JUMP_ADD_SPEED * Trampoline.JUMP_FACTOR;
     },
 
     playerBeExplode : function (arb, space, ptr) {
