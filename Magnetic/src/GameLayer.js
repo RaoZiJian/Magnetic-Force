@@ -84,7 +84,7 @@ var GameLayer = cc.Layer.extend({
     },
     createWalls : function () {
 
-        Level.createLevel_1(this, this.space);
+        Level.createLevel(res.Level1);
 
     },
     createPlayers : function () {

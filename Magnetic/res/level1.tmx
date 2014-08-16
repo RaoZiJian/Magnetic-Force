@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="1" height="1" tilewidth="1280" tileheight="768">
+ <objectgroup name="Wall" width="1" height="1">
+  <properties>
+   <property name="className" value="null"/>
+  </properties>
+  <object x="-170" y="382">
+   <polygon points="0,0 496,379 2,382"/>
+  </object>
+  <object x="-9" y="749" width="1303" height="42"/>
+  <object x="-4" y="114" width="17" height="751"/>
+  <object x="1259" y="209" width="23" height="686"/>
+  <object x="792" y="823">
+   <polygon points="0,0 254,-199 408,-111 372,5 67,28"/>
+  </object>
+ </objectgroup>
+</map>

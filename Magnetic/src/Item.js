@@ -14,7 +14,7 @@ var Item = cc.Sprite.extend({
 
         var isCircle = type == Item.CIRCLE_SHAPE;
 
-        var size = this.texture.getContentSize();
+        var size = this.getContentSize();
         if (isCircle) {
             this.scale = sOrR * 2 / size.width;
             this.weight = sOrR * 4 / ITEM_WEIGHT_FACTOR;
@@ -71,8 +71,12 @@ var Item = cc.Sprite.extend({
         this.rotation = -180 * this.phyObj.body.a / Math.PI;
     },
 
-    die : function () {
+    _realDie : function() {
         cc.pool.putInPool(this);
+    },
+
+    die : function () {
+        this.scheduleOnce(this._realDie, 0);
     },
 
     unuse : function() {
@@ -82,6 +86,7 @@ var Item = cc.Sprite.extend({
         this.retain();
     },
     reuse : function(file, type, x, y, sOrR) {
+        this.release();
         var tex = cc.textureCache.textureForKey(file);
         var size = this.texture.getContentSize();
         this.setTexture(tex);

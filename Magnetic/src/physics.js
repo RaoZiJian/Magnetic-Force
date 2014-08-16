@@ -74,6 +74,25 @@ var StaticObject = cc.Class.extend({
         Physics.world.removeShape(this.right);
     }
 });
+var StaticPolyObject = cc.Class.extend({
+    view: null,
+    shape: null,
+    ctor : function(view, verts, offset) {
+        this.shape = new cp.PolyShape(Physics.world.staticBody, verts, offset || cp.v(0, 0));
+        Physics.world.addShape(this.shape);
+        this.shape.obj = this;
+        this.view = view;
+    },
+
+    setFriction: function(u) {
+        this.shape.setFriction(u);
+    },
+
+    removeSelf: function () {
+        Physics.world.removeShape(this.shape);
+    }
+});
+
 var StaticSensor = cc.Class.extend({
     view: null,
     shape: null,
