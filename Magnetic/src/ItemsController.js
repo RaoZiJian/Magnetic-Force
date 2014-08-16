@@ -9,7 +9,6 @@ var ItemsLayer = cc.Layer.extend({
     ctor : function(game_layer){
         this._super();
         this.game_layer = game_layer;
-        this.items = [];
     },
 
     addItem : function (tex, type, sOrR, friction, elasticity) {
@@ -47,5 +46,42 @@ var ItemsLayer = cc.Layer.extend({
         for (var i = 0; i < children.length; ++i) {
             children[i].update && children[i].update(dt);
         }
+
+
+        this.checkForGoal();
+    },
+
+    checkForGoal : function (){
+
+        var delete_items = [];
+        var items = this.children;
+
+        for (var i = 0; i<items.length; i++){
+
+            var item = items[i];
+
+            var i_pos = item.getPosition();
+
+            if (Level.fp_gate_info.containPoint(i_pos)){
+                //sp get goal.
+                ScoreController.addSpScore();
+                delete_items.push(item);
+            }
+
+            if (Level.sp_gate_info.containPoint(i_pos)){
+                //fp get goal
+                ScoreController.addFpScore();
+                delete_items.push(item);
+            }
+
+        }
+
+
+        for ( var i = 0; i < delete_items.length; i++){
+            var deleteItem = delete_items[i];
+
+            delete_items.die();
+        }
+
     }
 });
