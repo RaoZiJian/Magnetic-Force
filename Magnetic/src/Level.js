@@ -10,9 +10,9 @@ var Level = {
         var staticBody = space.staticBody;
 
         // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 10 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 10),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 10),	// right
+        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 15 ),				// bottom
+            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 15),				// left
+            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 15),	// right
 
             new cp.SegmentShape( staticBody, cp.v(0, winSize.height/6), cp.v(winSize.width/10, 0), 10),
             new cp.SegmentShape( staticBody, cp.v(winSize.width * 9/10, 0), cp.v(winSize.width, winSize.height/6), 10),
