@@ -82,10 +82,8 @@ var Item = cc.Sprite.extend({
         this.retain();
     },
     reuse : function(file, type, x, y, sOrR) {
-        var tex = cc.textureCache.textureForKey(file);
-        var size = this.texture.getContentSize();
-        this.setTexture(tex);
-        this.setTextureRect(cc.rect(0, 0, size.width, size.height));
+        this.setSpriteFrame(file.substr(1));
+        var size = this.getContentSize();
 
         var isCircle = type == Item.CIRCLE_SHAPE;
         if (isCircle) {
