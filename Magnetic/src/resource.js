@@ -2,7 +2,7 @@ var res = {
     HelloWorld_png : "res/HelloWorld.png",
     CloseNormal_png : "res/CloseNormal.png",
     CloseSelected_png : "res/CloseSelected.png",
-    BackgroundA : "res/sceneAbg.png",
+    BackgroundA : "res/sceneA.jpg",
     RobotA: "res/robotA.png",
     RobotB: "res/robotB.png",
     BombA: "res/bombA.png",

@@ -61,11 +61,56 @@ var Item = cc.Sprite.extend({
 
     update : function() {
         var pos = this.phyObj.getPosition();
+        if (pos.x < -50 || pos.x > cc.winSize.width + 50 || pos.y < -50) {
+            this.die();
+            return;
+        }
+
         this.x = pos.x;
         this.y = pos.y;
         this.rotation = -180 * this.phyObj.body.a / Math.PI;
+    },
+
+    die : function () {
+        cc.pool.putInPool(this);
+    },
+
+    unuse : function() {
+        this.phyObj.removeSelf();
+        this.phyObj = null;
+        this.removeFromParent(true);
+        this.retain();
+    },
+    reuse : function(file, type, x, y, sOrR) {
+        var tex = cc.textureCache.textureForKey(file);
+        var size = this.texture.getContentSize();
+        this.setTexture(tex);
+        this.setTextureRect(cc.rect(0, 0, size.width, size.height));
+
+        var isCircle = type == Item.CIRCLE_SHAPE;
+        if (isCircle) {
+            this.scale = sOrR * 2 / size.width;
+            this.weight = sOrR * 4 / ITEM_WEIGHT_FACTOR;
+        }
+        else {
+            this.scaleX = sOrR.width / size.width;
+            this.scaleY = sOrR.height / size.height;
+            this.weight = (sOrR.width + sOrR.height) / ITEM_WEIGHT_FACTOR;
+        }
+        this.maxSpeed = ITEM_MAXSPEED;
+
+        this.initPhysics(isCircle, x, y, sOrR);
     }
 });
+
+Item.create = function(file, type, x, y, sOrR) {
+    var ret = null;
+    if (cc.pool.hasObj(Item))
+        ret = cc.pool.getFromPool(Item, file, type, x, y, sOrR);
+    else
+        ret = new Item(file, type, x, y, sOrR);
+    return ret;
+};
 
 var p = Item.prototype;
 cc.defineGetterSetter(p, "friction", p.getFriction, p.setFriction);

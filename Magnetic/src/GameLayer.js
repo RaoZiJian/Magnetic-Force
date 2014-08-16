@@ -211,6 +211,7 @@ var GameLayer = cc.Layer.extend({
         var shapes = arb.getShapes();
         var player = shapes[0];
         var item = shapes[1];
+        //player.eatItem();
         var armature = player.date;
         if(armature){
             console.log(armature);

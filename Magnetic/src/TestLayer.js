@@ -21,7 +21,6 @@ var TestLayer = GameLayer.extend({
         var sprite = cc.PhysicsSprite.create(res.CloseNormal_png);
         sprite.setBody( body );
         return sprite;
-
     }
 });
 
