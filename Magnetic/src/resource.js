@@ -17,7 +17,9 @@ var res = {
     hit3_ogg:"res/audio/hit3.ogg",
 
     Fire_plist : "res/fire.plist",
-    Gate_plist:"res/gate.plist"
+    Gate_plist:"res/gate.plist",
+    House_png : "res/house.png",
+    House_plist : "res/house.plist"
 };
 
 var g_resources = [];

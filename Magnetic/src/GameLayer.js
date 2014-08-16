@@ -11,7 +11,9 @@ var KeyCode_Z = 90,
 
     BACK_ZORDER = 0,
     PLAYER_ZORDER = 10,
-    TUBE_ZORDER = 200;
+    TUBE_ZORDER = 200,
+    LEFT_GATE_TAG = 103,
+    RIGHT_GATE_TAG = 104,
     ITEM_ZORDER = 11;
 
 var GameLayer = cc.Layer.extend({
@@ -38,13 +40,13 @@ var GameLayer = cc.Layer.extend({
 
         winSize = cc.director.getWinSize();
 
-        ccs.armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
-        ccs.armatureDataManager.addArmatureFileInfo(res.Explode_exportJSON);
-        cc.spriteFrameCache.addSpriteFrames(res.Bomb_plist);
+
 //        var armature = ccs.Armature.create("robot");
 //        armature.getAnimation().playWithIndex(2);
 //        armature.setPosition(200,300);
 //        this.addChild(armature,100);
+
+        this.loadResoure();
 
         this.createBackground();
 
@@ -75,8 +77,22 @@ var GameLayer = cc.Layer.extend({
         tube.x = cc.winSize.width / 2 - 5;
         tube.y = cc.winSize.height - 185;
         tube.anchorY = 0;
+
+        //left gate
+        var spriteFrameCache = cc.spriteFrameCache;
+        var left_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("purpleA.png"));
+        left_gate.setPosition(cc.p(0,0));
+        left_gate.setAnchorPoint(cc.p(0,0));
+
+        //right gate
+        var right_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("redA.png"));
+        right_gate.setPosition(cc.p(cc.winSize.width, 0));
+        right_gate.setAnchorPoint(cc.p(1,0));
+
         this.addChild(back, BACK_ZORDER);
         this.addChild(tube,TUBE_ZORDER);
+        this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
+        this.addChild(right_gate,BACK_ZORDER,RIGHT_GATE_TAG);
     },
 
     createPhysicsWorld : function () {
@@ -269,6 +285,15 @@ var GameLayer = cc.Layer.extend({
 
     resetEffect:function(){
         this.isEffectPlaying=false;
+    },
+    loadResoure : function () {
+        var armatureDataManager = ccs.armatureDataManager;
+        armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
+        armatureDataManager.addArmatureFileInfo(res.Explode_exportJSON);
+        var spriteFrameCache = cc.spriteFrameCache;
+        spriteFrameCache.addSpriteFrames(res.Bomb_plist);
+        spriteFrameCache.addSpriteFrames(res.House_plist);
+
     }
 });
 
