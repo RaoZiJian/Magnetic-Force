@@ -33,6 +33,8 @@ var Player = cc.Sprite.extend({
         this.maxSpeed = PLAYER_MAX_SPEED;
 
         this.initPhysics(x, y, this.r);
+
+        //this.eatItem();
     },
 
     setMagnet : function(magnet) {
@@ -95,6 +97,16 @@ var Player = cc.Sprite.extend({
 //
 //        var animation = cc.Animation.create(animFrames, 0.1);
 //        this.runningAction = cc.RepeatForever.create(cc.Animate.create(animation));
+
+        var frameCache = cc.spriteFrameCache;
+        frameCache.addSpriteFrames(res.Robot_plist);
+        var animCache = cc.animationCache;
+        animCache.addAnimations(res.Robot_plist);
+
+        var mouthOpen = animCache.getAnimation("Awaiting");
+        mouthOpen.setRestoreOriginalFrame(true);
+
+        this.runAction(cc.animate(mouthOpen));
 
     }
 

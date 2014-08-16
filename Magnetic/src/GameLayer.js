@@ -166,10 +166,8 @@ var GameLayer = cc.Layer.extend({
         //setup game begin.
         this.isBegin = true;
 
-        cc.armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
-        var armature = new cc.Armature("robot");
-        armature.getAnimation.playActionByName("AmouthOpen");
-        this.addChild(armature);
+        //ccs.A
+        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
 
     },
     onExit : function () {
@@ -223,8 +221,10 @@ var GameLayer = cc.Layer.extend({
         var shapes = arb.getShapes();
         var player = shapes[0];
         var item = shapes[1];
-        console.log("aaa");
+        console.log(player);
         //player.eatItem();
+
+        return true;
     }
 
 });

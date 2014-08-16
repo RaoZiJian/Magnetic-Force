@@ -8,7 +8,7 @@ var res = {
     BombA: "res/bombA.png",
     Robot_plist : "res/animation/robot/robot0.plist",
     Robot_png : "res/animation/robot/robot0.png",
-    Robot_exportJSON : "res/animation/robot/robot0.ExportJson"
+    Robot_exportJSON : "res/animation/robot/robot.ExportJson"
 };
 
 var g_resources = [];
