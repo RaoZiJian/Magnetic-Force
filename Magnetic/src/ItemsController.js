@@ -1,28 +1,31 @@
-/**
- * Created by chenryoutou on 14-8-16.
- */
-
 
 var BORN_IRON_INTERVAL = 3;
 var BORN_BOMB_INTERVAL = 5;
 
-var ItemsController = {
-
-
+var ItemsLayer = cc.Layer.extend({
     game_layer : null,
 
     born_iron_interval : 5,
     born_bomb_interval : 5,
 
-
-    init : function(game_layer){
-
+    ctor : function(game_layer){
+        this._super();
         this.game_layer = game_layer;
+        this.items = [];
+    },
 
+    addItem : function (tex, w, h, friction, elasticity) {
+        var x = Math.random() * 750 + 50;
+        var y = Math.random() * 200 + 450;
+        var item = new Item(tex, w, h, x, y);
+        friction !== undefined && (item.friction = friction);
+        elasticity !== undefined && (item.elasticity = elasticity);
+
+        MagneticSystem.addOtherItem(item.phyObj.body);
+        this.addChild(item);
     },
 
     update : function ( dt ){
-
         if ( !this.game_layer.isBegin){
             return false;
         }
@@ -32,62 +35,19 @@ var ItemsController = {
 
         //born iron.
         if (this.born_iron_interval < 0){
-
             this.born_iron_interval = BORN_IRON_INTERVAL;BORN_IRON_INTERVAL+= 1;
-
-            var test_body = new cp.Body(0.1, cp.momentForBox(0.1, 30, 30));
-//            var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
-            var test_shape = new cp.BoxShape(test_body, 30, 30);
-            test_shape.setFriction(0.25);
-            test_shape.setElasticity(0.3);
-
-            var winsize = cc.director.getWinSize();
-
-            var x = Math.random() * 750 + 50;
-
-            var y = Math.random() * 200 + 450;
-
-            test_body.setPos( cp.v(x, y) );
-
-            this.game_layer.space.addBody(test_body);
-            this.game_layer.space.addShape(test_shape);
-
-            MagneticSystem.addOtherItem(test_body);
-
-
-
+            this.addItem(res.BombA, 45, 45);
         }
 
         //born bomb.
         if (this.born_bomb_interval < 0){
-
             this.born_bomb_interval = BORN_BOMB_INTERVAL;BORN_BOMB_INTERVAL+=1;
-
-
-            var test_body = new cp.Body(0.1, cp.momentForCircle(1, 0, 25, cp.v(0, 0)));
-            var test_shape = new cp.CircleShape(test_body, 25, cp.v(0, 0));
-            test_shape.setFriction(0.10);
-            test_shape.setElasticity(0.3);
-
-            var winsize = cc.director.getWinSize();
-
-            var x = Math.random() * 750 + 50;
-
-            var y = Math.random() * 200 + 450;
-
-            test_body.setPos( cp.v(x, y) );
-
-            this.game_layer.space.addBody(test_body);
-            this.game_layer.space.addShape(test_shape);
-
-            MagneticSystem.addOtherItem(test_body);
-
-
+            this.addItem(res.BombA, 30, 50, 0.1);
         }
 
-
+        var children = this.children;
+        for (var i = 0, l = children.length; i < l; ++i) {
+            children[i].update && children[i].update();
+        }
     }
-
-
-
-};
+});

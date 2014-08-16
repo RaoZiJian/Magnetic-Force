@@ -37,15 +37,6 @@ var Player = cc.Sprite.extend({
         this.initPhysics(x, y, this.r);
     },
 
-    onEnter: function() {
-        this._super();
-        this.scheduleUpdate();
-    },
-    onExit : function () {
-        this.unscheduleUpdate();
-        this._super();
-    },
-
     setMagnet : function(magnet) {
         this._isMagnet = magnet;
         if (this.isMagnetUpdated)
@@ -65,31 +56,14 @@ var Player = cc.Sprite.extend({
     },
 
     initPhysics : function (x, y, r) {
-        var size = cc.size(r * 2, r * 2),
-            origin = cc.p(x, y);
+        var origin = cc.p(x, y);
 
-        this.phyObj = new CircleObject(this.weight, size.width/2, this.maxSpeed, this, origin);
+        this.phyObj = new CircleObject(this.weight, r, this.maxSpeed, this, origin);
         this.phyObj.setFriction(this.friction);
         this.phyObj.setElasticity(this.elasticity);
-        var body = this.phyObj.body;
+//        var body = this.phyObj.body;
 //        body.setMoment(Infinity);
         this.phyObj.shape.setCollisionType(Player.COL_TYPE);
-
-//        // Bottom sensor
-//        this.bottomSensor = new cp.SegmentShape(body, cp.v(w/8-w/2, -h/2), cp.v(w*7/8-w/2, -h/2), 3);
-//        Physics.world.addShape(this.bottomSensor);
-//        this.bottomSensor.setSensor(true);
-//        this.bottomSensor.setCollisionType(Hero.BOTTOM_COL_TYPE);
-//        // Left sensor
-//        this.leftSensor = new cp.SegmentShape(body, cp.v(-w/2, h/8-h/2), cp.v(-w/2, h*7/8-h/2), 3);
-//        this.leftSensor.setSensor(true);
-//        this.leftSensor.setCollisionType(Hero.LEFT_COL_TYPE);
-//        Physics.world.addShape(this.leftSensor);
-//        // Bottom sensor
-//        this.rightSensor = new cp.SegmentShape(body, cp.v(w/2, h/8-h/2), cp.v(w/2, h*7/8-h/2), 3);
-//        this.rightSensor.setSensor(true);
-//        this.rightSensor.setCollisionType(Hero.RIGHT_COL_TYPE);
-//        Physics.world.addShape(this.rightSensor);
     },
 
     update : function() {
