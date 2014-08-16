@@ -26,7 +26,7 @@ var Wall = cc.Class.extend({
     }
 });
 
-Wall.COL_TYPE = 100;
+Wall.COL_TYPE = GLOBAL_COL_TYPE++;
 
 var Gate = cc.Class.extend({
     ctor : function(objDesc) {

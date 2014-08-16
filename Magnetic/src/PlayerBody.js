@@ -76,12 +76,11 @@ var Player = ccs.Armature.extend({
     },
 
 
-    jump : function (){
-
+    jump : function (factor){
+        factor = factor || 1;
         if(this.y < 90){
-            this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y;
+            this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y * factor;
         }
-
     },
     eatItem : function () {
         console.log("bbbbbbbbbbbbbb");
@@ -121,4 +120,4 @@ var p = Player.prototype;
 cc.defineGetterSetter(p, "isMagnet", p.getMagnet, p.setMagnet);
 cc.defineGetterSetter(p, "isAttract", p.getAttract, p.setAttract);
 
-Player.COL_TYPE = 0;
+Player.COL_TYPE = GLOBAL_COL_TYPE++;

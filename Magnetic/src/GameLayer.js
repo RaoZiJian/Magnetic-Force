@@ -11,8 +11,9 @@ var KeyCode_Z = 90,
 
     BACK_ZORDER = 0,
     PLAYER_ZORDER = 10,
-    TUBE_ZORDER = 200;
-    ITEM_ZORDER = 11;
+    TUBE_ZORDER = 200,
+    ITEM_ZORDER = 11,
+    MAP_ZORDER = 1;
 
 var GameLayer = cc.Layer.extend({
 
@@ -76,7 +77,7 @@ var GameLayer = cc.Layer.extend({
         tube.y = cc.winSize.height - 185;
         tube.anchorY = 0;
         this.addChild(back, BACK_ZORDER);
-        this.addChild(tube,TUBE_ZORDER);
+        this.addChild(tube, TUBE_ZORDER);
     },
 
     createPhysicsWorld : function () {
@@ -97,7 +98,7 @@ var GameLayer = cc.Layer.extend({
     },
     createWalls : function () {
 
-        Level.createLevel(res.Level1);
+        Level.createLevel(res.Level1, this);
 
     },
     createPlayers : function () {
@@ -172,6 +173,7 @@ var GameLayer = cc.Layer.extend({
 
         this.space.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
         this.space.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
+        this.space.addCollisionHandler(Player.COL_TYPE, Trampoline.COL_TYPE, null, this.playerHitTrampoline, null, null);
 //        this.space.addCollisionHandler(Player.COL_TYPE, Bomb.EXPLODE_COL_TYPE, null, this.playerHitGround, null, null);
 
     },
@@ -239,13 +241,12 @@ var GameLayer = cc.Layer.extend({
 //            armature.eatItem();
 //        }
 
-        var parentLayer = player.obj.view.parent;
-        if(!parentLayer.isEffectPlaying){
-
-            cc.audioEngine.playEffect(res.hit2_ogg,false);
-            parentLayer.isEffectPlaying = true;
-            parentLayer.scheduleOnce(parentLayer.resetEffect,0.2);
-        }
+//        var parentLayer = player.obj.view.parent;
+//        if(!parentLayer.isEffectPlaying){
+//            cc.audioEngine.playEffect(res.hit2_ogg,false);
+//            parentLayer.isEffectPlaying = true;
+//            parentLayer.scheduleOnce(parentLayer.resetEffect, 2);
+//        }
         return true;
     },
     playerHitGround : function (arb, space, ptr) {
@@ -256,6 +257,11 @@ var GameLayer = cc.Layer.extend({
 //        console.log("ffffffff_hit ground");
 
         return true;
+    },
+    playerHitTrampoline : function (arb, space, ptr) {
+        var shapes = arb.getShapes();
+        var player = shapes[0].obj.view;
+        player.jump(Trampoline.JUMP_FACTOR);
     },
 
     playerBeExplode : function (arb, space, ptr) {
