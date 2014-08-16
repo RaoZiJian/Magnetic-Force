@@ -223,7 +223,10 @@ var GameLayer = cc.Layer.extend({
 //        }
 
         //console.log(armature);
-       armature.eatItem();
+        if(armature){
+            armature.eatItem();
+        }
+
 
         return true;
     }
