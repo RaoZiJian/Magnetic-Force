@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="1" height="1" tilewidth="1280" tileheight="768">
+ <tileset firstgid="1" name="sceneA" tilewidth="1280" tileheight="768">
+  <image source="sceneA.jpg" trans="ff00ff" width="1280" height="768"/>
+ </tileset>
+ <objectgroup name="back" width="1" height="1">
+  <properties>
+   <property name="className" value="null"/>
+  </properties>
+  <object gid="1" x="-2" y="768"/>
+ </objectgroup>
  <objectgroup name="Wall" width="1" height="1">
   <properties>
    <property name="className" value="null"/>
@@ -8,10 +17,17 @@
    <polygon points="0,0 496,379 2,382"/>
   </object>
   <object x="-9" y="749" width="1303" height="42"/>
-  <object x="-4" y="114" width="17" height="751"/>
-  <object x="1259" y="209" width="23" height="686"/>
+  <object x="-8" y="380" width="28" height="461"/>
+  <object x="1251" y="374" width="51" height="412"/>
   <object x="606" y="821">
    <polygon points="0,0 254,-199 408,-111 372,5 67,28"/>
   </object>
+  <object x="339" y="724">
+   <polygon points="0,0 285,-26 359,23 309,121 -66,81"/>
+  </object>
+  <object type="Gate" x="-26" y="260" width="44" height="119"/>
+  <object type="Gate" x="1256" y="252" width="44" height="119"/>
+  <object x="-36" y="96" width="61" height="163"/>
+  <object x="1245" y="100" width="56" height="148"/>
  </objectgroup>
 </map>
