@@ -39,7 +39,7 @@ var ItemsLayer = cc.Layer.extend({
         //born bomb.
         if (this.born_bomb_interval < 0){
             this.born_bomb_interval = BORN_BOMB_INTERVAL;BORN_BOMB_INTERVAL+=1;
-            this.addItem(res.BombA, Item.RECT_SHAPE, cc.size(30, 50), 0.08);
+            this.addItem("#bomb1.png", Item.RECT_SHAPE, cc.size(30, 50), 0.08);
         }
 
         var children = this.children;
