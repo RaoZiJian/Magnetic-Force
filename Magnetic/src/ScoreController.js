@@ -9,7 +9,9 @@ var ScoreController = {
     fp_score_label : null,
     sp_score_label : null,
     game_layer : null,
-    gameOver_score : 3,
+    gameOver_score : GAME_OVER_SCORE,
+
+    isGameOver : false,
 
     init : function(game_layer){
         this.fp_score = 0;
@@ -26,6 +28,7 @@ var ScoreController = {
 
         this.game_layer = game_layer;
 
+        this.isGameOver = false;
     },
 
     addFpScore : function(){
@@ -59,6 +62,10 @@ var ScoreController = {
             }
 
         }
+
+        if (this.fp_score && this.fp_score == this.gameOver_score && !this.isGameOver){
+            this.gameOver();
+        }
     },
 
     addSpScore : function(){
@@ -90,6 +97,16 @@ var ScoreController = {
 //                this.game_layer.addChild(explode);
             }
         }
+
+        if ( this.sp_score && this.sp_score == this.gameOver_score && !this.isGameOver){
+            this.gameOver();
+        }
+
+    },
+
+    gameOver : function (){
+
+        this.isGameOver = true;
 
     }
 

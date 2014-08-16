@@ -23,7 +23,10 @@ var res = {
     House_plist : "res/house.plist",
 
     Spring: "res/spring.png",
-    Ground: "res/ground.png"
+    Ground: "res/ground.png",
+
+    game_ui_plist : "res/gameUI.plist",
+    game_ui_png : "res/gameUI.png"
 };
 
 var g_resources = [];
