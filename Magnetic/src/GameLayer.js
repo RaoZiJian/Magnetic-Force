@@ -96,7 +96,7 @@ var GameLayer = cc.Layer.extend({
         right_gate.setPosition(cc.p(cc.winSize.width, 0));
         right_gate.setAnchorPoint(cc.p(1,0));
 
-//        this.addChild(back, BACK_ZORDER);
+        this.addChild(back, BACK_ZORDER);
         this.addChild(ground, BACK_ZORDER);
         this.addChild(tube, TUBE_ZORDER);
         this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
