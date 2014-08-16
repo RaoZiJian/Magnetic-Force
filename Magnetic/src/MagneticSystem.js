@@ -4,7 +4,7 @@
 
 
 var EFFECTIVE_MAGNET_DIS = 800;
-var PLAYER_INIT_MH = 300;
+var PLAYER_INIT_MH = 400;
 
 var SAFE_DIS_ADD = 0.055;
 

@@ -66,7 +66,7 @@ var ItemsController = {
 
             var test_body = new cp.Body(0.1, cp.momentForCircle(1, 0, 25, cp.v(0, 0)));
             var test_shape = new cp.CircleShape(test_body, 25, cp.v(0, 0));
-            test_shape.setFriction(0.25);
+            test_shape.setFriction(0.10);
             test_shape.setElasticity(0.3);
 
             var winsize = cc.director.getWinSize();
