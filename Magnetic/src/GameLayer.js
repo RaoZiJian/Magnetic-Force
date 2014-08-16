@@ -39,6 +39,8 @@ var GameLayer = cc.Layer.extend({
 
         this.createMagnetSystem();
 
+        this.createController();
+
         return true;
     },
     createPhysicsWorld : function () {
@@ -156,10 +158,19 @@ var GameLayer = cc.Layer.extend({
         MagneticSystem.addOtherItem(test_body);
 
     },
+    createController : function (){
+
+        ItemsController.init(this);
+
+    },
+
     update : function( delta ) {
         this.space.step( delta );
 
         MagneticSystem.update(delta);
+
+//        ItemsController.update(delta);
+
     },
     onEnter : function () {
         this._super();
