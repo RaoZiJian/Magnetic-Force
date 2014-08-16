@@ -64,6 +64,37 @@ var Item = cc.Sprite.extend({
         this.x = pos.x;
         this.y = pos.y;
         this.rotation = -180 * this.phyObj.body.a / Math.PI;
+    },
+
+    die : function () {
+        cc.pool.putInPool(this);
+    },
+
+    unuse : function() {
+        this.phyObj.removeSelf();
+        this.phyObj = null;
+        this.removeFromParent(true);
+        this.retain();
+    },
+    reuse : function(file, type, x, y, sOrR) {
+        var tex = cc.textureCache.textureForKey(file);
+        var size = this.texture.getContentSize();
+        this.setTexture(tex);
+        this.setTextureRect(cc.rect(0, 0, size.width, size.height));
+
+        var isCircle = type == Item.CIRCLE_SHAPE;
+        if (isCircle) {
+            this.scale = sOrR * 2 / size.width;
+            this.weight = sOrR * 4 / ITEM_WEIGHT_FACTOR;
+        }
+        else {
+            this.scaleX = sOrR.width / size.width;
+            this.scaleY = sOrR.height / size.height;
+            this.weight = (sOrR.width + sOrR.height) / ITEM_WEIGHT_FACTOR;
+        }
+        this.maxSpeed = ITEM_MAXSPEED;
+
+        this.initPhysics(isCircle, x, y, sOrR);
     }
 });
 
