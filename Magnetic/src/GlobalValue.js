@@ -44,3 +44,5 @@ var EXPLODE_WARNNING_TIME = 10;//the bomb will be explode
 var EXPLODE_WEIGHT = 10;
 var EXPLODE_RADIUS = 50;
 var EXPLODE_ELASTICITY = 10;
+
+var GLOBAL_COL_TYPE = 0;
