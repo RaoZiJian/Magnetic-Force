@@ -4,10 +4,6 @@
 
 var winSize = null;
 
-var KeyCode_Z = 90;
-var KeyCode_X = 98;
-var KeyCode_N = 78;
-var KeyCode_M = 77;
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
@@ -15,10 +11,6 @@ var GameLayer = cc.Layer.extend({
     space : null,
 
     debugNode : null,
-
-    f_player:null,
-
-    s_player:null,
 
     init : function(){
 
@@ -71,19 +63,18 @@ var GameLayer = cc.Layer.extend({
 
         for ( var i = 0; i < walls.length; i++ ) {
             var shape = walls[i];
-            shape.setElasticity(1.2);
+            shape.setElasticity(2);
             shape.setFriction(1);
             space.addStaticShape( shape );
         }
     },
     createPlayers : function () {
 
-        this.f_player = new Player(res.CloseNormal_png, 20, 100, 25);
+        this.f_player = new Player(res.CloseNormal_png, 20, 100, 200);
         this.addChild(this.f_player);
 
 
-
-        this.s_player = new Player(res.CloseNormal_png, 20, 300, 25);
+        this.s_player = new Player(res.CloseNormal_png, 20, 600, 200);
         this.addChild(this.s_player);
 
     },
@@ -92,13 +83,15 @@ var GameLayer = cc.Layer.extend({
         MagneticSystem.init(this, this.f_player, this.s_player);
 
         //test
-        this.f_player.isMagnet = false;
-        this.s_player.isMagnet = false;
+        this.f_player.isMagnet = true;
+        this.s_player.isMagnet = true;
+//        this.f_player.isAttract = false;
+//        this.s_player.isAttract = false;
 
-        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 20, cp.v(0, 0)));
+        var test_body = new cp.Body(0.1, cp.momentForCircle(1, 0, 20, cp.v(0, 0)));
         var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
         test_shape.setFriction(0.5);
-        test_shape.setElasticity(0.5);
+        test_shape.setElasticity(0.3);
         test_body.setPos( cp.v(300, 600) );
 
         this.space.addBody(test_body);
@@ -124,58 +117,12 @@ var GameLayer = cc.Layer.extend({
         this._super();
         this.scheduleUpdate();
 
-        //button listener
-        cc.eventManager.addListener({
-            event : cc.EventListener.KEYBOARD,
-            onKeyPressed : this.onKeyPressed,
-            onKeyReleased: this.onKeyReleased
-        }, this);
         //setup game begin.
         this.isBegin = true;
     },
     onExit : function () {
         this.unscheduleUpdate();
         this._super();
-    },
-    onKeyPressed : function (key,event) {
-        var target = event.getCurrentTarget();
-        switch (key) {
-            case KeyCode_M:
-                target.f_player.isMagnet = true;
-                target.f_player.isAttract = false;
-                break;
-            case KeyCode_N:
-                target.f_player.isMagnet = true;
-                target.f_player.isAttract = true;
-                break;
-            case KeyCode_X:
-                target.s_player.isMagnet = true;
-                target.s_player.isAttract = false;
-                break;
-            case KeyCode_Z:
-                target.s_player.isMagnet = true;
-                target.s_player.isAttract = true;
-                break;
-            default :
-                break;
-        }
-    },
-    onKeyReleased : function (key,event) {
-        var target = event.getCurrentTarget();
-        switch (key) {
-            case KeyCode_M:
-                target.f_player.isMagnet = false;
-            case KeyCode_N:
-                target.f_player.isMagnet = false;
-                break;
-            case KeyCode_X:
-                target.f_player.isMagnet = false;
-            case KeyCode_Z:
-                target.s_player.isMagnet = false;
-                break;
-            default :
-                break;
-        }
     }
 
 
