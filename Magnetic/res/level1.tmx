@@ -36,5 +36,7 @@
  <objectgroup name="Items" width="1" height="1">
   <object type="Trampoline" x="178" y="730" width="266" height="47"/>
   <object type="Trampoline" x="796" y="730" width="268" height="47"/>
+  <object type="CornerTrampoline" x="4" y="700" width="76" height="72"/>
+  <object type="CornerTrampoline" x="1213" y="703" width="76" height="72"/>
  </objectgroup>
 </map>

@@ -40,42 +40,30 @@ var Physics = {
 };
 var StaticObject = cc.Class.extend({
     view: null,
-    top: null,
-    bottom: null,
-    left: null,
-    right: null,
-    width: 0,
-    height: 0,
+    shape: null,
 
     ctor:function(x, y, width, height, view){
-        this.width = width;
-        this.height = height;
-        this.top = new cp.SegmentShape(Physics.world.staticBody, cp.v(x, y+height), cp.v(x+width, y+height), 1);
-        Physics.world.addShape(this.top);
-        this.top.obj = this;
-        this.left = new cp.SegmentShape(Physics.world.staticBody, cp.v(x, y), cp.v(x, y+height), 1);
-        Physics.world.addShape(this.left);
-        this.left.obj = this;
-        this.right = new cp.SegmentShape(Physics.world.staticBody, cp.v(x+width, y), cp.v(x+width, y+height), 1);
-        Physics.world.addShape(this.right);
-        this.right.obj = this;
+        var box = {};
+        box.l = x;
+        box.r = x + width;
+        box.t = y + height;
+        box.b = y;
+        this.shape = new cp.BoxShape2(Physics.world.staticBody, box);
+        Physics.world.addShape(this.shape);
+        this.shape.obj = this;
         this.view = view;
     },
 
     setFriction: function(u) {
-        this.top.setFriction(u);
-        //this.left.setFriction(u);
-        //this.right.setFriction(u);
+        this.shape.setFriction(u);
     },
 
     setElasticity : function(e) {
-        this.top.setElasticity(e);
+        this.shape.setElasticity(e);
     },
 
     removeSelf: function () {
-        Physics.world.removeShape(this.top);
-        Physics.world.removeShape(this.left);
-        Physics.world.removeShape(this.right);
+        Physics.world.removeShape(this.shape);
     }
 });
 var StaticPolyObject = cc.Class.extend({
