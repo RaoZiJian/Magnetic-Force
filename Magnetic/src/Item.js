@@ -238,7 +238,7 @@ var Trampoline = cc.Sprite.extend({
         this.rotation = 180;
 
         this.phyObj = new StaticObject(x, y, w, h, this);
-        this.phyObj.top.setCollisionType(Trampoline.COL_TYPE);
+        this.phyObj.shape.setCollisionType(Trampoline.COL_TYPE);
     }
 });
 
