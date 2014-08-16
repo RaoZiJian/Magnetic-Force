@@ -185,6 +185,7 @@ var GameLayer = cc.Layer.extend({
             case KeyCode_N:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
+                target.s_player.jump();
                 break;
             case KeyCode_X:
                 target.f_player.isMagnet = true;
@@ -193,6 +194,7 @@ var GameLayer = cc.Layer.extend({
             case KeyCode_Z:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
+                target.f_player.jump();
                 break;
             default :
                 break;
