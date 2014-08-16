@@ -65,7 +65,7 @@ var ItemsLayer = cc.Layer.extend({
 
             if (cc.rectContainsPoint(Level.fp_gate_info, i_pos)){
                 //sp get goal.
-                item.time = -1;
+//                item.time = -1;
                 ScoreController.addSpScore();
 
                 delete_items.push(item);
