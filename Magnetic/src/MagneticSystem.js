@@ -3,10 +3,10 @@
  */
 
 
-var EFFECTIVE_MAGNET_DIS = 300;
-var PLAYER_INIT_MH = 200;
+var EFFECTIVE_MAGNET_DIS = 800;
+var PLAYER_INIT_MH = 400;
 
-var SAFE_DIS_ADD = 0.55;
+var SAFE_DIS_ADD = 0.055;
 
 var REPULSIVE_FORCE_MUTIPLE = 1.25;
 
@@ -45,9 +45,13 @@ var MagneticSystem = {
             return;
         }
 
-        if ( !this.f_player.isMagnet && !this.s_player.isMagnet ){
-            return;
-        }
+
+        //don't do this.
+//        if ( !this.f_player.isMagnet && !this.s_player.isMagnet ){
+//            return;
+//        }
+
+
 
 //        var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
         var fp_attract_dir = this.f_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
