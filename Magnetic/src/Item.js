@@ -186,6 +186,8 @@ var Bomb = Item.extend({
                 this.bomb_armature.setPosition(origin);
                 this.bomb_armature.rotation = this.rotation;
                 this.bomb_armature.getAnimation().playWithIndex(0);
+
+                cc.audioEngine.playEffect(res.explosion_ogg,false);
                 this.parent.addChild(this.bomb_armature);
                 this.die();
             }

@@ -36,7 +36,7 @@ var ScoreController = {
 
         if (this.fp_score && this.fp_score <= this.gameOver_score) {
             this.fp_score_label.setString(this.fp_score);
-            var rightGate = this.game_layer.getChildByTag(RIGHT_GATE_TAG);
+            var rightGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(RIGHT_GATE_TAG);
             var spriteFrameCache = cc.spriteFrameCache;
             var rightSpriteFrame = null;
             switch (this.fp_score) {
@@ -53,12 +53,14 @@ var ScoreController = {
             if (rightSpriteFrame) {
                 rightGate.setSpriteFrame(rightSpriteFrame);
 
-//                var explode = ccs.Armature.create("explode");
-//                explode.setPosition(cc.p(cc.winSize.width - 50 ,320));
-//                explode.scaleX = 3;
-//                explode.scaleY = 3;
-//                explode.getAnimation().playWithIndex(0);
-//                this.game_layer.addChild(explode);
+                var explode = ccs.Armature.create("explode");
+                explode.setPosition(cc.p(cc.winSize.width - 50 ,320));
+                explode.scaleX = 3;
+                explode.scaleY = 3;
+                explode.getAnimation().playWithIndex(0);
+                cc.audioEngine.playEffect(res.explosion_ogg,false);
+                explode.getAnimation().movementEvent = this.explodeCallBack;
+                this.game_layer.addChild(explode);
             }
 
         }
@@ -72,7 +74,7 @@ var ScoreController = {
         this.sp_score ++;
         if (this.sp_score && this.sp_score <= this.gameOver_score) {
             this.sp_score_label.setString(this.sp_score);
-            var leftGate = this.game_layer.getChildByTag(LEFT_GATE_TAG);
+            var leftGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(LEFT_GATE_TAG);
             var spriteFrameCache = cc.spriteFrameCache;
             var leftSpriteFrame = null;
             switch (this.sp_score) {
@@ -89,13 +91,15 @@ var ScoreController = {
             if (leftSpriteFrame) {
                 leftGate.setSpriteFrame(leftSpriteFrame);
 
-//                var explode = ccs.Armature.create("explode");
-//                explode.setPosition(cc.p(50,320));
-//                explode.scaleX = 3;
-//                explode.scaleY = 3;
-//                explode.getAnimation().playWithIndex(0);
+                var explode = ccs.Armature.create("explode");
+                explode.setPosition(cc.p(50,320));
+                explode.scaleX = 3;
+                explode.scaleY = 3;
+                explode.getAnimation().playWithIndex(0);
+                cc.audioEngine.playEffect(res.explosion_ogg,false);
+                explode.getAnimation().movementEvent = this.explodeCallBack;
 //
-//                this.game_layer.addChild(explode);
+                this.game_layer.addChild(explode);
             }
         }
 
@@ -109,6 +113,13 @@ var ScoreController = {
 
         this.isGameOver = true;
 
+    },
+    explodeCallBack : function (armature, movementType, movementID) {
+        if (movementType == ccs.MovementEventType.complete) {
+//            console.log("explode");
+//            armature.getAnimation().playWithIndex(0);
+            armature.removeFromParent();
+        }
     }
 
 
