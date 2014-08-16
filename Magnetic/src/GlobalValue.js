@@ -7,7 +7,6 @@ var SpaceGravite = -300;
 var WallElasticity = 2.0;
 var WallFriction = 1;
 var BackGroundElastricity = 1.2;
-var GLOBAL_COL_TYPE = 0;
 
 
 //item
@@ -19,13 +18,9 @@ var ITEM_MAX_SPEED = 500;
 
 
 //item controller
-var BORN_IRON_INTERVAL = 5,
-    BORN_BOMB_INTERVAL = 5,
-    INITIAL_BOMB_NUMBER = 6,
-    BORN_INTERVAL = 2,
-    PRIMI_BORN_NUMBER = 2,
-    BORN_X_VAR = 400,
-    BORN_Y_VAR = 50;
+var BORN_IRON_INTERVAL = 5;
+var BORN_BOMB_INTERVAL = 5;
+
 
 //magnet system
 var EFFECTIVE_MAGNET_DIS = 800;
@@ -44,7 +39,10 @@ var PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 2);
 
 
 //bomb
-var EXPLODE_TIME = 150;
+var EXPLODE_TIME = 100;
+var EXPLODE_WARNNING_TIME = 10;//the bomb will be explode
 var EXPLODE_WEIGHT = 10;
 var EXPLODE_RADIUS = 50;
 var EXPLODE_ELASTICITY = 10;
+
+var GLOBAL_COL_TYPE = 0;
