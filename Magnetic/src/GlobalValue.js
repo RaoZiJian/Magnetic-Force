@@ -40,3 +40,5 @@ var PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 2);
 
 //bomb
 var EXPLODE_TIME = 300;
+var EXPLODE_WEIGHT = 100;
+var EXPLODE_RADIUS = 100;
