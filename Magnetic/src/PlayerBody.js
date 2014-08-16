@@ -23,6 +23,7 @@ var Player = ccs.Armature.extend({
     _ignoreBodyRotation:false,
 
     isHitGround : false,
+    isFrictPlaying : false,
 
     ctor : function(file, r, x, y) {
         this._super(file);
@@ -102,6 +103,23 @@ var Player = ccs.Armature.extend({
         var emitter_pos = this.convertToNodeSpace(point);
         this.fire_emitter.setPosition( emitter_pos );
 
+        if(!this.isFrictPlaying && this.y < 100){
+
+//            var v = cp.v(this.phyObj.body.vx, this.phyObj.body.vy);
+//            var veloci = Math.pow(v.x * v.x + v.y * v.y, 1/2);
+            var vx = this.phyObj.body.vx;
+
+//            console.log(veloci);
+            console.log(vx);
+            if(Math.abs(vx) > 130 ){
+                this.isFrictPlaying = true;
+
+                cc.audioEngine.playEffect(res.Frict1_ogg , false);
+                this.scheduleOnce(this.resetFrictPlaying, 2.5);
+            }
+
+        }
+
 
 //        console.log("fire emitter");
 //        this.fire_emitter = new cc.ParticleSystem(res.Fire_plist);
@@ -111,7 +129,9 @@ var Player = ccs.Armature.extend({
 
 
     },
-
+    resetFrictPlaying : function() {
+        this.isFrictPlaying = false;
+    },
     resetHitGround : function(){
         this.isHitGround = false;
         this.fire_emitter.setPosition(cc.p(0, 0));
