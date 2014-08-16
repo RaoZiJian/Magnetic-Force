@@ -149,6 +149,19 @@ var MagneticSystem = {
         this.f_player.phyObj.body.f = fp_f;
         this.s_player.phyObj.body.f = sp_f;
 
+
+        //if attract , add top f
+//        if ( this.f_player.isMagnet && this.f_player.isAttract){
+//
+//            this.f_player.phyObj.body.f += cp.v(0, 100);
+//
+//        }
+//        if ( this.s_player.isMagnet && this.s_player.isAttract){
+//
+//            this.s_player.phyObj.body.f += cp.v(0, 100);
+//
+//        }
+
     },
 
 
