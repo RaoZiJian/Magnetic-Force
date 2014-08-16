@@ -81,7 +81,7 @@ var Item = cc.Sprite.extend({
         if (this.dead)
             return;
 
-        this.scheduleOnce(this._realDie, 0.5);
+        this.scheduleOnce(this._realDie, 0.3);
         this.dead = true;
     },
 
