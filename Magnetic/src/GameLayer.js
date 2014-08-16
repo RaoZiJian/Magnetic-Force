@@ -118,7 +118,7 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
-        this.f_player = new Player("robot", 50, winSize.width/6, 57);
+        this.f_player = new Player("robot", 50, winSize.width/6*5, 57);
         //var index = [5];
         this.f_player.getAnimation().playWithIndex(0);
         this.addChild(this.f_player, PLAYER_ZORDER);
@@ -133,7 +133,7 @@ var GameLayer = cc.Layer.extend({
 //            //console.log(s_player_label.innerHTML);
 //        };
 
-        this.s_player = new Player("robot", 50, winSize.width/6*5, 57);
+        this.s_player = new Player("robot", 50, winSize.width/6, 57);
         this.s_player.getAnimation().playWithIndex(3);
         this.addChild(this.s_player, PLAYER_ZORDER);
 //        this.s_player.isMagnetUpdated = function () {
@@ -200,22 +200,22 @@ var GameLayer = cc.Layer.extend({
         var target = event.getCurrentTarget();
         switch (key) {
             case KeyCode_M:
-                target.s_player.isMagnet = true;
-                target.s_player.isAttract = false;
-                break;
-            case KeyCode_N:
-                target.s_player.isMagnet = true;
-                target.s_player.isAttract = true;
-                target.s_player.jump();
-                break;
-            case KeyCode_X:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = false;
                 break;
-            case KeyCode_Z:
+            case KeyCode_N:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
                 target.f_player.jump();
+                break;
+            case KeyCode_X:
+                target.s_player.isMagnet = true;
+                target.s_player.isAttract = false;
+                break;
+            case KeyCode_Z:
+                target.s_player.isMagnet = true;
+                target.s_player.isAttract = true;
+                target.s_player.jump();
                 break;
             default :
                 break;
@@ -225,16 +225,16 @@ var GameLayer = cc.Layer.extend({
         var target = event.getCurrentTarget();
         switch (key) {
             case KeyCode_M:
-                target.s_player.isMagnet = false;
+                target.f_player.isMagnet = false;
                 break;
             case KeyCode_N:
-                target.s_player.isMagnet = false;
+                target.f_player.isMagnet = false;
                 break;
             case KeyCode_X:
-                target.f_player.isMagnet = false;
+                target.s_player.isMagnet = false;
                 break;
             case KeyCode_Z:
-                target.f_player.isMagnet = false;
+                target.s_player.isMagnet = false;
                 break;
             default :
                 break;
