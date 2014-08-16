@@ -182,6 +182,7 @@ var Bomb = Item.extend({
                 this.bomb_armature.scaleX = 2;
                 this.bomb_armature.scaleY = 2;
                 this.bomb_armature.getAnimation().playWithIndex(0);
+                cc.audioEngine.playEffect(res.explosion_ogg,false);
                 this.addChild(this.bomb_armature);
                 this.die();
             }
