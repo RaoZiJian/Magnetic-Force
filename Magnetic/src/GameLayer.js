@@ -104,19 +104,35 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
-        this.f_player = new Player(res.RobotA, 20, 100, 25);
+        this.f_player = new Player(res.RobotA, 20, 100, 20);
         this.addChild(this.f_player, PLAYER_ZORDER);
         this.f_player.isMagnetUpdated = function () {
-           // window.document.getElementById("s_player_status").innerHTML("fuck");
+           var f_player_label = window.document.getElementById("f_player_magnet");
+            f_player_label.innerHTML = this.isMagnet;
+            //console.log(s_player_label.innerHTML);
+        };
+        this.f_player.isAttractUpdated = function () {
+            var f_player_label = window.document.getElementById("f_player_attratic");
+            f_player_label.innerHTML = this.isAttract;
+            //console.log(s_player_label.innerHTML);
         };
 
 //        this.space.addBody(f_player.phyObj.body);
 //        this.space.addShape(f_player.phyObj.shape);
 
 
-        this.s_player = new Player(res.RobotB, 20, 200, 25);
+        this.s_player = new Player(res.RobotB, 20, 200, 20);
         this.addChild(this.s_player, PLAYER_ZORDER);
-
+        this.s_player.isMagnetUpdated = function () {
+            var s_player_label = window.document.getElementById("s_player_magnet");
+            s_player_label.innerHTML = this.isMagnet;
+            //console.log(s_player_label.innerHTML);
+        };
+        this.s_player.isAttractUpdated = function () {
+            var s_player_label = window.document.getElementById("s_player_attratic");
+            s_player_label.innerHTML = this.isAttract;
+            //console.log(s_player_label.innerHTML);
+        };
 //        this.space.addBody(s_player.phyObj.body);
 //        this.space.addShape(s_player.phyObj.shape);
 
