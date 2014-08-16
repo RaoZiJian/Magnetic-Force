@@ -9,6 +9,8 @@ var Item = cc.Sprite.extend({
 
     phyObj : null,
 
+    dead : false,
+
     ctor : function(file, type, x, y, sOrR) {
         this._super(file);
 
@@ -72,12 +74,14 @@ var Item = cc.Sprite.extend({
     },
 
     _realDie : function() {
-        this.unscheduleAllCallbacks();
         cc.pool.putInPool(this);
     },
 
     die : function () {
-        this.scheduleOnce(this._realDie, 0.1);
+        if (this.dead)
+            return;
+        this.scheduleOnce(this._realDie, 0);
+        this.dead = true;
     },
 
     unuse : function() {
@@ -103,6 +107,7 @@ var Item = cc.Sprite.extend({
             this.weight = (sOrR.width + sOrR.height) / ITEM_WEIGHT_FACTOR;
         }
         this.maxSpeed = ITEM_MAXSPEED;
+        this.dead = false;
 
         this.initPhysics(isCircle, x, y, sOrR);
     }
