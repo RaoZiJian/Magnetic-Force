@@ -98,6 +98,11 @@ var GameLayer = cc.Layer.extend({
     createWalls : function () {
 
         Level.createLevel(res.Level1);
+        var gateParticle = new cc.ParticleSystem(res.Gate_plist);
+        gateParticle.x=Level.sp_gate_info.x+20;
+        gateParticle.y=Level.sp_gate_info.y+50;
+        this.addChild(gateParticle);
+
 
     },
     createPlayers : function () {
