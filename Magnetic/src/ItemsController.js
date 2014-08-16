@@ -63,7 +63,7 @@ var ItemsLayer = cc.Layer.extend({
         for (var i = 0; i<items.length; i++){
 
             var item = items[i];
-            if (item.dead) continue;
+            if (item.dead || !item instanceof Item) continue;
 
             var i_pos = item.getPosition();
 
