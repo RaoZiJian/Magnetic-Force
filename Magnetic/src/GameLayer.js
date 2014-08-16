@@ -104,14 +104,17 @@ var GameLayer = cc.Layer.extend({
     },
     createPlayers : function () {
 
-        this.f_player = new Player(res.RobotA, 50, 100, 25);
+        this.f_player = new Player(res.RobotA, 20, 100, 25);
         this.addChild(this.f_player, PLAYER_ZORDER);
+        this.f_player.isMagnetUpdated = function () {
+           // window.document.getElementById("s_player_status").innerHTML("fuck");
+        };
 
 //        this.space.addBody(f_player.phyObj.body);
 //        this.space.addShape(f_player.phyObj.shape);
 
 
-        this.s_player = new Player(res.RobotB, 50, 300, 25);
+        this.s_player = new Player(res.RobotB, 20, 200, 25);
         this.addChild(this.s_player, PLAYER_ZORDER);
 
 //        this.space.addBody(s_player.phyObj.body);
@@ -194,7 +197,7 @@ var GameLayer = cc.Layer.extend({
 
         MagneticSystem.update(delta);
 
-//        ItemsController.update(delta);
+        ItemsController.update(delta);
 
     },
     onEnter : function () {
