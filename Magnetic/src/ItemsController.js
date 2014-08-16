@@ -3,8 +3,8 @@
 var ItemsLayer = cc.Layer.extend({
     game_layer : null,
 
-    born_iron_interval : 5,
-    born_bomb_interval : 5,
+    born_iron_interval : 1,
+    born_bomb_interval : 1,
 
     ctor : function(game_layer){
         this._super();
@@ -15,7 +15,7 @@ var ItemsLayer = cc.Layer.extend({
     addItem : function (tex, type, sOrR, friction, elasticity) {
         var x = Math.random() * 750 + 50;
         var y = Math.random() * 200 + 450;
-        var item = new Item(tex, type, x, y, sOrR);
+        var item = Item.create(tex, type, x, y, sOrR);
         friction !== undefined && (item.friction = friction);
         elasticity !== undefined && (item.elasticity = elasticity);
 
@@ -44,7 +44,7 @@ var ItemsLayer = cc.Layer.extend({
         }
 
         var children = this.children;
-        for (var i = 0, l = children.length; i < l; ++i) {
+        for (var i = 0; i < children.length; ++i) {
             children[i].update && children[i].update();
         }
     }
