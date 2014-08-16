@@ -4,7 +4,8 @@
 
 //gameLayer
 var SpaceGravite = -300;
-var WallElastricity = 2.0;
+var WallElasticity = 2.0;
+var WallFriction = 1;
 var BackGroundElastricity = 1.2;
 
 

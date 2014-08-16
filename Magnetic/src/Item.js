@@ -22,7 +22,7 @@ var Item = cc.Sprite.extend({
         else {
             this.scaleX = sOrR.width / size.width;
             this.scaleY = sOrR.height / size.height;
-            this.weight =(sOrR.width + sOrR.height) / ITEM_WEIGHT_FACTOR;
+            this.weight = (sOrR.width + sOrR.height) / ITEM_WEIGHT_FACTOR;
         }
         this.maxSpeed = ITEM_MAXSPEED;
 
@@ -72,11 +72,12 @@ var Item = cc.Sprite.extend({
     },
 
     _realDie : function() {
+        this.unscheduleAllCallbacks();
         cc.pool.putInPool(this);
     },
 
     die : function () {
-        this.scheduleOnce(this._realDie, 0);
+        this.scheduleOnce(this._realDie, 0.1);
     },
 
     unuse : function() {

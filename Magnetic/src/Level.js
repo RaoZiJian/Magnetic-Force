@@ -8,12 +8,14 @@ var Level = {
 
     createLevel : function(tmxFile) {
         this.levelReader.read(tmxFile);
+
+        this.fp_gate_info = cc.rect(0, winSize.height/2 - 120, winSize.width/20 - 20, 120);
+        this.sp_gate_info = cc.rect(winSize.width * 19/20 + 20, winSize.height/2 - 120, winSize.width/20 - 20, 120);
     },
     fp_gate_info : cc.rect(0, 0, 0, 0),
     sp_gate_info : cc.rect(0, 0, 0, 0),
 
     createLevel_1 : function (gameLayer, space){
-
         var staticBody = space.staticBody;
 
         // Walls
