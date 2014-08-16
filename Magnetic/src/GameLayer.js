@@ -90,8 +90,8 @@ var GameLayer = cc.Layer.extend({
     createPlayers : function () {
 
         this.f_player = new Player("robot", 50, 300, 57);
-        var index = [0,1,2];
-        this.f_player.getAnimation().playWithIndexes(index,true);
+        //var index = [5];
+        this.f_player.getAnimation().playWithIndex(0);
         this.addChild(this.f_player, PLAYER_ZORDER);
 //        this.f_player.isMagnetUpdated = function () {
 //           var f_player_label = window.document.getElementById("f_player_magnet");
@@ -107,7 +107,7 @@ var GameLayer = cc.Layer.extend({
 
 
         this.s_player = new Player("robot", 50, 400, 57);
-
+        this.s_player.getAnimation().playWithIndex(3);
         this.addChild(this.s_player, PLAYER_ZORDER);
 //        this.s_player.isMagnetUpdated = function () {
 //            var s_player_label = window.document.getElementById("s_player_magnet");
@@ -155,12 +155,12 @@ var GameLayer = cc.Layer.extend({
 
         //ccs.A
 
-        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
+//        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
 
     },
     onExit : function () {
         this.unscheduleUpdate();
-        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
+//        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
         this._super();
     },
     onKeyPressed : function (key,event) {
@@ -211,13 +211,13 @@ var GameLayer = cc.Layer.extend({
         var shapes = arb.getShapes();
         var player = shapes[0];
         var item = shapes[1];
-//        var armature = player.obj.view;
+        var armature = player.obj.view;
 //        if(armature){
 //            console.log(armature);
 //        }
 
         //console.log(armature);
-       // armature.eatItem();
+       armature.eatItem();
 
         return true;
     }
