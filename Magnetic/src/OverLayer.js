@@ -46,9 +46,19 @@ var OverLayer = cc.Layer.extend({
 
         var game_over_logo = new cc.Sprite("#gameOverUI.png");
 
-        var play_again_btn = new cc.MenuItemSprite();
+        var play_again_btn = new cc.MenuItemSprite("againBtn.png");
 
+        var back_to_main_menu_btn = new cc.MenuItemSprite("backBtn.png");
 
+//        var settings_btn = new cc.MenuItemSprite("");
+
+        this.addChild(game_over_logo);
+        this.addChild(play_again_btn);
+        this.addChild(back_to_main_menu_btn);
+
+        game_over_logo.setPosition(winSize.width/2, winSize.height * 2/3);
+        play_again_btn.setPosition(winSize.width/2, winSize.height /2);
+        back_to_main_menu_btn.setPosition(winSize.width/2, winSize.height/2 - 150);
     },
 
     playAgain : function(){
