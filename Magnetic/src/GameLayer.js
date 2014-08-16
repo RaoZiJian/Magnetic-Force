@@ -84,28 +84,8 @@ var GameLayer = cc.Layer.extend({
     },
     createWalls : function () {
 
-        var space = this.space ;
-        var staticBody = space.staticBody;
+        Level.createLevel_1(this, this.space);
 
-        // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 20 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 20),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 20)	// right
-        ];
-
-
-        var shape = walls[0];
-        shape.setElasticity(BackGroundElastricity);
-        shape.setFriction(1);
-        space.addStaticShape( shape );
-
-
-        for ( var i = 1; i < walls.length; i++ ) {
-            var shape = walls[i];
-            shape.setElasticity(WallElastricity);
-            shape.setFriction(1);
-            space.addStaticShape( shape );
-        }
     },
     createPlayers : function () {
 
@@ -235,6 +215,7 @@ var GameLayer = cc.Layer.extend({
 //        if(armature){
 //            console.log(armature);
 //        }
+
         //console.log(armature);
        // armature.eatItem();
 
