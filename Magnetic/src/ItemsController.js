@@ -1,6 +1,4 @@
 
-var BORN_IRON_INTERVAL = 3;
-var BORN_BOMB_INTERVAL = 5;
 
 var ItemsLayer = cc.Layer.extend({
     game_layer : null,

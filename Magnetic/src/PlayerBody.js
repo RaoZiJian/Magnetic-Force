@@ -2,8 +2,6 @@
  * Created by chenryoutou on 14-8-15.
  */
 
-var PLAYER_WEIGHT = 1,
-    PLAYER_SPEED = 200;
 
 
 var Player = cc.Sprite.extend({
@@ -17,8 +15,8 @@ var Player = cc.Sprite.extend({
     weight : PLAYER_WEIGHT,
     maxSpeed : 200,
     r : 0,
-    friction : 0.8,
-    elasticity : 0.3,
+    friction : PLAYER_INIT_FRICTION,
+    elasticity : PLAYER_INIT_ELASTICITY,
 
     phyObj : null,
 
@@ -32,7 +30,7 @@ var Player = cc.Sprite.extend({
         this.scale = sx > sy ? sx * 2 : sy * 2;
         this.r = r;
 
-        this.maxSpeed = PLAYER_SPEED;
+        this.maxSpeed = PLAYER_MAX_SPEED;
 
         this.initPhysics(x, y, this.r);
     },
@@ -76,12 +74,9 @@ var Player = cc.Sprite.extend({
 
     jump : function (){
 
-
-
-        this.phyObj.body.applyImpulse();
-
-
-
+        if(this.y < 80){
+            this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y;
+        }
 
     },
     eatItem : function () {
