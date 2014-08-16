@@ -48,9 +48,9 @@ var PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5;
 
 
 //bomb
-var EXPLODE_TIME = 15+Math.random()*10;
+var EXPLODE_TIME = 5+Math.random()*10;
 var EXPLODE_WARNNING_TIME = 2.5;//the bomb will be explode
-var EXPLODE_DEVIATION_TIME = 5;
+var EXPLODE_DEVIATION_TIME = 10;
 var EXPLODE_WEIGHT = 20;
 var EXPLODE_RADIUS = 60;
 
