@@ -83,6 +83,9 @@ var Player = cc.Sprite.extend({
 
 
 
+    },
+    eatItem : function () {
+        
     }
 
 

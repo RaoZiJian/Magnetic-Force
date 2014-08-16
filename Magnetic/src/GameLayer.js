@@ -97,6 +97,7 @@ var GameLayer = cc.Layer.extend({
         shape.setFriction(1);
         space.addStaticShape( shape );
 
+
         for ( var i = 1; i < walls.length; i++ ) {
             var shape = walls[i];
             shape.setElasticity(WallElastricity);
@@ -168,9 +169,11 @@ var GameLayer = cc.Layer.extend({
         }, this);
         //setup game begin.
         this.isBegin = true;
+
     },
     onExit : function () {
         this.unscheduleUpdate();
+        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
         this._super();
     },
     onKeyPressed : function (key,event) {
@@ -214,8 +217,14 @@ var GameLayer = cc.Layer.extend({
             default :
                 break;
         }
+    },
+    playerTouchItem : function (arb, space, ptr) {
+        var shapes = arb.getShapes();
+        var player = shapes[0];
+        var item = shapes[1];
+        console.log("aaa");
+        //player.eatItem();
     }
-
 
 });
 
