@@ -106,7 +106,7 @@ var GameLayer = cc.Layer.extend({
         var backGround = new BackGroundLayer();
         this.addChild(backGround,BACK_ZORDER,BACK_TAG);
 
-//        this.showMenu();
+        this.showMenu();
     },
 
     createPhysicsWorld : function () {
