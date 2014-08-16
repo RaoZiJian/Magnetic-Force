@@ -135,7 +135,7 @@ Item.RECT_SHAPE = 1;
 
 var Bomb = Item.extend({
     bomb_armature : null,
-    time : EXPLODE_TIME,
+    time : EXPLODE_TIME + EXPLODE_DEVIATION_TIME,
     isExplode : false,
     isEndExplode : false,
     isWarnning : false,
@@ -242,7 +242,7 @@ var Bomb = Item.extend({
         this.isEndExplode = false;
         this.isWarnning = false;
         this.color = cc.color(255,255,255);
-        this.time = EXPLODE_TIME;
+        this.time = EXPLODE_TIME + EXPLODE_DEVIATION_TIME;
     }
 });
 

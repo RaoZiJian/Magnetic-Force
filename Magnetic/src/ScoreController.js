@@ -87,6 +87,7 @@ var ScoreController = {
 //                explode.scaleX = 3;
 //                explode.scaleY = 3;
 //                explode.getAnimation().playWithIndex(0);
+//
 //                this.game_layer.addChild(explode);
             }
         }
