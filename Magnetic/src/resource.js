@@ -15,10 +15,12 @@ var res = {
     Bomb_png : "res/animation/bomb/bombAnim.png",
     Bomb_plist : "res/animation/bomb/bombAnim.plist",
     Frict1_ogg:"res/audio/Frict1.ogg",
-    Frict2_ogg:"res/audio/Frict2.ogg"
+    Frict2_ogg:"res/audio/Frict2.ogg",
 //    hit1_ogg:"hit1.ogg",
 //    hit2_ogg:"hit2.ogg",
 //    hit3_ogg:"hit3.ogg"
+
+    Fire_plist : "res/fire.plist"
 };
 
 var g_resources = [];
