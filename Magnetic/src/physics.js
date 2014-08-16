@@ -25,7 +25,7 @@ var Physics = {
         this.world = null;
         var space = this.world = new cp.Space();
         space.iterations = 60;
-        space.sleepTimeThreshold = 0.5;
+//        space.sleepTimeThreshold = 0.5;
         //space.damping = 1;
         // Gravity:
         space.gravity = cp.v(0,-1200);//重力

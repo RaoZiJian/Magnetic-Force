@@ -13,7 +13,6 @@ var KeyCode_Z = 90,
     PLAYER_ZORDER = 10,
     ITEM_ZORDER = 11;
 
-
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
@@ -98,10 +97,15 @@ var GameLayer = cc.Layer.extend({
         this.f_player = new Player(res.RobotA, 50, 100, 25);
         this.addChild(this.f_player, PLAYER_ZORDER);
 
+//        this.space.addBody(f_player.phyObj.body);
+//        this.space.addShape(f_player.phyObj.shape);
 
 
         this.s_player = new Player(res.RobotB, 50, 300, 25);
         this.addChild(this.s_player, PLAYER_ZORDER);
+
+//        this.space.addBody(s_player.phyObj.body);
+//        this.space.addShape(s_player.phyObj.shape);
 
     },
     createMagnetSystem : function () {
@@ -123,19 +127,65 @@ var GameLayer = cc.Layer.extend({
 
         MagneticSystem.addOtherItem(test_body);
 
-    },
 
+        var test_body = new cp.Body(0.5, cp.momentForCircle(0.5, 0, 15, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(500, 600) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+        var test_body = new cp.Body(0.5, cp.momentForCircle(0.5, 0, 10, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(250, 800) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+        var test_body = new cp.Body(0.05, cp.momentForCircle(1, 0, 10, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(550, 900) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+        var test_body = new cp.Body(0.5, cp.momentForCircle(0.5, 0, 10, cp.v(0, 0)));
+        var test_shape = new cp.CircleShape(test_body, 10, cp.v(0, 0));
+        test_shape.setFriction(0.5);
+        test_shape.setElasticity(0.5);
+        test_body.setPos( cp.v(250, 1000) );
+
+        this.space.addBody(test_body);
+        this.space.addShape(test_shape);
+
+        MagneticSystem.addOtherItem(test_body);
+
+    },
     createController : function (){
 
         ItemsController.init(this);
 
     },
+
     update : function( delta ) {
         this.space.step( delta );
 
         MagneticSystem.update(delta);
 
-        ItemsController.update(delta);
+//        ItemsController.update(delta);
+
     },
     onEnter : function () {
         this._super();
@@ -156,22 +206,24 @@ var GameLayer = cc.Layer.extend({
     },
     onKeyPressed : function (key,event) {
         var target = event.getCurrentTarget();
+        console.log(key.toString());
         switch (key) {
             case KeyCode_M:
-                target.f_player.isMagnet = true;
-                target.f_player.isAttract = false;
-                break;
-            case KeyCode_N:
-                target.f_player.isMagnet = true;
-                target.f_player.isAttract = true;
-                break;
-            case KeyCode_X:
+                console.log("press m");
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = false;
                 break;
-            case KeyCode_Z:
+            case KeyCode_N:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
+                break;
+            case KeyCode_X:
+                target.f_player.isMagnet = true;
+                target.f_player.isAttract = false;
+                break;
+            case KeyCode_Z:
+                target.f_player.isMagnet = true;
+                target.f_player.isAttract = true;
                 break;
             default :
                 break;
@@ -181,14 +233,14 @@ var GameLayer = cc.Layer.extend({
         var target = event.getCurrentTarget();
         switch (key) {
             case KeyCode_M:
-                target.f_player.isMagnet = false;
+                target.s_player.isMagnet = false;
             case KeyCode_N:
-                target.f_player.isMagnet = false;
+                target.s_player.isMagnet = false;
                 break;
             case KeyCode_X:
                 target.f_player.isMagnet = false;
             case KeyCode_Z:
-                target.s_player.isMagnet = false;
+                target.f_player.isMagnet = false;
                 break;
             default :
                 break;
