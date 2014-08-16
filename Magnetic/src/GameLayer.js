@@ -82,9 +82,9 @@ var GameLayer = cc.Layer.extend({
         var staticBody = space.staticBody;
 
         // Walls
-        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 10 ),				// bottom
-            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 10),				// left
-            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 10)	// right
+        var walls = [ new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(winSize.width,0), 20 ),				// bottom
+            new cp.SegmentShape( staticBody, cp.v(0,0), cp.v(0,winSize.height), 20),				// left
+            new cp.SegmentShape( staticBody, cp.v(winSize.width,0), cp.v(winSize.width,winSize.height), 20)	// right
         ];
 
 
@@ -92,6 +92,7 @@ var GameLayer = cc.Layer.extend({
         shape.setElasticity(BackGroundElastricity);
         shape.setFriction(1);
         space.addStaticShape( shape );
+
 
         for ( var i = 1; i < walls.length; i++ ) {
             var shape = walls[i];
@@ -164,9 +165,14 @@ var GameLayer = cc.Layer.extend({
         }, this);
         //setup game begin.
         this.isBegin = true;
+
+        //ccs.A
+        this.space.addCollisionHandler(Player.COL_TYPE,Item.COL_TYPE,null,this.playerTouchItem,null,null);
+
     },
     onExit : function () {
         this.unscheduleUpdate();
+        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
         this._super();
     },
     onKeyPressed : function (key,event) {
@@ -212,8 +218,16 @@ var GameLayer = cc.Layer.extend({
             default :
                 break;
         }
-    }
+    },
+    playerTouchItem : function (arb, space, ptr) {
+        var shapes = arb.getShapes();
+        var player = shapes[0];
+        var item = shapes[1];
+        console.log(player);
+        //player.eatItem();
 
+        return true;
+    }
 
 });
 
