@@ -154,10 +154,20 @@ var Bomb = Item.extend({
         if (!this.isExplode && this.time < 0) {
             this.isExplode = true;
             bomb_armature = ccs.Armature.create("explode");
+
+            var origin = this.getPosition();
+
+            var explode_phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, bomb_armature, origin);
+            explode_phyObj.setFriction(0);
+            explode_phyObj.setElasticity(100);
+//        var body = this.phyObj.body;
+//        body.setMoment(Infinity);
+            explode_phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
+
             bomb_armature.scaleX = 2;
             bomb_armature.scaleY = 2;
             bomb_armature.getAnimation().playWithIndex(0);
-            bomb_armature.setPosition(this.getPosition());
+            bomb_armature.setPosition(origin);
             this.getParent().addChild(bomb_armature);
         }
 
@@ -181,6 +191,7 @@ var Bomb = Item.extend({
     }
 });
 
+Bomb.EXPLODE_COL_TYPE = 22;
 Bomb.create = function (file, type, x, y, sOrR) {
     var ret = null;
     if (cc.pool.hasObj(Bomb))

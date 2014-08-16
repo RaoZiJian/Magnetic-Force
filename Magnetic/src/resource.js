@@ -1,5 +1,6 @@
 var res = {
     BackgroundA : "res/sceneA.jpg",
+    Tube : "res/tube.png",
     Robot_plist : "res/animation/robot/robot0.plist",
     Robot_png : "res/animation/robot/robot0.png",
     Robot_exportJSON : "res/animation/robot/robot.ExportJson",

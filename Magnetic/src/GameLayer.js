@@ -11,6 +11,7 @@ var KeyCode_Z = 90,
 
     BACK_ZORDER = 0,
     PLAYER_ZORDER = 10,
+    TUBE_ZORDER = 200;
     ITEM_ZORDER = 11;
 
 var GameLayer = cc.Layer.extend({
@@ -67,7 +68,13 @@ var GameLayer = cc.Layer.extend({
         back.x = cc.winSize.width/2;
         back.y = 0;
         back.anchorY = 0;
+
+        var tube = new cc.Sprite(res.Tube);
+        tube.x = cc.winSize.width / 2 - 5;
+        tube.y = cc.winSize.height - 185;
+        tube.anchorY = 0;
         this.addChild(back, BACK_ZORDER);
+        this.addChild(tube,TUBE_ZORDER);
     },
 
     createPhysicsWorld : function () {
@@ -163,6 +170,7 @@ var GameLayer = cc.Layer.extend({
 
         this.space.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
         this.space.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
+//        this.space.addCollisionHandler(Player.COL_TYPE, Bomb.EXPLODE_COL_TYPE, null, this.playerHitGround, null, null);
 
     },
     onExit : function () {
@@ -240,6 +248,9 @@ var GameLayer = cc.Layer.extend({
 //        console.log("ffffffff_hit ground");
 
         return true;
+    },
+    playerBeExplode : function (arb, space, ptr) {
+
     }
 
 });
