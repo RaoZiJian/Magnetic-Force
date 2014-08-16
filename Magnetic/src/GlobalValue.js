@@ -18,8 +18,8 @@ var ITEM_MAX_SPEED = 500;
 
 
 //item controller
-var BORN_IRON_INTERVAL = 20;
-var BORN_BOMB_INTERVAL = 20;
+var BORN_IRON_INTERVAL = 5;
+var BORN_BOMB_INTERVAL = 5;
 
 
 //magnet system
@@ -40,3 +40,6 @@ var PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 2);
 
 //bomb
 var EXPLODE_TIME = 300;
+var EXPLODE_WEIGHT = 10;
+var EXPLODE_RADIUS = 50;
+var EXPLODE_ELASTICITY = 10;
