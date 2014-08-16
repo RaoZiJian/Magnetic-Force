@@ -12,6 +12,7 @@ var BackGroundLayer = cc.Layer.extend({
         back.anchorY = 0;
 
         var ground = new cc.Sprite(res.Ground);
+        
         ground.x = cc.winSize.width/2;
         ground.y = ground.height/2;
 
