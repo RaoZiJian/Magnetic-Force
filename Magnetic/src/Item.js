@@ -56,7 +56,7 @@ var Item = cc.Sprite.extend({
         }
         this.phyObj.setFriction(this._friction);
         this.phyObj.setElasticity(this._elasticity);
-        this.phyObj.shape.setCollisionType(Player.COL_TYPE);
+        this.phyObj.shape.setCollisionType(Item.COL_TYPE);
     },
 
     update : function() {

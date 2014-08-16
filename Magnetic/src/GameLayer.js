@@ -219,13 +219,14 @@ var GameLayer = cc.Layer.extend({
         var player = shapes[0];
         var item = shapes[1];
         var armature = player.obj.view;
+//        console.log("aaaaaaaa");
 //        if(armature){
 //            console.log(armature.eatItem());
 //        }
 
         //console.log(armature);
 //        if(armature){
-            armature.eatItem();
+//            armature.eatItem();
 //        }
 
 
