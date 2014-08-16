@@ -8,6 +8,8 @@ var ScoreController = {
     sp_score : 0,
     fp_score_label : null,
     sp_score_label : null,
+    game_layer : null,
+    gameOver_score : 3,
 
     init : function(game_layer){
         this.fp_score = 0;
@@ -22,18 +24,55 @@ var ScoreController = {
         game_layer.addChild(this.fp_score_label);
         game_layer.addChild(this.sp_score_label);
 
+        this.game_layer = game_layer;
+
     },
 
     addFpScore : function(){
         this.fp_score ++;
 
-        this.fp_score_label.setString(this.fp_score);
+        if (this.fp_score && this.fp_score <= this.gameOver_score) {
+            this.fp_score_label.setString(this.fp_score);
+            var rightGate = this.game_layer.getChildByTag(RIGHT_GATE_TAG);
+            var spriteFrameCache = cc.spriteFrameCache;
+            var rightSpriteFrame = rightGate.getSpriteFrame();
+            switch (this.fp_score) {
+                case 1:
+                    rightSpriteFrame = spriteFrameCache.getSpriteFrame("redB.png");
+                    break;
+                case 2:
+                    rightSpriteFrame = spriteFrameCache.getSpriteFrame("redC.png");
+                    break;
+                case 3:
+                    rightSpriteFrame = spriteFrameCache.getSpriteFrame("redD.png");
+                    break;
+            }
+            rightGate.setSpriteFrame(rightSpriteFrame);
+
+        }
     },
 
     addSpScore : function(){
         this.sp_score ++;
+        if (this.sp_score && this.sp_score <= this.gameOver_score) {
+            this.sp_score_label.setString(this.sp_score);
+            var leftGate = this.game_layer.getChildByTag(LEFT_GATE_TAG);
+            var spriteFrameCache = cc.spriteFrameCache;
+            var leftSpriteFrame = leftGate.getSpriteFrame();
+            switch (this.sp_score) {
+                case 1:
+                    leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleB.png");;
+                    break;
+                case 2:
+                    leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleC.png");
+                    break;
+                case 3:
+                    leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleD.png");
+                    break;
+            }
 
-        this.sp_score_label.setString(this.sp_score);
+        }
+
     }
 
 

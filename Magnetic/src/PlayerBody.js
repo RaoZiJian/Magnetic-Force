@@ -22,6 +22,8 @@ var Player = ccs.Armature.extend({
 
     _ignoreBodyRotation:false,
 
+    isHitGround : false,
+
     ctor : function(file, r, x, y) {
         this._super(file);
 
@@ -35,6 +37,11 @@ var Player = ccs.Armature.extend({
         this.initPhysics(x, y, this.r);
 
         //this.eatItem();
+
+
+        this.fire_emitter = new cc.ParticleSystem(res.Fire_plist);
+        this.fire_emitter.setPosition(0, 0);
+        this.addChild(this.fire_emitter, 0);
 
     },
 
@@ -82,6 +89,35 @@ var Player = ccs.Armature.extend({
             this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y * factor;
         }
     },
+
+    hitGround : function (point){
+
+        if (this.isHitGround){
+
+            return;
+        }
+        this.isHitGround = true;
+        this.scheduleOnce(this.resetHitGround, 0.1);
+
+        var emitter_pos = this.convertToNodeSpace(point);
+        this.fire_emitter.setPosition( emitter_pos );
+
+
+//        console.log("fire emitter");
+//        this.fire_emitter = new cc.ParticleSystem(res.Fire_plist);
+//        this.addChild(this.fire_emitter, 0);
+
+
+
+
+    },
+
+    resetHitGround : function(){
+        this.isHitGround = false;
+        this.fire_emitter.setPosition(cc.p(0, 0));
+        console.log("hit ground");
+    },
+
     eatItem : function () {
         console.log("bbbbbbbbbbbbbb");
         // create sprite sheet

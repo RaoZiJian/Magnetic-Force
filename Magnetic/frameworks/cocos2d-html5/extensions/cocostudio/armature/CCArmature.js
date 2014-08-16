@@ -361,7 +361,7 @@ ccs.Armature = ccs.Node.extend(/** @lends ccs.Armature# */{
         var alphaPremultiplied = cc.BlendFunc.ALPHA_PREMULTIPLIED, alphaNonPremultipled = cc.BlendFunc.ALPHA_NON_PREMULTIPLIED;
         for (var i = 0, len = locChildren.length; i< len; i++) {
             var selBone = locChildren[i];
-            if (selBone) {
+            if (selBone instanceof ccs.Bone) {
                 var node = selBone.getDisplayRenderNode();
 
                 if (null == node)
