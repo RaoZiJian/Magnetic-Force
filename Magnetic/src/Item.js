@@ -18,7 +18,7 @@ var Item = cc.Sprite.extend({
 
         var size = this.getContentSize();
         if (isCircle) {
-            this.scale = sOrR * 2 / size.width;
+            this.scale = sOrR * ITEM_SCALE_FACTOR / size.width;
             this.weight = sOrR * 4 / ITEM_WEIGHT_FACTOR;
         }
         else {
@@ -99,7 +99,7 @@ var Item = cc.Sprite.extend({
 
         var isCircle = type == Item.CIRCLE_SHAPE;
         if (isCircle) {
-            this.scale = sOrR * 2 / size.width;
+            this.scale = sOrR * ITEM_SCALE_FACTOR / size.width;
             this.weight = sOrR * 4 / ITEM_WEIGHT_FACTOR;
         }
         else {
@@ -143,7 +143,6 @@ var Bomb = Item.extend({
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
         this.phyObj.shape.setCollisionType(Bomb.COL_TYPE);
-        this.scale = 1;
         this.setAnchorPoint(cc.p(0.35,0.35));
         var animFrames = [];
         for (var i = 1; i < 4; i++) {
@@ -171,9 +170,8 @@ var Bomb = Item.extend({
                 this.stopAllActions();
                 this.bomb_armature = ccs.Armature.create("explode");
                 this.bomb_armature.retain();
-                var origin = this.getPosition();
 
-                this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
+                this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, cc.p(0, 0));
                 this.bomb_armature.phyObj.setFriction(0);
                 this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
 //        var body = this.phyObj.body;
@@ -183,8 +181,7 @@ var Bomb = Item.extend({
                 this.bomb_armature.scaleX = 2;
                 this.bomb_armature.scaleY = 2;
                 this.bomb_armature.getAnimation().playWithIndex(0);
-                this.bomb_armature.setPosition(origin);
-                this.getParent().addChild(this.bomb_armature);
+                this.addChild(this.bomb_armature);
                 this.die();
             }
         }
@@ -221,13 +218,22 @@ var Bomb = Item.extend({
             }
         }
     },
+
+    _realDieWithArmature : function() {
+        cc.pool.putInPool(this);
+    },
+
+    _realDie : function() {
+        this.scheduleOnce(this._realDieWithArmature, 0.7);
+        this.opacity = 0;
+    },
     unuse : function () {
         this.stopAllActions();
         this._super();
     },
     reuse : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y, sOrR);
-        this.scale = 1;
+        this.opacity = 255;
         this.setAnchorPoint(cc.p(0.35,0.35));
         var animFrames = [];
         for (var i = 1; i < 4; i++) {
