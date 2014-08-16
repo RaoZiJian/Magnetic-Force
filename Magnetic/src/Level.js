@@ -4,8 +4,8 @@
 
 var Level = {
 
-    fp_gate_info : cc.Rect(0, 0, 0, 0),
-    sp_gate_info : cc.Rect(0, 0, 0, 0),
+    fp_gate_info : cc.rect(0, 0, 0, 0),
+    sp_gate_info : cc.rect(0, 0, 0, 0),
 
 
     createLevel_1 : function (gameLayer, space){
@@ -71,9 +71,8 @@ var Level = {
             space.addStaticShape( shape );
         }
 
-        this.fp_gate_info = cc.Rect(0, winSize.height/2 - 120, winSize.width/20 - 20, winSize.height/2 + 0);
-        this.sp_gate_info = cc.Rect(winSize.width * 19/20 + 20, winSize.height/2 - 120, winSize.width, winSize.height/2 + 0);
-
+        this.fp_gate_info = cc.rect(0, winSize.height/2 - 120, winSize.width/20 - 20, 120);
+        this.sp_gate_info = cc.rect(winSize.width * 19/20 + 20, winSize.height/2 - 120, winSize.width/20 - 20, 120);
 
     }
 
