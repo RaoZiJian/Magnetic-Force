@@ -124,7 +124,7 @@ Item.RECT_SHAPE = 1;
 
 var Bomb = Item.extend({
     bomb_armature : null,
-    time : 3,
+    time : 8,
     isExplode : false,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y, sOrR);
