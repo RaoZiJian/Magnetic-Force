@@ -33,4 +33,8 @@
    <polygon points="3,-7 57,-43 54,339 -72,275"/>
   </object>
  </objectgroup>
+ <objectgroup name="Items" width="1" height="1">
+  <object type="Trampoline" x="178" y="730" width="266" height="47"/>
+  <object type="Trampoline" x="796" y="730" width="268" height="47"/>
+ </objectgroup>
 </map>

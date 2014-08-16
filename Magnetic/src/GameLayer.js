@@ -12,9 +12,10 @@ var KeyCode_Z = 90,
     BACK_ZORDER = 0,
     PLAYER_ZORDER = 10,
     TUBE_ZORDER = 200,
+    ITEM_ZORDER = 11,
+    MAP_ZORDER = 1,
     LEFT_GATE_TAG = 103,
-    RIGHT_GATE_TAG = 104,
-    ITEM_ZORDER = 11;
+    RIGHT_GATE_TAG = 104;
 
 var GameLayer = cc.Layer.extend({
 
@@ -90,7 +91,7 @@ var GameLayer = cc.Layer.extend({
         right_gate.setAnchorPoint(cc.p(1,0));
 
         this.addChild(back, BACK_ZORDER);
-        this.addChild(tube,TUBE_ZORDER);
+        this.addChild(tube, TUBE_ZORDER);
         this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
         this.addChild(right_gate,BACK_ZORDER,RIGHT_GATE_TAG);
     },
@@ -113,12 +114,12 @@ var GameLayer = cc.Layer.extend({
     },
     createWalls : function () {
 
-        Level.createLevel(res.Level1);
+        Level.createLevel(res.Level1, this);
 
     },
     createPlayers : function () {
 
-        this.f_player = new Player("robot", 50, winSize.width/6, 57);
+        this.f_player = new Player("robot", 50, winSize.width/6*5, 57);
         //var index = [5];
         this.f_player.getAnimation().playWithIndex(0);
         this.addChild(this.f_player, PLAYER_ZORDER);
@@ -133,7 +134,7 @@ var GameLayer = cc.Layer.extend({
 //            //console.log(s_player_label.innerHTML);
 //        };
 
-        this.s_player = new Player("robot", 50, winSize.width/6*5, 57);
+        this.s_player = new Player("robot", 50, winSize.width/6, 57);
         this.s_player.getAnimation().playWithIndex(3);
         this.addChild(this.s_player, PLAYER_ZORDER);
 //        this.s_player.isMagnetUpdated = function () {
@@ -188,6 +189,7 @@ var GameLayer = cc.Layer.extend({
 
         this.space.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
         this.space.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
+        this.space.addCollisionHandler(Player.COL_TYPE, Trampoline.COL_TYPE, null, this.playerHitTrampoline, null, null);
 //        this.space.addCollisionHandler(Player.COL_TYPE, Bomb.EXPLODE_COL_TYPE, null, this.playerHitGround, null, null);
 
     },
@@ -200,22 +202,22 @@ var GameLayer = cc.Layer.extend({
         var target = event.getCurrentTarget();
         switch (key) {
             case KeyCode_M:
-                target.s_player.isMagnet = true;
-                target.s_player.isAttract = false;
-                break;
-            case KeyCode_N:
-                target.s_player.isMagnet = true;
-                target.s_player.isAttract = true;
-                target.s_player.jump();
-                break;
-            case KeyCode_X:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = false;
                 break;
-            case KeyCode_Z:
+            case KeyCode_N:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
                 target.f_player.jump();
+                break;
+            case KeyCode_X:
+                target.s_player.isMagnet = true;
+                target.s_player.isAttract = false;
+                break;
+            case KeyCode_Z:
+                target.s_player.isMagnet = true;
+                target.s_player.isAttract = true;
+                target.s_player.jump();
                 break;
             default :
                 break;
@@ -225,16 +227,16 @@ var GameLayer = cc.Layer.extend({
         var target = event.getCurrentTarget();
         switch (key) {
             case KeyCode_M:
-                target.s_player.isMagnet = false;
+                target.f_player.isMagnet = false;
                 break;
             case KeyCode_N:
-                target.s_player.isMagnet = false;
+                target.f_player.isMagnet = false;
                 break;
             case KeyCode_X:
-                target.f_player.isMagnet = false;
+                target.s_player.isMagnet = false;
                 break;
             case KeyCode_Z:
-                target.f_player.isMagnet = false;
+                target.s_player.isMagnet = false;
                 break;
             default :
                 break;
@@ -255,13 +257,12 @@ var GameLayer = cc.Layer.extend({
 //            armature.eatItem();
 //        }
 
-        var parentLayer = player.obj.view.parent;
-        if(!parentLayer.isEffectPlaying){
-
-            cc.audioEngine.playEffect(res.hit2_ogg,false);
-            parentLayer.isEffectPlaying = true;
-            parentLayer.scheduleOnce(parentLayer.resetEffect,0.2);
-        }
+//        var parentLayer = player.obj.view.parent;
+//        if(!parentLayer.isEffectPlaying){
+//            cc.audioEngine.playEffect(res.hit2_ogg,false);
+//            parentLayer.isEffectPlaying = true;
+//            parentLayer.scheduleOnce(parentLayer.resetEffect, 2);
+//        }
         return true;
     },
     playerHitGround : function (arb, space, ptr) {
@@ -269,18 +270,30 @@ var GameLayer = cc.Layer.extend({
         var player = shapes[0];
         var ground = shapes[1];
 
-//        console.log("ffffffff_hit ground");
+//        var n = arb.getNormal(0);
+//        var angle = cc.pToAngle( cc.p(n.x, n.y) );
+        var angle = Physics.calculAngle(arb);
+
+//        console.log(angle);
+
+//        console.log(v.x + "   " + v.y);
+//        var angle = Math.atan2(v.y , v.x);
+
+        var player_armature = player.obj.view;
+        player_armature.hitGround(arb.getPoint(0), angle);
 
         return true;
+    },
+    playerHitTrampoline : function (arb, space, ptr) {
+        var shapes = arb.getShapes();
+        var player = shapes[0].obj.view;
+        player.jump(Trampoline.JUMP_FACTOR);
     },
 
     playerBeExplode : function (arb, space, ptr) {
 
     },
 
-    resetEffect:function(){
-        this.isEffectPlaying=false;
-    },
     loadResoure : function () {
         var armatureDataManager = ccs.armatureDataManager;
         armatureDataManager.addArmatureFileInfo(res.Robot_exportJSON);
