@@ -6,9 +6,9 @@
 var EFFECTIVE_MAGNET_DIS = 300;
 var PLAYER_INIT_MH = 200;
 
-var SAFE_DIS_ADD = 0.5;
+var SAFE_DIS_ADD = 0.55;
 
-var REPULSIVE_FORCE_MUTIPLE = 1.0;
+var REPULSIVE_FORCE_MUTIPLE = 1.25;
 
 var MagneticSystem = {
 
