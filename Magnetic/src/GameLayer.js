@@ -305,7 +305,7 @@ var GameLayer = cc.Layer.extend({
                 target.f_player.resetJump();
                 break;
             case KeyCode_Z:
-                target.s_player.setScale(1.11,1.11);
+                target.s_player.setScale(1/0.9,1/0.9);
             case KeyCode_X:
                 target.s_player.isMagnet = false;
                 target.s_player.normal(3);

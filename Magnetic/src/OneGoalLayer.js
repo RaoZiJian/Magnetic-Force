@@ -27,9 +27,9 @@ var OneGoalLayer = GameLayer.extend({
 
     checkResult : function () {
         var result = this.itemLayer.checkForGoal();
-        if (result == OneGoalItemsLayer.FP_GET_SCORE)
+        if (result == OneGoalController.FP_GET_SCORE)
             this.gameController.addFpScore();
-        else if (result = OneGoalItemsLayer.SP_GET_SCORE)
+        else if (result == OneGoalController.SP_GET_SCORE)
             this.gameController.addSpScore();
 
         if (this.gameController.isGameOver()) {
