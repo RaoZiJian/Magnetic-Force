@@ -166,8 +166,11 @@ var MagneticSystem = {
 
 
         //calculate jump_f
-        fp_f = pAddp(fp_f, this.f_player.jump_f);
-        sp_f = pAddp(sp_f, this.s_player.jump_f);
+//        fp_f = pAddp(fp_f, this.f_player.jump_f);
+//        sp_f = pAddp(sp_f, this.s_player.jump_f);
+        if (this.f_player.isJump) fp_f = pAddp(fp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.f_player.y + 100)  ) );
+        if (this.s_player.isJump) sp_f = pAddp(sp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.s_player.y + 100)  ) );
+
 
         //calculate airstream force
         if (this.f_player.y > AIR_EFFECTIVE_HEIGHT){
