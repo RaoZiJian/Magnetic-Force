@@ -4,49 +4,49 @@
 
 var ScoreController = {
 
-    fp_score : 0,
-    sp_score : 0,
-    fp_score_label : null,
-    sp_score_label : null,
+    fp_hp : GAME_INIT_HP,
+    sp_hp : GAME_INIT_HP,
+    fp_hp_label : null,
+    sp_hp_label : null,
     game_layer : null,
-    gameOver_score : GAME_OVER_SCORE,
 
     isGameOver : false,
 
     init : function(game_layer){
-        this.fp_score = 0;
-        this.sp_score = 0;
+        this.fp_hp = GAME_INIT_HP;
+        this.sp_hp = GAME_INIT_HP;
 
-        this.fp_score_label = cc.LabelTTF.create("0");
-        this.sp_score_label = cc.LabelTTF.create("0");
-        this.fp_score_label.setPosition(winSize.width/10, winSize.height * 2/3);
-        this.sp_score_label.setPosition(winSize.width * 9/10, winSize.height * 2/3);
-        this.fp_score_label.setFontSize(50);
-        this.sp_score_label.setFontSize(50);
-        game_layer.addChild(this.fp_score_label);
-        game_layer.addChild(this.sp_score_label);
+        this.fp_hp_label = cc.LabelTTF.create("3");
+        this.sp_hp_label = cc.LabelTTF.create("3");
+        this.fp_hp_label.setPosition(winSize.width/10, winSize.height * 2/3);
+        this.sp_hp_label.setPosition(winSize.width * 9/10, winSize.height * 2/3);
+        this.fp_hp_label.setFontSize(50);
+        this.sp_hp_label.setFontSize(50);
+        game_layer.addChild(this.fp_hp_label);
+        game_layer.addChild(this.sp_hp_label);
 
         this.game_layer = game_layer;
 
         this.isGameOver = false;
     },
 
-    addFpScore : function(){
-        this.fp_score ++;
+    hitSpHouse : function(){
+        this.sp_hp --;
 
-        if (this.fp_score && this.fp_score <= this.gameOver_score) {
-            this.fp_score_label.setString(this.fp_score);
+        if ( this.sp_hp >= 0) {
+            this.sp_hp_label.setString(this.sp_hp);
             var rightGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(RIGHT_GATE_TAG);
+
             var spriteFrameCache = cc.spriteFrameCache;
             var rightSpriteFrame = null;
-            switch (this.fp_score) {
-                case 1:
+            switch (this.sp_hp) {
+                case 2:
                     rightSpriteFrame = spriteFrameCache.getSpriteFrame("redB.png");
                     break;
-                case 2:
+                case 1:
                     rightSpriteFrame = spriteFrameCache.getSpriteFrame("redC.png");
                     break;
-                case 3:
+                case 0:
                     rightSpriteFrame = spriteFrameCache.getSpriteFrame("redD.png");
                     break;
             }
@@ -65,26 +65,30 @@ var ScoreController = {
 
         }
 
-        if (this.fp_score && this.fp_score == this.gameOver_score && !this.isGameOver){
+        if (this.sp_hp === 0 && !this.isGameOver){
             this.gameOver();
         }
     },
 
-    addSpScore : function(){
-        this.sp_score ++;
-        if (this.sp_score && this.sp_score <= this.gameOver_score) {
-            this.sp_score_label.setString(this.sp_score);
+
+    hitFpHouse : function(){
+        this.fp_hp --;
+
+        if ( this.fp_hp >= 0) {
+            this.fp_hp_label.setString(this.fp_hp);
             var leftGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(LEFT_GATE_TAG);
+
             var spriteFrameCache = cc.spriteFrameCache;
             var leftSpriteFrame = null;
-            switch (this.sp_score) {
-                case 1:
-                    leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleB.png");;
-                    break;
+            console.log(this.fp_hp);
+            switch (this.fp_hp) {
                 case 2:
+                    leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleB.png");
+                    break;
+                case 1:
                     leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleC.png");
                     break;
-                case 3:
+                case 0:
                     leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleD.png");
                     break;
             }
@@ -103,7 +107,7 @@ var ScoreController = {
             }
         }
 
-        if ( this.sp_score && this.sp_score == this.gameOver_score && !this.isGameOver){
+        if (  this.fp_hp === 0 && !this.isGameOver){
             this.gameOver();
         }
 
@@ -113,6 +117,14 @@ var ScoreController = {
 
         this.isGameOver = true;
 
+
+        var isNaughtyWin = this.sp_hp === 0;
+
+        var over_layer = OverLayer.create(isNaughtyWin);
+
+        this.game_layer.getParent().addChild( over_layer );
+
+
     },
     explodeCallBack : function (armature, movementType, movementID) {
         if (movementType == ccs.MovementEventType.complete) {
@@ -120,6 +132,7 @@ var ScoreController = {
 //            armature.getAnimation().playWithIndex(0);
             armature.removeFromParent();
         }
+
     }
 
 
