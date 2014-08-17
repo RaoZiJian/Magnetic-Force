@@ -492,9 +492,6 @@ var GameLayer = cc.Layer.extend({
     },
     helpMenu  : function () {
 
-    },
-    hideUI : function () {
-
     }
 });
 
