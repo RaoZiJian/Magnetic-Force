@@ -393,6 +393,12 @@ var OneGoalController = GameController.extend({
 
         if(this.game_time <= 10){
 
+            this.game_time_label.stopAction();
+            this.fp_score_label.stopAction();
+            this.sp_score_label.stopAction();
+            this.fp_score_label.setScale(1.0, 1.0);
+            this.sp_score_label.setScale(1.0, 1.0);
+
             this.game_time_show_interval_last_ten -= dt;
 
             if (this.game_time_show_interval_last_ten <= 0){
@@ -407,6 +413,7 @@ var OneGoalController = GameController.extend({
 
     isGameOver : function () {
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
+
             return true;
         }
 
