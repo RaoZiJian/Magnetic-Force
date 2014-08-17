@@ -159,7 +159,7 @@ var Bomb = Item.extend({
         this.time -= dt;
 
         if (!this.isExplode && this.time < EXPLODE_WARNNING_TIME) {
-            if (!this.isWarnning) {
+            if (!this.isWarnning && this.anime) {
                 this.isWarnning = true;
                 var repeatAction = cc.repeat(cc.sequence(cc.tintTo(1,128,0,0),cc.tintTo(1,255,200,200)),2);
                 this.runAction(cc.sequence(repeatAction,cc.tintTo(1,200,75,75)));
@@ -269,8 +269,8 @@ Bomb.create = function (file, type, x, y, sOrR) {
         }
         Bomb.animation = new cc.Animation(animFrames, 0.1);
     }
-    var anime = cc.animate(Bomb.animation).repeatForever();
-    ret.runAction(anime);
+    ret.anime = cc.animate(Bomb.animation).repeatForever();
+    ret.runAction(ret.anime);
     return ret;
 };
 Bomb.createNoAnime = function (file, type, x, y, sOrR) {
