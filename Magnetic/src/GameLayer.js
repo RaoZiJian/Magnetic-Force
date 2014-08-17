@@ -23,6 +23,7 @@ var GameLayer = cc.Layer.extend({
 
     isBegin : false,
     isOver : false,
+    inTitle : false,
 
     space : null,
 
@@ -35,16 +36,15 @@ var GameLayer = cc.Layer.extend({
     itemLayer : null,
 
     isEffectPlaying: false,
-
+    ctor : function () {
+        this._super();
+        winSize = cc.director.getWinSize();
+    },
     init : function(){
 
         if ( !this._super() ){
             return false;
         }
-
-        winSize = cc.director.getWinSize();
-
-
 //        var armature = ccs.Armature.create("robot");
 //        armature.getAnimation().playWithIndex(2);
 //        armature.setPosition(200,300);
@@ -56,21 +56,43 @@ var GameLayer = cc.Layer.extend({
 
         this.createPhysicsWorld();
 //
-//        this.setupDebugNode();
-//
-//        this.createWalls();
+        this.setupDebugNode();
+
+        this.createWalls();
 
         this.createPlayers();
 
-//        this.createMagnetSystem();
+        this.createMagnetSystem();
 
-//        this.createItems();
+        this.createItems();
 
-//        this.createScoreController();
+        this.createScoreController();
+
+        this.isBegin = true;
+        this.isOver = false;
+        this.inTitle = false;
 
         return true;
     },
 
+    initWithMenu : function () {
+//        var armature = ccs.Armature.create("robot");
+//        armature.getAnimation().playWithIndex(2);
+//        armature.setPosition(200,300);
+//        this.addChild(armature,100);
+
+        this.isBegin = false;
+        this.isOver = false;
+        this.inTitle = true;
+
+        this.loadResoure();
+
+        this.createBackground();
+
+        this.showMenu();
+
+        return true;
+    },
     createBackground : function() {
 //        var back = new cc.Sprite(res.BackgroundA);
 //        back.x = cc.winSize.width/2;
@@ -114,7 +136,7 @@ var GameLayer = cc.Layer.extend({
         var backGround = new BackGroundLayer();
         this.addChild(backGround,BACK_ZORDER,BACK_TAG);
 
-        this.showMenu();
+//        this.showMenu();
     },
 
     createPhysicsWorld : function () {
@@ -143,7 +165,6 @@ var GameLayer = cc.Layer.extend({
         this.f_player = new Player("robot", 50, winSize.width/6*5, 57);
         //var index = [5];
         this.f_player.getAnimation().playWithIndex(0);
-        this.f_player.visible = false;
         this.addChild(this.f_player, PLAYER_ZORDER);
 //        this.f_player.isMagnetUpdated = function () {
 //           var f_player_label = window.document.getElementById("f_player_magnet");
@@ -158,7 +179,6 @@ var GameLayer = cc.Layer.extend({
 
         this.s_player = new Player("robot", 50, winSize.width/6, 57);
         this.s_player.getAnimation().playWithIndex(3);
-        this.s_player.visible = false;
         this.addChild(this.s_player, PLAYER_ZORDER);
 //        this.s_player.isMagnetUpdated = function () {
 //            var s_player_label = window.document.getElementById("s_player_magnet");
@@ -187,7 +207,7 @@ var GameLayer = cc.Layer.extend({
     },
 
     update : function( delta ) {
-        if(this.isBegin){
+        if(this.isBegin && !this.inTitle){
             this.space.step( delta );
 
 //        if ( this.isBegin && !this.isOver){
@@ -211,7 +231,7 @@ var GameLayer = cc.Layer.extend({
             onKeyReleased: this.onKeyReleased
         }, this);
         //setup game begin.
-        this.isBegin = false;
+        this.isBegin = true;
 
         //ccs.A
         Physics.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
@@ -446,16 +466,14 @@ var GameLayer = cc.Layer.extend({
     playWith2P : function () {
         console.log("2p");
 
-
         this.createPhysicsWorld();
 //
         this.setupDebugNode();
 
         this.createWalls();
 
-//        this.createPlayers();
-        this.s_player.visible = true;
-        this.f_player.visible = true;
+        this.createPlayers();
+
         this.createMagnetSystem();
 
         this.createItems();
@@ -463,6 +481,8 @@ var GameLayer = cc.Layer.extend({
         this.createScoreController();
 
         this.isBegin = true;
+        this.isOver = false;
+        this.inTitle = false;
     },
     playWith4P : function () {
         console.log("4p");
@@ -487,6 +507,15 @@ GameLayer.create = function () {
     return null;
 };
 
+GameLayer.createWithMenu = function() {
+    var gameScene = new cc.Scene();
+    gameLayer = new GameLayer();
+    if(gameLayer && gameLayer.initWithMenu()) {
+        gameScene.addChild(gameLayer);
+        return gameScene;
+    }
+    return null;
+}
 GameLayer.createScene = function () {
     var gameScene = new cc.Scene();
     gameLayer = GameLayer.create();
