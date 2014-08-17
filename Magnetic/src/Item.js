@@ -141,6 +141,8 @@ var Bomb = Item.extend({
     isEndExplode : false,
     isWarnning : false,
     anime : null,
+    nastyDog : false,
+    naughtyDog : false,
     ctor : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y , sOrR);
         this.time = EXPLODE_TIME + EXPLODE_DEVIATION_TIME * Math.random();
@@ -205,6 +207,15 @@ var Bomb = Item.extend({
         }
     },
 
+    captured : function (nasty) {
+        if (nasty) {
+            this.color = cc.color(255, 0, 0, 128);
+        }
+        else {
+            this.color = cc.color(0, 0, 255, 128);
+        }
+    },
+
     _realDieWithArmature : function() {
         cc.pool.putInPool(this);
     },
@@ -233,8 +244,11 @@ var Bomb = Item.extend({
         this.isExplode = false;
         this.isEndExplode = false;
         this.isWarnning = false;
+        this.naughtyDog = false;
+        this.nastyDog = false;
         this.color = cc.color(255,255,255);
         this.time = EXPLODE_TIME + EXPLODE_DEVIATION_TIME * Math.random();
+        this.phyObj.shape.setCollisionType(Bomb.COL_TYPE);
     }
 });
 
