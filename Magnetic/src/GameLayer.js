@@ -511,7 +511,7 @@ var GameLayer = cc.Layer.extend({
         var guide_text = new cc.Sprite(spriteFrameCache.getSpriteFrame("guideText.png"));
         var confirm_btn = new cc.Sprite(spriteFrameCache.getSpriteFrame("confirmBtn.png"));
 
-        this.addChild();
+        this.addChild(guide);
     }
 });
 
