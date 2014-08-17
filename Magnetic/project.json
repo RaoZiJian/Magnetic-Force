@@ -19,6 +19,7 @@
         "src/MagneticSystem.js",
         "src/Wall.js",
         "src/GameLayer.js",
+        "src/OneGoalLayer.js",
         "src/PlayerBody.js",
         "src/TestLayer.js",
         "src/Item.js",

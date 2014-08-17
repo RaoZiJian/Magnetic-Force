@@ -21,6 +21,7 @@ var ItemsLayer = cc.Layer.extend({
 
         MagneticSystem.addOtherItem(item.phyObj.body);
         this.addChild(item);
+        return item;
     },
 
     bornItems : function (tex, cx, cy, number) {
@@ -84,5 +85,22 @@ var ItemsLayer = cc.Layer.extend({
             deleteItem.die();
         }
         return ret;
+    }
+});
+
+var OneGoalItemsLayer = ItemsLayer.extend({
+    addItem: function () {
+        var item = this._super();
+
+        // Add initial force
+
+    },
+
+    update : function (){
+        // Generate items from left and right corner
+    },
+
+    checkForGoal : function() {
+        // Check for the only one goal
     }
 });
