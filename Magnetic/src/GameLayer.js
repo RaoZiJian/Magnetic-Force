@@ -13,6 +13,7 @@ var KeyCode_Z = 90,
     BACK_TAG = 33,
     PLAYER_ZORDER = 10,
     TUBE_ZORDER = 200,
+    TUBE_TAG = 200,
     ITEM_ZORDER = 11,
     MAP_ZORDER = 1,
     LEFT_GATE_TAG = 103,
@@ -109,7 +110,7 @@ var GameLayer = cc.Layer.extend({
         tube.y = tubeY;
         tube.anchorY = 0;
 
-        this.addChild(tube, TUBE_ZORDER);
+        this.addChild(tube, TUBE_ZORDER,TUBE_TAG);
 
         // Add Tube Particle system
         this.forceEmitter = new cc.ParticleSystem(res.Pipe);
@@ -290,19 +291,19 @@ var GameLayer = cc.Layer.extend({
         }
 
         switch (key) {
-            case KeyCode_M:
             case KeyCode_N:
+                target.f_player.setScale(1.0,1.0);
+            case KeyCode_M:
                 target.f_player.isMagnet = false;
                 target.f_player.normal(0);
                 target.f_player.resetJump();
-                target.f_player.setScale(1.0,1.0);
                 break;
-            case KeyCode_X:
             case KeyCode_Z:
+                target.s_player.setScale(1.11,1.11);
+            case KeyCode_X:
                 target.s_player.isMagnet = false;
                 target.s_player.normal(3);
                 target.s_player.resetJump();
-                target.s_player.setScale(1.0,1.0);
                 break;
             default :
                 break;

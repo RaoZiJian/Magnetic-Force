@@ -67,6 +67,7 @@ var GAME_INIT_HP = 3;
 
 var GAME_TIME_LENGTH = 30;
 
+var SCORE_DEVIATION_MORE = 2;
 
 var Global_Value = {
 

@@ -32,8 +32,8 @@ var ScoreController = GameController.extend({
     sp_score_num : 0,
     fp_lat_score : false,
     fp_last_score : false,
-    fp_deviation_time : 3,
-    sp_deviation_time : 3,
+    fp_deviation_time : SCORE_DEVIATION_MORE,
+    sp_deviation_time : SCORE_DEVIATION_MORE,
 
     ctor : function(game_layer){
         this._super(game_layer);
@@ -47,8 +47,8 @@ var ScoreController = GameController.extend({
         this.sp_last_score = false;
         this.fp_score_num = 0;
         this.sp_score_num = 0;
-        this.fp_deviation_time = 3;
-        this.sp_deviation_time = 3;
+        this.fp_deviation_time = SCORE_DEVIATION_MORE;
+        this.sp_deviation_time = SCORE_DEVIATION_MORE;
 
 
         this.fp_hp_label.setPosition(winSize.width/10, winSize.height * 2/3);
@@ -63,8 +63,13 @@ var ScoreController = GameController.extend({
     hitSpHouse : function(){
         this.sp_hp --;
 
-        if (this.fp_last_score && this.sp_deviation_time > 0) {
-
+        if(!this.fp_last_score) {
+            this.fp_last_score = true;
+            this.fp_deviation_time = SCORE_DEVIATION_MORE;
+            this.fp_score_num = 1;
+        }else if (this.sp_deviation_time > 0) {
+            this.fp_score_num++;
+            this.fp_deviation_time = SCORE_DEVIATION_MORE;
         }
         this.showHP(cc.winSize.width + 7,570,this.sp_hp);
 
@@ -104,6 +109,15 @@ var ScoreController = GameController.extend({
 
     hitFpHouse : function(){
         this.fp_hp --;
+
+        if(!this.sp_last_score) {
+            this.sp_last_score = true;
+            this.sp_deviation_time = SCORE_DEVIATION_MORE;
+            this.sp_score_num = 1;
+        }else if (this.sp_deviation_time > 0) {
+            this.sp_score_num++;
+            this.sp_deviation_time = SCORE_DEVIATION_MORE;
+        }
 
         this.showHP(0 - 7,570,this.fp_hp);
 
@@ -218,6 +232,51 @@ var ScoreController = GameController.extend({
     },
     update : function (dt) {
         this._super(dt);
+        var spriteFrame = cc.spriteFrameCache;
+        if(this.sp_last_score) {
+            this.sp_deviation_time -= dt;
+            if(this.sp_deviation_time < 0) {
+                var sp_text = null;
+                switch (this.sp_score_num){
+                    case 2:
+                        sp_text = new cc.Sprite(spriteFrame.getSpriteFrame("bleeding.png"));
+                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
+                        break;
+                    case 3:
+                        sp_text = new cc.Sprite(spriteFrame.getSpriteFrame("dunkMonster.png"));
+                        cc.audioEngine.playEffect(res.DunkMonster_ogg,false);
+                        break;
+                    default :
+                        break;
+                }
+                this.sp_last_score = false;
+                this.sp_deviation_time = SCORE_DEVIATION_MORE;
+                this.sp_score_num = 0;
+            }
+        }
+
+        if(this.fp_last_score) {
+            this.fp_deviation_time -= dt;
+            if(this.fp_deviation_time < 0) {
+                var fp_text = null;
+                switch (this.fp_score_num){
+                    case 1:
+                    case 2:
+                        fp_text = new cc.Sprite(spriteFrame.getSpriteFrame("bleeding.png"));
+                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
+                        break;
+                    case 3:
+                        fp_text = new cc.Sprite(spriteFrame.getSpriteFrame("dunkMonster.png"));
+                        cc.audioEngine.playEffect(res.DunkMonster_ogg,false);
+                        break;
+                    default :
+                        break;
+                }
+                this.fp_last_score = false;
+                this.fp_deviation_time = SCORE_DEVIATION_MORE;
+                this.fp_score_num = 0;
+            }
+        }
 
 
     }
