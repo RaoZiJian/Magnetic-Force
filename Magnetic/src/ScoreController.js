@@ -71,6 +71,7 @@ var ScoreController = GameController.extend({
         this.sp_hp --;
 
         if(!this.fp_last_score) {
+            console.log("aaa");
             this.fp_last_score = true;
             this.fp_deviation_time = SCORE_DEVIATION_MORE;
             this.fp_score_num = 1;
@@ -118,6 +119,7 @@ var ScoreController = GameController.extend({
         this.fp_hp --;
 
         if(!this.sp_last_score) {
+
             this.sp_last_score = true;
             this.sp_deviation_time = SCORE_DEVIATION_MORE;
             this.sp_score_num = 1;
@@ -211,13 +213,15 @@ var ScoreController = GameController.extend({
         var hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
         hpBoard.setPosition(cc.p(x,y));
 
-
+        var hpText = null;
         if( x < 20) {
             if( hp > 0) {
-                var hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+               hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+                hpText.setPosition(cc.p(130,90));
+                hpBoard.addChild(hpText);
             }
-            hpText.setPosition(cc.p(130,90));
-            hpBoard.addChild(hpText);
+
+
             hpBoard.rotation = -90;
             hpBoard.setAnchorPoint(cc.p(0,0));
             hpBoard.flippedX = true;
@@ -229,10 +233,11 @@ var ScoreController = GameController.extend({
         }
         else {
             if( hp > 0) {
-                var hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+                hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+                hpText.setPosition(cc.p(100,90));
+                hpBoard.addChild(hpText);
             }
-            hpText.setPosition(cc.p(100,90));
-            hpBoard.addChild(hpText);
+
             hpBoard.setAnchorPoint(cc.p(1,0));
             hpBoard.rotation = 90;
             hpBoard.runAction(new cc.Sequence(
@@ -254,17 +259,19 @@ var ScoreController = GameController.extend({
             if(this.sp_deviation_time < 0) {
                 var sp_text = null;
                 switch (this.sp_score_num){
+                    case 1:
                     case 2:
                         sp_text = new cc.Sprite(spriteFrame.getSpriteFrame("bleeding.png"));
-                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
+//                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
                         break;
                     case 3:
                         sp_text = new cc.Sprite(spriteFrame.getSpriteFrame("dunkMonster.png"));
-                        cc.audioEngine.playEffect(res.DunkMonster_ogg,false);
+//                        cc.audioEngine.playEffect(res.DunkMonster_ogg,false);
                         break;
                     default :
                         break;
                 }
+                sp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
                 this.sp_last_score = false;
                 this.sp_deviation_time = SCORE_DEVIATION_MORE;
                 this.sp_score_num = 0;
@@ -279,15 +286,18 @@ var ScoreController = GameController.extend({
                     case 1:
                     case 2:
                         fp_text = new cc.Sprite(spriteFrame.getSpriteFrame("bleeding.png"));
-                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
+
+                        this.game_layer.addChild(fp_text);
+//                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
                         break;
                     case 3:
                         fp_text = new cc.Sprite(spriteFrame.getSpriteFrame("dunkMonster.png"));
-                        cc.audioEngine.playEffect(res.DunkMonster_ogg,false);
+//                        cc.audioEngine.playEffect(res.DunkMonster_ogg,false);
                         break;
                     default :
                         break;
                 }
+                fp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
                 this.fp_last_score = false;
                 this.fp_deviation_time = SCORE_DEVIATION_MORE;
                 this.fp_score_num = 0;

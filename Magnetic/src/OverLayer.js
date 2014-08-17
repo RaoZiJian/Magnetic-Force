@@ -27,10 +27,10 @@ var OverLayer = cc.Layer.extend({
 
         if ( this.isNaughtyWin ){
             this.win_logo = new cc.Sprite("#prupleWinUI.png");
-            cc.audioEngine.playEffect(res.NaughtWIns_ogg,false);
+//            cc.audioEngine.playEffect(res.NaughtWIns_ogg,false);
         }else{
             this.win_logo = new cc.Sprite("#redWinUI.png");
-            cc.audioEngine.playEffect(res.NastyWins_ogg,false);
+//            cc.audioEngine.playEffect(res.NastyWins_ogg,false);
         }
 
         this.win_logo.setPosition(winSize.width/2, winSize.height/2);

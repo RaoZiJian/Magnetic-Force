@@ -427,6 +427,7 @@ var GameLayer = cc.Layer.extend({
         logo_png.setAnchorPoint(cc.p(0,0));
         logo_png.setPosition(cc.p(40,320));
 
+        var tube = this.getChildByTag(TUBE_TAG);
         function hideUI () {
             logo_png.runAction( new cc.Sequence(
                 new cc.DelayTime(0.5),
@@ -454,6 +455,11 @@ var GameLayer = cc.Layer.extend({
             back.runAction(new cc.Sequence(
                     new cc.DelayTime(1.5),
                     new cc.ScaleTo(0.8,1.0,1.0)
+                )
+            );
+            tube.runAction(new cc.Sequence(
+                    new cc.DelayTime(1.5),
+                    new cc.MoveTo(0.8,cc.winSize.width / 2 - 5,cc.winSize.height - 185)
                 )
             );
         }
