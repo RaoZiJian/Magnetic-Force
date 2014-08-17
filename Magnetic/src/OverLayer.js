@@ -5,6 +5,12 @@
 var OverLayer = cc.Layer.extend({
 
     isNaughtyWin : false,
+    gameLayer : null,
+
+    ctor : function(gameLayer) {
+        this._super();
+        this.gameLayer = gameLayer;
+    },
 
     init : function() {
         if ( !this._super() ) {
@@ -74,35 +80,22 @@ var OverLayer = cc.Layer.extend({
     },
 
     playAgain : function(){
-
-        MagneticSystem.clear();
-        ScoreController.clear();
-        Physics.clear();
-
+        this.gameLayer && this.gameLayer.clear();
         var newScene = GameLayer.createScene();
-
         cc.director.runScene(newScene);
-
-
-
     },
 
     backToMainMenu : function (){
 
     }
-
-
-
 });
 
 
-OverLayer.create = function(isNaughtyWin){
-
-    var layer = new OverLayer();
+OverLayer.create = function(isNaughtyWin, gameLayer){
+    var layer = new OverLayer(gameLayer);
     if( layer && layer.init() ){
         layer.isNaughtyWin = isNaughtyWin;
         return layer;
     }
     return null;
-
 };

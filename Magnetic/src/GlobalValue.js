@@ -55,7 +55,7 @@ var EXPLODE_TIME = 20+Math.random()*5;
 var EXPLODE_WARNNING_TIME = 3;//the bomb will be explode
 var EXPLODE_DEVIATION_TIME = 8;
 var EXPLODE_WEIGHT = 5;
-var EXPLODE_RADIUS = 30;
+var EXPLODE_RADIUS = 50;
 
 var EXPLODE_ELASTICITY = 10;
 var BOMB_JUMP_ADD_SPEED = 60;

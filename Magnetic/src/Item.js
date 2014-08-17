@@ -178,6 +178,10 @@ var Bomb = Item.extend({
                 this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
                 this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
 
+                MagneticSystem.removeOtherItem(this.phyObj.body);
+                this.phyObj.removeSelf();
+                this.phyObj = null;
+
                 this.bomb_armature.scaleX = 2;
                 this.bomb_armature.scaleY = 2;
                 this.bomb_armature.setPosition(origin);
@@ -206,9 +210,6 @@ var Bomb = Item.extend({
     },
 
     _realDie : function() {
-        MagneticSystem.removeOtherItem(this.phyObj.body);
-        this.phyObj.removeSelf();
-        this.phyObj = null;
         this.scheduleOnce(this._realDieWithArmature, 0.7);
         this.opacity = 0;
     },
