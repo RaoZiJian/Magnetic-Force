@@ -221,6 +221,11 @@ var Bomb = Item.extend({
     },
 
     _realDie : function() {
+        if (this.phyObj) {
+            MagneticSystem.removeOtherItem(this.phyObj.body);
+            this.phyObj.removeSelf();
+            this.phyObj = null;
+        }
         this.scheduleOnce(this._realDieWithArmature, 0.7);
         this.opacity = 0;
     },
