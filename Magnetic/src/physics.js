@@ -90,7 +90,9 @@ var Physics = {
         if (space) {
             space.eachShape(this.registerShape);
             space.eachBody(this.registerBody);
-            space.addPostStepCallback(this._realClear.bind(this));
+            if (space.isLocked())
+                space.addPostStepCallback(this._realClear.bind(this));
+            else this._realClear();
         }
     }
 };

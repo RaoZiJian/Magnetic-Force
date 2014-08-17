@@ -93,16 +93,15 @@ var Player = ccs.Armature.extend({
         if (!this.isJump){
             this.isJump = true;
 
-            this.jump_f = cp.v(0, PLAYER_JUMP_FORCE); // be used in magnetic system.
-
+//            this.jump_f = cp.v(0, PLAYER_JUMP_FORCE); // be used in magnetic system.
         }
     },
     isJump : false,
-    jump_f : cp.v(0,0),
+//    jump_f : cp.v(0,0),
     resetJump : function(){
         this.isJump = false;
-        this.jump_f.x = 0;
-        this.jump_f.y = 0;
+//        this.jump_f.x = 0;
+//        this.jump_f.y = 0;
     },
 
     hitGround : function (point){
