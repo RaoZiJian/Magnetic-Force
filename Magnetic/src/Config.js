@@ -5,12 +5,11 @@
 var Config = [
     // Ordinary
     {
-        EFFECTIVE_MAGNET_DIS : 900,
-        SAFE_DIS_ADD : 0.5
     },
 
     // One goal
     {
-        SAFE_DIS_ADD : 1.0
+        EFFECTIVE_MAGNET_DIS : 900,
+        SAFE_DIS_ADD : 0.5
     }
 ];

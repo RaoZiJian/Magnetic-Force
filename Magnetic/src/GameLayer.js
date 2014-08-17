@@ -217,7 +217,13 @@ var GameLayer = cc.Layer.extend({
             this.space.step( delta );
 
             this.f_player.phyUpdate();
+            var x = this.f_player.x;
+            if (x < -40 || x > cc.winSize.width + 40)
+                this.gameController.forceWin(GameController.SP_WIN);
             this.s_player.phyUpdate();
+            x = this.s_player.x;
+            if (x < -40 || x > cc.winSize.width + 40)
+                this.gameController.forceWin(GameController.FP_WIN);
 
             MagneticSystem.update(delta);
             this.itemLayer.update(delta);
@@ -381,13 +387,13 @@ var GameLayer = cc.Layer.extend({
         menu_layer.setPosition(cc.p(0,0));
         var spriteFrame = cc.spriteFrameCache;
         var btn_1p_spriteFrame = spriteFrame.getSpriteFrame("1pBtn.png");
-        var btn_1p = new cc.MenuItemImage(btn_1p_spriteFrame,btn_1p_spriteFrame,null/*function () {
+        var btn_1p = new cc.MenuItemImage(btn_1p_spriteFrame,btn_1p_spriteFrame,function () {
             target.runAction(new cc.Sequence(
                 new cc.CallFunc(hideUI),
                 new cc.DelayTime(2.5),
-                new cc.CallFunc(target.playWith1P.call(target))
+                new cc.CallFunc(this.playWith1P, this)
             ));
-        }*/,this);
+        },this);
         btn_1p.setPosition(cc.p(cc.winSize.width / 2 - 47,340));
 
         var btn_2p_spriteFrame = spriteFrame.getSpriteFrame("2pBtn.png");
@@ -395,7 +401,7 @@ var GameLayer = cc.Layer.extend({
             target.runAction(new cc.Sequence(
                 new cc.CallFunc(hideUI),
                 new cc.DelayTime(2),
-                new cc.CallFunc(target.playWith2P,target)
+                new cc.CallFunc(this.playWith2P, this)
             ));
         },this);
         btn_2p.setPosition(cc.p(cc.winSize.width / 2 + 77,230));
@@ -463,10 +469,10 @@ var GameLayer = cc.Layer.extend({
         this.addChild(menu_layer,MenuUI_ZORDER,MenuUI_TAG);
     },
     playWith1P : function () {
-        console.log("1p");
+        this.getChildByTag(MenuUI_TAG).removeFromParent();
+        this.guideUI2P();
     },
     playWith2P : function () {
-        console.log("2p");
         this.getChildByTag(MenuUI_TAG).removeFromParent();
         this.guideUI2P();
 
