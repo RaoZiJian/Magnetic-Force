@@ -27,8 +27,10 @@ var OverLayer = cc.Layer.extend({
 
         if ( this.isNaughtyWin ){
             this.win_logo = new cc.Sprite("#prupleWinUI.png");
+//            cc.audioEngine.playEffect(res.NaughtWIns_ogg,false);
         }else{
             this.win_logo = new cc.Sprite("#redWinUI.png");
+//            cc.audioEngine.playEffect(res.NastyWins_ogg,false);
         }
 
         this.win_logo.setPosition(winSize.width/2, winSize.height/2);
@@ -86,8 +88,7 @@ var OverLayer = cc.Layer.extend({
 
     playAgain : function(){
         this.gameLayer && this.gameLayer.clear();
-        var newScene = nextLevel();
-        cc.director.runScene(newScene);
+        replayLevel(cc.director.getRunningScene(), false);
     },
 
     backToMainMenu : function (){

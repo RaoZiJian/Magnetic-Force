@@ -1,6 +1,6 @@
 var res = {
     BackgroundA : "res/sceneA.jpg",
-    BackgroundB : "res/sceneB.png",
+    BackgroundB : "res/sceneB.jpg",
     Tube : "res/tube.png",
     Robot_plist : "res/animation/robot/robot0.plist",
     Robot_png : "res/animation/robot/robot0.png",
@@ -18,6 +18,10 @@ var res = {
     hit2_ogg:"res/audio/hit2.ogg",
     hit3_ogg:"res/audio/hit3.ogg",
     explosion_ogg:"res/audio/explosion.ogg",
+    bleeding_ogg : "res/audio/bleeding.ogg",
+    DunkMonster_ogg : "res/audio/DunkMonster.ogg",
+    NastyWins_ogg : "res/audio/NastyWins.ogg",
+    NaughtWIns_ogg : "res/audio/NaughtyWins.ogg",
 
     Fire_plist : "res/fire.plist",
     Gate_plist:"res/gate.plist",
@@ -40,6 +44,7 @@ var res = {
     GuideUI_png : "res/guideUI.png",
     GuideUI_plist : "res/guideUI.plist",
 
+    EnergyBall : "res/energyBall.png",
     LuckiestGuy_ttf : "res/LuckiestGuy.ttf"
 };
 

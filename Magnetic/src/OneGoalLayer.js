@@ -12,14 +12,10 @@ var OneGoalLayer = GameLayer.extend({
         this.forceEmitter.scaleX = 0.5;
         this.addChild(this.forceEmitter, TUBE_ZORDER-1);
 
-        var background = new cc.Sprite(res.BackgroundA);
+        var background = new cc.Sprite(res.BackgroundB);
         this.addChild(background, BACK_ZORDER,BACK_TAG);
-        var bg2 = new cc.Sprite(res.BackgroundB);
-        this.addChild(bg2, BACK_ZORDER,BACK_TAG);
         background.x = cc.winSize.width/2;
         background.y = cc.winSize.height/2;
-        bg2.x = cc.winSize.width/2;
-        bg2.y = cc.winSize.height/2;
     },
 
     createGameController : function(){

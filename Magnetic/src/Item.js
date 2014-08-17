@@ -95,7 +95,13 @@ var Item = cc.Sprite.extend({
     },
     reuse : function(file, type, x, y, sOrR) {
         this.release();
-        this.setSpriteFrame(file.substr(1));
+        if (file[0] == "#")
+            this.setSpriteFrame(file.substr(1));
+        else {
+            var tex = cc.textureCache.textureForKey(file);
+            this.setTexture(tex);
+            this.setTextureRect(cc.rect(0, 0, tex.width, tex.height));
+        }
         var size = this.getContentSize();
 
         var isCircle = type == Item.CIRCLE_SHAPE;
@@ -147,23 +153,13 @@ var Bomb = Item.extend({
         this._super(file, type, x, y , sOrR);
         this.time = EXPLODE_TIME + EXPLODE_DEVIATION_TIME * Math.random();
         this.phyObj.shape.setCollisionType(Bomb.COL_TYPE);
-        this.setAnchorPoint(cc.p(0.35,0.35));
-        var animFrames = [];
-        for (var i = 1; i < 4; i++) {
-            var str = "bomb" + i + ".png";
-            var frame = cc.spriteFrameCache.getSpriteFrame(str);
-            animFrames.push(frame);
-        }
-        var animation = new cc.Animation(animFrames, 0.1);
-        this.anime = cc.animate(animation).repeatForever();
-        this.runAction(this.anime);
     },
     update : function (dt) {
         this._super();
         this.time -= dt;
 
         if (!this.isExplode && this.time < EXPLODE_WARNNING_TIME) {
-            if (!this.isWarnning) {
+            if (!this.isWarnning && this.anime) {
                 this.isWarnning = true;
                 var repeatAction = cc.repeat(cc.sequence(cc.tintTo(1,128,0,0),cc.tintTo(1,255,200,200)),2);
                 this.runAction(cc.sequence(repeatAction,cc.tintTo(1,200,75,75)));
@@ -180,9 +176,11 @@ var Bomb = Item.extend({
                 this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
                 this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
 
-                MagneticSystem.removeOtherItem(this.phyObj.body);
-                this.phyObj.removeSelf();
-                this.phyObj = null;
+                if (this.phyObj) {
+                    MagneticSystem.removeOtherItem(this.phyObj.body);
+                    this.phyObj.removeSelf();
+                    this.phyObj = null;
+                }
 
                 this.bomb_armature.scaleX = 2;
                 this.bomb_armature.scaleY = 2;
@@ -240,16 +238,6 @@ var Bomb = Item.extend({
     reuse : function (file, type, x, y, sOrR) {
         this._super(file, type, x, y, sOrR);
         this.opacity = 255;
-        this.setAnchorPoint(cc.p(0.35,0.35));
-        var animFrames = [];
-        for (var i = 1; i < 4; i++) {
-            var str = "bomb" + i + ".png";
-            var frame = cc.spriteFrameCache.getSpriteFrame(str);
-            animFrames.push(frame);
-        }
-        var animation = new cc.Animation(animFrames, 0.1);
-        this.anime = cc.animate(animation).repeatForever();
-        this.runAction(this.anime);
         this.isExplode = false;
         this.isEndExplode = false;
         this.isWarnning = false;
@@ -263,7 +251,29 @@ var Bomb = Item.extend({
 
 Bomb.COL_TYPE = GLOBAL_COL_TYPE++;
 Bomb.EXPLODE_COL_TYPE = GLOBAL_COL_TYPE++;
+Bomb.animation = null;
 Bomb.create = function (file, type, x, y, sOrR) {
+    var ret = null;
+    if (cc.pool.hasObj(Bomb))
+        ret = cc.pool.getFromPool(Bomb, file, type, x, y, sOrR);
+    else
+        ret = new Bomb(file, type, x, y, sOrR);
+
+    ret.setAnchorPoint(cc.p(0.35,0.35));
+    if (!Bomb.animation) {
+        var animFrames = [];
+        for (var i = 1; i < 4; i++) {
+            var str = "bomb" + i + ".png";
+            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            animFrames.push(frame);
+        }
+        Bomb.animation = new cc.Animation(animFrames, 0.1);
+    }
+    ret.anime = cc.animate(Bomb.animation).repeatForever();
+    ret.runAction(ret.anime);
+    return ret;
+};
+Bomb.createNoAnime = function (file, type, x, y, sOrR) {
     var ret = null;
     if (cc.pool.hasObj(Bomb))
         ret = cc.pool.getFromPool(Bomb, file, type, x, y, sOrR);
