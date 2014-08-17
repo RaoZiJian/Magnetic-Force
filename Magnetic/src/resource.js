@@ -1,6 +1,6 @@
 var res = {
     BackgroundA : "res/sceneA.jpg",
-    BackgroundB : "res/sceneB.png",
+    BackgroundB : "res/sceneB.jpg",
     Tube : "res/tube.png",
     Robot_plist : "res/animation/robot/robot0.plist",
     Robot_png : "res/animation/robot/robot0.png",
@@ -42,7 +42,10 @@ var res = {
     Pipe : "res/Pipe.plist",
 
     GuideUI_png : "res/guideUI.png",
-    GuideUI_plist : "res/guideUI.plist"
+    GuideUI_plist : "res/guideUI.plist",
+
+    EnergyBall : "res/energyBall.png",
+    LuckiestGuy_ttf : "res/LuckiestGuy.ttf"
 };
 
 var g_resources = [];

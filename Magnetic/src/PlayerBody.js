@@ -76,7 +76,6 @@ var Player = ccs.Armature.extend({
     },
 
     phyUpdate : function() {
-
         var pos = this.phyObj.getPosition();
         this.x = pos.x;
         this.y = pos.y;
