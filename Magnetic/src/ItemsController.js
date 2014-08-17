@@ -51,14 +51,12 @@ var ItemsLayer = cc.Layer.extend({
         for (var i = 0; i < children.length; ++i) {
             children[i].update && children[i].update(dt);
         }
-
-        this.checkForGoal();
     },
 
     checkForGoal : function (){
-
-        var delete_items = [];
-        var items = this.children;
+        var delete_items = [],
+            items = this.children,
+            ret = ScoreController.HIT_NOTING;
 
         for (var i = 0; i<items.length; i++){
 
@@ -69,14 +67,13 @@ var ItemsLayer = cc.Layer.extend({
 
             if (cc.rectContainsPoint(Level.fp_gate_info, i_pos)){
                 //sp get goal.
-//                item.time = -1;
-                ScoreController.hitFpHouse();
+                ret = ScoreController.HIT_FP_HOUSE;
                 delete_items.push(item);
             }
 
             else if (cc.rectContainsPoint(Level.sp_gate_info, i_pos)){
                 //fp get goal
-                ScoreController.hitSpHouse();
+                ret = ScoreController.HIT_SP_HOUSE;
                 delete_items.push(item);
             }
         }
@@ -86,5 +83,6 @@ var ItemsLayer = cc.Layer.extend({
 
             deleteItem.die();
         }
+        return ret;
     }
 });
