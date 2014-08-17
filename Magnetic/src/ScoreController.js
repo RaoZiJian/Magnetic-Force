@@ -62,8 +62,8 @@ var ScoreController = GameController.extend({
         this.sp_hp_label.setPosition(winSize.width * 9/10, winSize.height * 2/3);
         this.fp_hp_label.setFontSize(50);
         this.sp_hp_label.setFontSize(50);
-        game_layer.addChild(this.fp_hp_label);
-        game_layer.addChild(this.sp_hp_label);
+//        game_layer.addChild(this.fp_hp_label);
+//        game_layer.addChild(this.sp_hp_label);
 //        this.showHP(500,500,3);
     },
 
@@ -210,11 +210,12 @@ var ScoreController = GameController.extend({
         console.log("aaa");
         var gameLayer  = this.game_layer;
         var spriteFrameCache = cc.spriteFrameCache;
-        var hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
-        hpBoard.setPosition(cc.p(x,y));
+        var hpBoard = null;//new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
+
 
         var hpText = null;
         if( x < 20) {
+            hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoardB.png"));
             if( hp > 0) {
                hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
                 hpText.setPosition(cc.p(130,90));
@@ -224,7 +225,6 @@ var ScoreController = GameController.extend({
 
             hpBoard.rotation = -90;
             hpBoard.setAnchorPoint(cc.p(0,0));
-            hpBoard.flippedX = true;
             hpBoard.runAction(new cc.Sequence(
                 new cc.RotateBy(0.1,90),
                 new cc.DelayTime(1),
@@ -232,6 +232,7 @@ var ScoreController = GameController.extend({
             ));
         }
         else {
+            hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
             if( hp > 0) {
                 hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
                 hpText.setPosition(cc.p(100,90));
@@ -247,7 +248,7 @@ var ScoreController = GameController.extend({
             ));
         }
 
-
+        hpBoard.setPosition(cc.p(x,y));
 //        console.log(hp);
         gameLayer.addChild(hpBoard,400);
     },
@@ -271,7 +272,12 @@ var ScoreController = GameController.extend({
                     default :
                         break;
                 }
+                this.game_layer.addChild(sp_text);
                 sp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
+                sp_text.runAction(cc.sequence(
+                        cc.delayTime(1.0),
+                    cc.scaleTo(0.5,0,0)
+                ));
                 this.sp_last_score = false;
                 this.sp_deviation_time = SCORE_DEVIATION_MORE;
                 this.sp_score_num = 0;
@@ -287,7 +293,7 @@ var ScoreController = GameController.extend({
                     case 2:
                         fp_text = new cc.Sprite(spriteFrame.getSpriteFrame("bleeding.png"));
 
-                        this.game_layer.addChild(fp_text);
+
 //                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
                         break;
                     case 3:
@@ -298,6 +304,11 @@ var ScoreController = GameController.extend({
                         break;
                 }
                 fp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
+                this.game_layer.addChild(fp_text);
+                fp_text.runAction(cc.sequence(
+                        cc.delayTime(1.0),
+                    cc.scaleTo(0.5,0,0)
+                ));
                 this.fp_last_score = false;
                 this.fp_deviation_time = SCORE_DEVIATION_MORE;
                 this.fp_score_num = 0;

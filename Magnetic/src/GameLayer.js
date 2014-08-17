@@ -66,7 +66,7 @@ var GameLayer = cc.Layer.extend({
 
         this.createPhysicsWorld();
 //
-        this.setupDebugNode();
+        //this.setupDebugNode();
 
         this.createWalls();
 
@@ -104,7 +104,7 @@ var GameLayer = cc.Layer.extend({
     },
     createBackground : function() {
 
-        var tubeX = cc.winSize.width / 2 - 5, tubeY = cc.winSize.height - 185;
+        var tubeX = cc.winSize.width / 2 - 5, tubeY = cc.winSize.height + 185;
         var tube = new cc.Sprite(res.Tube);
         tube.x = tubeX;
         tube.y = tubeY;
@@ -114,7 +114,7 @@ var GameLayer = cc.Layer.extend({
 
         // Add Tube Particle system
         this.forceEmitter = new cc.ParticleSystem(res.Pipe);
-        this.forceEmitter.setPosition(tubeX, tubeY+tube.height/2);
+        this.forceEmitter.setPosition(tubeX, tubeY+tube.height/2 - 370);
         this.addChild(this.forceEmitter, TUBE_ZORDER-1);
 
         var backGround = new BackGroundLayer();
@@ -305,7 +305,7 @@ var GameLayer = cc.Layer.extend({
                 target.f_player.resetJump();
                 break;
             case KeyCode_Z:
-                target.s_player.setScale(1.11,1.11);
+                target.s_player.setScale(1/0.9,1/0.9);
             case KeyCode_X:
                 target.s_player.isMagnet = false;
                 target.s_player.normal(3);
@@ -477,12 +477,13 @@ var GameLayer = cc.Layer.extend({
     },
     playWith1P : function () {
         this.getChildByTag(MenuUI_TAG).removeFromParent();
-        this.guideUI2P();
+        this.guideUI1P();
     },
     playWith2P : function () {
         this.getChildByTag(MenuUI_TAG).removeFromParent();
-        this.clear();
-        nextLevel(cc.director.getRunningScene(), false, 1);
+        //this.clear();
+        var layer = nextLevel(cc.director.getRunningScene(), true, 1);
+        layer.guideUI2P();
     },
     playWith4P : function () {
         console.log("4p");
@@ -493,7 +494,7 @@ var GameLayer = cc.Layer.extend({
     helpMenu  : function () {
 
     },
-    guideUI2P : function () {//2p guideUI init
+    guideUI1P : function () {//2p guideUI init
         var target  = this;
         var spriteFrameCache = cc.spriteFrameCache;
         var guide_layer = new cc.Layer();
@@ -544,12 +545,63 @@ var GameLayer = cc.Layer.extend({
         guide_layer.addChild(menu);
         this.addChild(guide_layer,GuideUI_ZORDER,GuideUI_TAG);
     },
+    guideUI2P : function () {//2p guideUI init
+        var target  = this;
+        var spriteFrameCache = cc.spriteFrameCache;
+        var guide_layer = new cc.Layer();
+        guide_layer.setPosition(cc.p(0,0));
+
+        var guide_pic = new cc.Sprite(spriteFrameCache.getSpriteFrame("guidePicB.png"));
+        guide_pic.setPosition(cc.p(cc.winSize.width / 2 ,cc.winSize.height + 200));
+        guide_pic.runAction(new cc.Sequence(
+            new cc.DelayTime(0.1),
+            new cc.EaseBackOut(new cc.MoveTo(1.0,cc.p(cc.winSize.width / 2 ,520)))
+        ));
+        var guide_text = new cc.Sprite(spriteFrameCache.getSpriteFrame("guideText.png"));
+        guide_text.setPosition(cc.p(-300 , 180));
+        guide_text.runAction(new cc.Sequence(
+            new cc.DelayTime(0.3),
+            new cc.EaseBackOut(new cc.MoveTo(1.0,cc.p(cc.winSize.width / 2 ,180)))
+        ));
+
+        var confirm_btn_frame = spriteFrameCache.getSpriteFrame("confirmBtn.png")
+        var confirm_btn = new cc.MenuItemImage(confirm_btn_frame,confirm_btn_frame,function () {
+            target.runAction(new cc.Sequence(
+                new cc.CallFunc(hideUI),
+                new cc.DelayTime(2.3),
+                new cc.CallFunc(target.initAfterMenu,target)
+            ));
+        },this);
+        confirm_btn.setPosition(cc.p(cc.winSize.width - 200 , 60));
+        var menu = new cc.Menu(confirm_btn);
+        menu.setPosition(cc.p(0,0));
+
+        function hideUI () {
+            guide_pic.runAction(new cc.Sequence(
+                new cc.DelayTime(0.3),
+                new cc.EaseBackIn(new cc.MoveTo(1.0,cc.p(cc.winSize.width / 2 ,cc.winSize.height + 200)))
+            ));
+            guide_text.runAction(new cc.Sequence(
+                new cc.DelayTime(0.1),
+                new cc.EaseBackIn(new cc.MoveTo(1.0,cc.p(-500 ,guide_text.y)))
+            ));
+            menu.runAction(new cc.Sequence(
+                new cc.DelayTime(0.5),
+                new cc.EaseBackOut(new cc.MoveTo(1.0,cc.p(cc.winSize.height + 200 ,menu.y)))
+            ));
+        }
+
+        guide_layer.addChild(guide_pic);
+        guide_layer.addChild(guide_text);
+        guide_layer.addChild(menu);
+        this.addChild(guide_layer,GuideUI_ZORDER,GuideUI_TAG);
+    },
     initAfterMenu : function () {
 //            this.getChildByTag(GuideUI_TAG).removeFromParent();
 
             this.createPhysicsWorld();
 //
-            this.setupDebugNode();
+            //this.setupDebugNode();
 
             this.createWalls();
 
