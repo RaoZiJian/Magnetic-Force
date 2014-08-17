@@ -4,6 +4,7 @@ var Physics = {
     world:null,
     scene:null,
     inited: null,
+    handlers: [],
 
     calculVector: function(a) {
         /*var s = a.a, d = a.b;
@@ -35,7 +36,37 @@ var Physics = {
         this.inited = true;
     },
     update:function(){
-        this.world.step(CPSTEP);
+        if (this.inited)
+            this.world.step(CPSTEP);
+    },
+    addCollisionHandler: function(a, b, begin, preSolve, postSolve, separate) {
+        if (this.inited) {
+            this.world.addCollisionHandler(a, b, begin, preSolve, postSolve, separate);
+            this.handlers.push([a, b]);
+        }
+    },
+    removeShape: function(shape) {
+        if (this.inited) {
+            if (shape.body.isStatic())
+                Physics.world.removeStaticShape();
+            else Physics.world.removeShape();
+        }
+    },
+    removeBody: function (body){
+        if (this.inited)
+            Physics.world.removeBody(body);
+    },
+    
+    clear:function() {
+        if (this.inited) {
+            var space = this.world;
+            for (var i = this.handlers.length-1; i >= 0; --i) {
+                var handler = this.handlers[i];
+                space.removeCollisionHandler(handler[0], handler[1]);
+            }
+            space.eachShape(this.removeShape);
+            space.eachBody(this.removeBody);
+        }
     }
 };
 var StaticObject = cc.Class.extend({
@@ -63,7 +94,7 @@ var StaticObject = cc.Class.extend({
     },
 
     removeSelf: function () {
-        Physics.world.removeShape(this.shape);
+        Physics.world.removeStaticShape(this.shape);
     }
 });
 var StaticPolyObject = cc.Class.extend({
@@ -85,7 +116,7 @@ var StaticPolyObject = cc.Class.extend({
     },
 
     removeSelf: function () {
-        Physics.world.removeShape(this.shape);
+        Physics.world.removeStaticShape(this.shape);
     }
 });
 
@@ -118,6 +149,11 @@ var DynamicSensor = cc.Class.extend({
         Physics.world.addShape(this.shape);
         this.shape.obj = this;
         this.view = view;
+    },
+
+    removeSelf: function () {
+        Physics.world.removeShape(this.shape);
+        Physics.world.removeBody(this.body);
     }
 });
 var PhysicsObject = cc.Class.extend({
