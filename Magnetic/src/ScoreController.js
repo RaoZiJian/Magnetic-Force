@@ -374,6 +374,11 @@ var OneGoalController = GameController.extend({
 
 
     update : function (dt) {
+
+        if( !this.game_layer.isBegin && this.game_layer.isOver){
+            return;
+        }
+
         this.game_time -= dt;
 
         this.game_time_show_interval -= dt;
@@ -419,10 +424,15 @@ var OneGoalController = GameController.extend({
     isGameOver : function () {
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
 
+            this.game_time_label.setString("0");
+
             return true;
         }
 
         if (this.game_time < 0) {
+
+            this.game_time_label.setString("0");
+
             return true;
         }
         return false;
