@@ -99,7 +99,7 @@ var OneGoalItemsLayer = ItemsLayer.extend({
 //    },
 
     addItem : function (tex, type, x, y, sOrR, friction, elasticity) {
-        var item = Bomb.create(tex, type, x, y, sOrR);
+        var item = Bomb.createNoAnime(tex, type, x, y, sOrR);
         friction !== undefined && (item.friction = friction);
         elasticity !== undefined && (item.elasticity = elasticity);
 
@@ -143,8 +143,8 @@ var OneGoalItemsLayer = ItemsLayer.extend({
             if (children.length < MAX_BOMB_NUMBER){
 //                this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height);
                 r = BOMB_R + Math.round(Math.random() * BOMB_R_VAR);
-                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 160, 180, r);
-                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 1120, 180, r);
+                this.addItem(res.EnergyBall, Item.CIRCLE_SHAPE, 160, 180, r);
+                this.addItem(res.EnergyBall, Item.CIRCLE_SHAPE, 1120, 180, r);
             }
             this.next_born = BORN_INTERVAL / 3;
         }
