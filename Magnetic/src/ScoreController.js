@@ -32,11 +32,10 @@ var ScoreController = {
 
     hitSpHouse : function(){
         this.sp_hp --;
-        console.log(this.sp_hp);
 
         if ( this.sp_hp >= 0) {
             this.sp_hp_label.setString(this.sp_hp);
-            var rightGate = this.game_layer.getChildByTag(RIGHT_GATE_TAG);
+            var rightGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(RIGHT_GATE_TAG);
 
             var spriteFrameCache = cc.spriteFrameCache;
             var rightSpriteFrame = null;
@@ -77,10 +76,11 @@ var ScoreController = {
 
         if ( this.fp_hp >= 0) {
             this.fp_hp_label.setString(this.fp_hp);
-            var leftGate = this.game_layer.getChildByTag(LEFT_GATE_TAG);
+            var leftGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(LEFT_GATE_TAG);
 
             var spriteFrameCache = cc.spriteFrameCache;
             var leftSpriteFrame = null;
+            console.log(this.fp_hp);
             switch (this.fp_hp) {
                 case 2:
                     leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleB.png");

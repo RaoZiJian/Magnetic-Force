@@ -31,11 +31,11 @@ var OverLayer = cc.Layer.extend({
 
         this.win_logo.runAction(
             new cc.Sequence(
+                new cc.DelayTime(2),
                 new cc.EaseBackOut(new cc.ScaleTo(0.8, 1.0, 1.0)),
                 new cc.DelayTime(2),
                 new cc.EaseBackIn(new cc.ScaleTo(0.5, 0.0, 0.0)),
-                new cc.CallFunc(this.showOverMenu, this),
-                null
+                new cc.CallFunc(this.showOverMenu, this)
             )
         );
 
@@ -46,9 +46,9 @@ var OverLayer = cc.Layer.extend({
 
         var game_over_logo = new cc.Sprite("#gameOverUI.png");
 
-        var play_again_btn = new cc.MenuItemSprite("againBtn.png", "againBtn.png", this.playAgain, this);
+        var play_again_btn = new cc.MenuItemSprite("#againBtn.png", "#againBtn.png", this.playAgain, this);
 
-        var back_to_main_menu_btn = new cc.MenuItemSprite("backBtn.png", "backBtn.png", this.backToMainMenu, this);
+        var back_to_main_menu_btn = new cc.MenuItemSprite("#backBtn.png", "#backBtn.png", this.backToMainMenu, this);
 
 //        var settings_btn = new cc.MenuItemSprite("");
 
@@ -62,7 +62,7 @@ var OverLayer = cc.Layer.extend({
     },
 
     playAgain : function(){
-
+        console.log("play again");
     },
 
     backToMainMenu : function (){
