@@ -8,6 +8,10 @@ var GameController = cc.Class.extend({
         this.game_layer = game_layer;
     },
 
+    update : function (dt) {
+
+    },
+
     isGameOver : function () {
         return false;
     },
@@ -153,6 +157,37 @@ ScoreController.HIT_NOTING = 0;
 ScoreController.HIT_FP_HOUSE = 1;
 ScoreController.HIT_SP_HOUSE = 2;
 
+
 var DeathController = GameController.extend({
+
+    game_time : 0,
+
+    update : function (dt) {
+        this.game_time += dt;
+    },
+
+    isGameOver : function () {
+
+
+
+        return false;
+    },
+
+    gameOverAction : function () {
+        this.game_layer.isOver = true;
+
+        var isNaughtyWin = true;
+
+        var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
+
+        this.game_layer.getParent().addChild( over_layer );
+
+    },
+
+    clear : function() {
+
+
+
+    }
 
 });

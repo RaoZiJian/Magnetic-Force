@@ -210,7 +210,13 @@ var GameLayer = cc.Layer.extend({
 
     checkResult : function () {
         var result = this.itemLayer.checkForGoal();
-        if (result != ScoreController.HIT_NOTING) {
+        if (result == ScoreController.HIT_FP_HOUSE) {
+            this.gameController.hitFpHouse();
+        }
+        else if (result == ScoreController.HIT_SP_HOUSE) {
+            this.gameController.hitSpHouse();
+        }
+        if (this.gameController.isGameOver()) {
             this.gameController.gameOverAction();
         }
     },
@@ -225,8 +231,10 @@ var GameLayer = cc.Layer.extend({
             MagneticSystem.update(delta);
             this.itemLayer.update(delta);
 
-            if (!this.isOver)
+            if (!this.isOver){
+                this.gameController.update(delta);
                 this.checkResult();
+            }
         }
     },
 
