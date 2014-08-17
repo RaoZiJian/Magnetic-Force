@@ -42,10 +42,13 @@ var ScoreController = GameController.extend({
         this.sp_hp_label.setFontSize(50);
         game_layer.addChild(this.fp_hp_label);
         game_layer.addChild(this.sp_hp_label);
+//        this.showHP(200,200,3);
     },
 
     hitSpHouse : function(){
         this.sp_hp --;
+
+//        this.showHP(cc.winSize.width,570,this.sp_hp);
 
         if ( this.sp_hp >= 0) {
             this.sp_hp_label.setString(this.sp_hp);
@@ -83,6 +86,8 @@ var ScoreController = GameController.extend({
 
     hitFpHouse : function(){
         this.fp_hp --;
+
+//        this.showHP(0,570,this.fp_hp);
 
         if ( this.fp_hp >= 0) {
             this.fp_hp_label.setString(this.fp_hp);
@@ -150,6 +155,26 @@ var ScoreController = GameController.extend({
         this.fp_hp_label = null;
         this.sp_hp_label = null;
         this.game_layer = null;
+    },
+    showHP : function (x,y,hp) {
+        var gameLayer  = this.game_layer;
+        var spriteFrameCache = cc.spriteFrameCache;
+        var hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
+        hpBoard.setAnchorPoint(cc.p(1,0));
+        hpBoard.rotation = 90;
+        hpBoard.setPosition(cc.p(x,y));
+//        if( x < 20) {
+            hpBoard.rotationX = 180;
+//        }
+        var hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+        hpBoard.addChild(hpText);
+        hpBoard.runAction(new cc.Sequence(
+            new cc.RotateBy(0.2,-90),
+            new cc.DelayTime(1),
+            new cc.RotateBy(0.2,90)
+        ));
+//        console.log(hp);
+        gameLayer.addChild(hpBoard,400);
     }
 });
 

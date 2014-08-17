@@ -530,7 +530,7 @@ var GameLayer = cc.Layer.extend({
         var confirm_btn = new cc.MenuItemImage(confirm_btn_frame,confirm_btn_frame,function () {
             target.runAction(new cc.Sequence(
                 new cc.CallFunc(hideUI),
-                new cc.DelayTime(2),
+                new cc.DelayTime(2.3),
                 new cc.CallFunc(target.initAfterMenu,target)
             ));
         },this);
@@ -559,7 +559,7 @@ var GameLayer = cc.Layer.extend({
         this.addChild(guide_layer,GuideUI_ZORDER,GuideUI_TAG);
     },
     initAfterMenu : function () {
-            this.getChildByTag(GuideUI_TAG).removeFromParent();
+//            this.getChildByTag(GuideUI_TAG).removeFromParent();
 
             this.createPhysicsWorld();
 //
