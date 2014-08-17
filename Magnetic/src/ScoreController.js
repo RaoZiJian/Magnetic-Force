@@ -4,8 +4,13 @@
 
 var GameController = cc.Class.extend({
     game_layer : null,
+    force_win : 0,
     ctor : function(game_layer) {
         this.game_layer = game_layer;
+    },
+
+    forceWin : function (winner) {
+        this.force_win = winner;
     },
 
     update : function (dt) {
@@ -21,13 +26,15 @@ var GameController = cc.Class.extend({
     clear : function() {}
 });
 
+GameController.FP_WIN = 1;
+GameController.SP_WIN = 2;
+
 var ScoreController = GameController.extend({
 
     fp_hp : GAME_INIT_HP,
     sp_hp : GAME_INIT_HP,
     fp_hp_label : null,
     sp_hp_label : null,
-    game_layer : null,
     fp_score_num : 0,
     sp_score_num : 0,
     fp_lat_score : false,
@@ -142,6 +149,10 @@ var ScoreController = GameController.extend({
     },
 
     isGameOver : function () {
+        if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
+            return true;
+        }
+
         if (this.fp_hp === 0 || this.sp_hp === 0){
             return true;
         }
@@ -151,7 +162,12 @@ var ScoreController = GameController.extend({
 
     gameOverAction : function () {
         this.game_layer.isOver = true;
-        var isNaughtyWin = this.sp_hp === 0;
+
+        var isNaughtyWin = true;
+        if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
+            isNaughtyWin = this.force_win == GameController.FP_WIN;
+        }
+        else isNaughtyWin = this.sp_hp === 0;
 
         var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
 
@@ -248,6 +264,9 @@ var OneGoalController = GameController.extend({
     },
 
     isGameOver : function () {
+        if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
+            return true;
+        }
 
         if (this.game_time < 0) {
             return true;
@@ -270,7 +289,11 @@ var OneGoalController = GameController.extend({
     gameOverAction : function () {
         this.game_layer.isOver = true;
 
-        var isNaughtyWin = this.fp_score > this.sp_score;
+        var isNaughtyWin = true;
+        if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
+            isNaughtyWin = this.force_win == GameController.FP_WIN;
+        }
+        else isNaughtyWin = this.fp_score > this.sp_score;
 
         var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
 

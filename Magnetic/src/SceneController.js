@@ -3,7 +3,7 @@
 var GameLevels = [
     // Ordinary
     function (showMenu) {
-        return new OneGoalLayer(showMenu);
+        return new GameLayer(showMenu);
     },
 
     // One goal
@@ -13,11 +13,12 @@ var GameLevels = [
 ];
 
 var current_level = 0;
-var nextLevel = function (showMenu) {
+var nextLevel = function (showMenu, level) {
     var gameScene = new cc.Scene();
-    var level = GameLevels[current_level](showMenu);
+    current_level = level === undefined ? current_level : level;
+    levelLayer = GameLevels[current_level](showMenu);
     Global_Value.initWithConfig(Config[current_level]);
-    gameScene.addChild(level);
+    gameScene.addChild(levelLayer);
 
     current_level++;
     if (current_level >= GameLevels.length) {

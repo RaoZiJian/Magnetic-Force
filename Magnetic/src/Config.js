@@ -13,6 +13,7 @@ var Config = [
     // One goal
     {
         SAFE_DIS_ADD : 0.5,
-        MAX_BOMB_NUMBER:25
+        MAX_BOMB_NUMBER:25,
+        EFFECTIVE_MAGNET_DIS : 900
     }
 ];
