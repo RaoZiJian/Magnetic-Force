@@ -1,9 +1,9 @@
 var OneGoalLayer = GameLayer.extend({
 
-//    createItems : function (){
-//        this.itemLayer = new OneGoalItemsLayer(this);
-//        this.addChild(this.itemLayer, ITEM_ZORDER);
-//    },
+    createItems : function (){
+        this.itemLayer = new OneGoalItemsLayer(this);
+        this.addChild(this.itemLayer, ITEM_ZORDER);
+    },
 
     createBackground : function() {
         // Add Tube Particle system

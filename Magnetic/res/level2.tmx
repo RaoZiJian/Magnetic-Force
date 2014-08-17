@@ -17,7 +17,7 @@
    <property name="className" value="null"/>
   </properties>
   <object x="2" y="735" width="1281" height="84"/>
-  <object x="584" y="709" width="151" height="86"/>
+  <object type="TrampolineNoTex" x="584" y="709" width="151" height="86"/>
   <object x="-56" y="-3" width="461" height="160"/>
   <object x="872" y="-6" width="461" height="160"/>
   <object x="-15" y="424" width="75" height="158"/>

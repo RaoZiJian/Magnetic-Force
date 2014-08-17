@@ -130,7 +130,7 @@ var OneGoalItemsLayer = ItemsLayer.extend({
 //        }
 //    },
 
-    update : function (){
+    update : function (dt){
         // Generate items from left and right corner
 
         if ( !this.game_layer.isBegin){
