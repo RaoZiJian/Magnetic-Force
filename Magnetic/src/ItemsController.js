@@ -181,8 +181,10 @@ var OneGoalItemsLayer = ItemsLayer.extend({
                 if (item instanceof  Bomb){
                     if ( item.naughtyDog ){
                         ret = OneGoalController.FP_GET_SCORE;
-                    }else{
+                    }else if ( item.nastyDog ){
                         ret = OneGoalController.SP_GET_SCORE;
+                    }else{
+                        ret = OneGoalController.NO_ONE_GET_SCORE;
                     }
                 }
 
