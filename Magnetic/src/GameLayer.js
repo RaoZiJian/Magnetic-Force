@@ -82,9 +82,10 @@ var GameLayer = cc.Layer.extend({
 //        ground.x = cc.winSize.width/2;
 //        ground.y = ground.height/2;
 //
+        var tubeX = cc.winSize.width / 2 - 5, tubeY = cc.winSize.height - 185;
         var tube = new cc.Sprite(res.Tube);
-        tube.x = cc.winSize.width / 2 - 5;
-        tube.y = cc.winSize.height - 185;
+        tube.x = tubeX;
+        tube.y = tubeY;
         tube.anchorY = 0;
 //
 //        //left gate
@@ -101,6 +102,12 @@ var GameLayer = cc.Layer.extend({
 ////        this.addChild(back, BACK_ZORDER);
 //        this.addChild(ground, BACK_ZORDER);
         this.addChild(tube, TUBE_ZORDER);
+
+        // Add Tube Particle system
+        this.forceEmitter = new cc.ParticleSystem(res.Pipe);
+        this.forceEmitter.setPosition(tubeX, tubeY+tube.height/2);
+        this.addChild(this.forceEmitter, TUBE_ZORDER-1);
+
 //        this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
 //        this.addChild(right_gate,BACK_ZORDER,RIGHT_GATE_TAG);
 

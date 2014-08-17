@@ -31,7 +31,9 @@ var res = {
     game_ui_png : "res/gameUI.png",
 
     over_ui_plist : "res/overUI.plist",
-    over_ui_png : "res/overUI.png"
+    over_ui_png : "res/overUI.png",
+
+    Pipe : "res/Pipe.plist"
 };
 
 var g_resources = [];
