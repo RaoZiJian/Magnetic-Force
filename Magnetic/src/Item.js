@@ -287,7 +287,7 @@ var CornerTrampoline = Trampoline.extend({
 });
 CornerTrampoline.COL_TYPE = GLOBAL_COL_TYPE++;
 
-var TestWall = cc.Sprite.extend({
+var Platform = cc.Sprite.extend({
     texfile : res.Tube,
     phyObj : null,
 
