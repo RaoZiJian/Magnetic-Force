@@ -1,24 +1,47 @@
 var OneGoalLayer = GameLayer.extend({
 
-//    createItems : function (){
-//        this.itemLayer = new OneGoalItemsLayer(this);
-//        this.addChild(this.itemLayer, ITEM_ZORDER);
-//    },
+    createItems : function (){
+        this.itemLayer = new OneGoalItemsLayer(this);
+        this.addChild(this.itemLayer, ITEM_ZORDER);
+    },
 
-//    createGameController : function(){
-//        this.gameController = new OneGoalController(this);
-//    },
+    createBackground : function() {
+        // Add Tube Particle system
+        this.forceEmitter = new cc.ParticleSystem(res.Pipe);
+        this.forceEmitter.setPosition(cc.winSize.width/2, cc.winSize.height - 100);
+        this.forceEmitter.scaleX = 0.5;
+        this.addChild(this.forceEmitter, TUBE_ZORDER-1);
 
-//    checkResult : function () {
-//        var result = this.itemLayer.checkForGoal();
-//
-//    },
+        var background = new cc.Sprite(res.BackgroundA);
+        this.addChild(background, BACK_ZORDER,BACK_TAG);
+        var bg2 = new cc.Sprite(res.BackgroundB);
+        this.addChild(bg2, BACK_ZORDER,BACK_TAG);
+        background.x = cc.winSize.width/2;
+        background.y = cc.winSize.height/2;
+        bg2.x = cc.winSize.width/2;
+        bg2.y = cc.winSize.height/2;
+    },
 
-//    onEnter : function () {
-//        this._super();
-//        Physics.addCollisionHandler(Player.COL_TYPE, Bomb.EXPLODE_COL_TYPE, null, this.playerBeExplode, null, null);
-//    },
-//
+    createGameController : function(){
+        this.gameController = new OneGoalController(this);
+    },
+
+    checkResult : function () {
+        var result = this.itemLayer.checkForGoal();
+        if (result == OneGoalItemsLayer.FP_GET_SCORE)
+            this.gameController.addFpScore();
+        else if (result = OneGoalItemsLayer.SP_GET_SCORE)
+            this.gameController.addSpScore();
+
+        if (this.gameController.isGameOver()) {
+            this.gameController.gameOverAction();
+        }
+    },
+
+    createWalls : function () {
+        Level.createLevel(res.Level2, this);
+    },
+
     playerTouchBomb : function (arb, space, ptr) {
         var shapes = arb.getShapes();
         var player = shapes[0].obj.view;
@@ -33,5 +56,6 @@ var OneGoalLayer = GameLayer.extend({
         else if (player == gameLayer.s_player) {
             item.captured(false);
         }
+        return true;
     }
 });

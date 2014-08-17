@@ -5,8 +5,8 @@ var ItemsLayer = cc.Layer.extend({
 
     next_born : 0,
 
-    born_iron_interval : 1,
-    born_bomb_interval : 1,
+//    born_iron_interval : 1,
+//    born_bomb_interval : 1,
 
     ctor : function(game_layer){
         this._super();
@@ -89,20 +89,72 @@ var ItemsLayer = cc.Layer.extend({
 });
 
 var OneGoalItemsLayer = ItemsLayer.extend({
-    addItem: function () {
-        var item = this._super();
 
-        // Add initial force
 
+//    addItem: function () {
+//        var item = this._super();
+//
+//        // Add initial force
+//
+//    },
+
+    addItem : function (tex, type, x, y, sOrR, friction, elasticity) {
+        var item = Bomb.create(tex, type, x, y, sOrR);
+        friction !== undefined && (item.friction = friction);
+        elasticity !== undefined && (item.elasticity = elasticity);
+
+        MagneticSystem.addOtherItem(item.phyObj.body);
+        this.addChild(item);
+
+        //apply veloci to item.
+
+        if ( x < winSize.width / 2 ){
+            item.phyObj.body.applyImpulse( cp.v(50, 20) , cp.v(0,0));
+        }
+        else{
+            item.phyObj.body.applyImpulse( cp.v(-50, 20) , cp.v(0,0));
+        }
+
+
+        return item;
     },
 
-    update : function (){
+//    bornItems : function (tex, cx, cy, number) { //56, 123      1224,123
+//        var x, y, ox = cx - BORN_X_VAR, oy = cy - BORN_Y_VAR, xvar = BORN_X_VAR * 2, yvar = BORN_Y_VAR * 2, r;
+//        number = number || (PRIMI_BORN_NUMBER + Math.round(BORN_NUMBER_VAR * Math.random()));
+//        for (var i = number; i > 0; --i) {
+//            x = ox + Math.floor(Math.random() * xvar);
+//            y = oy + Math.floor(Math.random() * yvar);
+//            r = BOMB_R + Math.round(Math.random() * BOMB_R_VAR);
+//            this.addItem(tex, Item.CIRCLE_SHAPE, x, y, r);
+//        }
+//    },
+
+    update : function (dt){
         // Generate items from left and right corner
 
         if ( !this.game_layer.isBegin){
             return false;
         }
-        
+
+        var children = this.children;
+
+        if (this.next_born <= 0) {
+            if (children.length < MAX_BOMB_NUMBER){
+//                this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height);
+                r = BOMB_R + Math.round(Math.random() * BOMB_R_VAR);
+                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 160, 180, r);
+                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 1120, 180, r);
+            }
+            this.next_born = BORN_INTERVAL / 3;
+        }
+        this.next_born -= dt;
+
+        for (var i = 0; i < children.length; ++i) {
+            children[i].update && children[i].update(dt);
+        }
+
+
     },
 
     checkForGoal : function() {
@@ -118,17 +170,28 @@ var OneGoalItemsLayer = ItemsLayer.extend({
 
             var i_pos = item.getPosition();
 
-//            if (cc.rectContainsPoint(Level.fp_gate_info, i_pos)){
-//                //sp get goal.
-//                ret = ScoreController.HIT_FP_HOUSE;
-//                delete_items.push(item);
-//            }
-//
-//            else if (cc.rectContainsPoint(Level.sp_gate_info, i_pos)){
-//                //fp get goal
-//                ret = ScoreController.HIT_SP_HOUSE;
-//                delete_items.push(item);
-//            }
+            if ( cc.rectContainsPoint(Level.attack_gate_info, i_pos) ){
+
+                if (item instanceof  Bomb){
+                    if ( item.naughtyDog ){
+                        ret = OneGoalController.FP_GET_SCORE;
+                    }else{
+                        ret = OneGoalController.SP_GET_SCORE;
+                    }
+                }
+
+                delete_items.push(item);
+
+                //explode
+                var explode = ccs.Armature.create("explode");
+                explode.setPosition(cc.p(item.x , item.y));
+                explode.scaleX = 3;
+                explode.scaleY = 3;
+                explode.getAnimation().playWithIndex(0);
+                cc.audioEngine.playEffect(res.explosion_ogg,false);
+                explode.getAnimation().movementEvent = this.explodeCallBack;
+                this.game_layer.addChild(explode);
+            }
         }
 
         for ( var i = 0; i < delete_items.length; i++){
@@ -137,6 +200,15 @@ var OneGoalItemsLayer = ItemsLayer.extend({
             deleteItem.die();
         }
         return ret;
+    },
+
+
+    explodeCallBack : function (armature, movementType, movementID) {
+        if (movementType == ccs.MovementEventType.complete) {
+//            console.log("explode");
+//            armature.getAnimation().playWithIndex(0);
+            armature.removeFromParent();
+        }
     }
 
 });

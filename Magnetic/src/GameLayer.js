@@ -102,35 +102,13 @@ var GameLayer = cc.Layer.extend({
         return true;
     },
     createBackground : function() {
-//        var back = new cc.Sprite(res.BackgroundA);
-//        back.x = cc.winSize.width/2;
-//        back.y = 0;
-//        back.anchorY = 0;
 
-//
-//        var ground = new cc.Sprite(res.Ground);
-//        ground.x = cc.winSize.width/2;
-//        ground.y = ground.height/2;
-//
         var tubeX = cc.winSize.width / 2 - 5, tubeY = cc.winSize.height - 185;
         var tube = new cc.Sprite(res.Tube);
         tube.x = tubeX;
         tube.y = tubeY;
         tube.anchorY = 0;
-//
-//        //left gate
-//        var spriteFrameCache = cc.spriteFrameCache;
-//        var left_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("purpleA.png"));
-//        left_gate.setPosition(cc.p(0,0));
-//        left_gate.setAnchorPoint(cc.p(0,0));
-//
-//        //right gate
-//        var right_gate = new cc.Sprite(spriteFrameCache.getSpriteFrame("redA.png"));
-//        right_gate.setPosition(cc.p(cc.winSize.width, 0));
-//        right_gate.setAnchorPoint(cc.p(1,0));
-//
-////        this.addChild(back, BACK_ZORDER);
-//        this.addChild(ground, BACK_ZORDER);
+
         this.addChild(tube, TUBE_ZORDER);
 
         // Add Tube Particle system
@@ -138,13 +116,8 @@ var GameLayer = cc.Layer.extend({
         this.forceEmitter.setPosition(tubeX, tubeY+tube.height/2);
         this.addChild(this.forceEmitter, TUBE_ZORDER-1);
 
-//        this.addChild(left_gate,BACK_ZORDER,LEFT_GATE_TAG);
-//        this.addChild(right_gate,BACK_ZORDER,RIGHT_GATE_TAG);
-
         var backGround = new BackGroundLayer();
         this.addChild(backGround,BACK_ZORDER,BACK_TAG);
-
-//        this.showMenu();
     },
 
     createPhysicsWorld : function () {

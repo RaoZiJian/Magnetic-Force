@@ -16,6 +16,7 @@ var current_level = 0;
 var nextLevel = function (showMenu) {
     var gameScene = new cc.Scene();
     var level = GameLevels[current_level](showMenu);
+    Global_Value.initWithConfig(Config[current_level]);
     gameScene.addChild(level);
 
     current_level++;
