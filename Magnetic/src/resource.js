@@ -33,7 +33,10 @@ var res = {
     over_ui_plist : "res/overUI.plist",
     over_ui_png : "res/overUI.png",
 
-    Pipe : "res/Pipe.plist"
+    Pipe : "res/Pipe.plist",
+
+    GuideUI_png : "res/guideUI.png",
+    GuideUI_plist : "res/guideUI.plist"
 };
 
 var g_resources = [];

@@ -10,7 +10,7 @@ var BackGroundElastricity = 1.2;
 
 
 //item
-var ITEM_MAXSPEED = 950,
+var ITEM_MAXSPEED = 900,
     ITEM_WEIGHT_FACTOR = 770,
     ITEM_INIT_FRICTION = 0.25,
     ITEM_INIT_ELASTICITY = 0.3,
@@ -52,7 +52,7 @@ var PLAYER_WEIGHT = 1,
 
 
 //bomb
-var EXPLODE_TIME = 20+Math.random()*5;
+var EXPLODE_TIME = 17+Math.random()*5;
 var EXPLODE_WARNNING_TIME = 3;//the bomb will be explode
 var EXPLODE_DEVIATION_TIME = 8;
 var EXPLODE_WEIGHT = 5;
@@ -63,7 +63,7 @@ var BOMB_JUMP_ADD_SPEED = 60;
 
 var GLOBAL_COL_TYPE = 0;
 
-var GAME_INIT_HP = 1;
+var GAME_INIT_HP = 3;
 
 
 var Global_Value = {
