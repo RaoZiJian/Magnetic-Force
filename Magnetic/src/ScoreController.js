@@ -383,19 +383,22 @@ var OneGoalController = GameController.extend({
 
             this.game_time_label.setString("" + Math.floor(this.game_time + 0.5));
 
-            var action = new cc.Sequence(
-                new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) ),
-                new cc.DelayTime(1.5),
-                new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
-            );
-            this.game_time_label.runAction(action);
+            if (this.game_time > 10){
+                var action = new cc.Sequence(
+                    new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) ),
+                    new cc.DelayTime(1.5),
+                    new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
+                );
+                this.game_time_label.runAction(action);
+            }
+
         }
 
         if(this.game_time <= 10){
 
-            this.game_time_label.stopAction();
-            this.fp_score_label.stopAction();
-            this.sp_score_label.stopAction();
+            this.game_time_label.stopAllActions();
+            this.fp_score_label.stopAllActions();
+            this.sp_score_label.stopAllActions();
             this.fp_score_label.setScale(1.0, 1.0);
             this.sp_score_label.setScale(1.0, 1.0);
 
