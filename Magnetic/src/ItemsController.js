@@ -109,10 +109,16 @@ var OneGoalItemsLayer = ItemsLayer.extend({
         //apply veloci to item.
 
         if ( x < winSize.width / 2 ){
-            item.phyObj.body.applyImpulse( cp.v(50, 20) , cp.v(0,0));
+            var veloci = ITEM_FIRE_SPEED - ITEM_FIRE_SPEED_VAR + Math.random() * ITEM_FIRE_SPEED_VAR * 2;
+            var angle = cc.degreesToRadians(ITEM_FIRE_ANGLE - ITEM_FIRE_ANGLE_VAR + Math.random() * ITEM_FIRE_ANGLE_VAR * 2);
+            var v = cp.v (veloci * Math.cos(angle) , veloci * Math.sin(angle) );
+            item.phyObj.body.applyImpulse( cp.v(v.x, v.y) , cp.v(0,0));
         }
         else{
-            item.phyObj.body.applyImpulse( cp.v(-50, 20) , cp.v(0,0));
+            var veloci = ITEM_FIRE_SPEED - ITEM_FIRE_SPEED_VAR + Math.random() * ITEM_FIRE_SPEED_VAR * 2;
+            var angle = cc.degreesToRadians(ITEM_FIRE_ANGLE - ITEM_FIRE_ANGLE_VAR + Math.random() * ITEM_FIRE_ANGLE_VAR * 2);
+            var v = cp.v (veloci * Math.cos(angle) , veloci * Math.sin(angle) );
+            item.phyObj.body.applyImpulse( cp.v( - v.x, v.y) , cp.v(0,0));
         }
 
 
@@ -143,8 +149,8 @@ var OneGoalItemsLayer = ItemsLayer.extend({
             if (children.length < MAX_BOMB_NUMBER){
 //                this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height);
                 r = BOMB_R + Math.round(Math.random() * BOMB_R_VAR);
-                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 160, 180, r);
-                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 1120, 180, r);
+                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 160, 170, r);
+                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 1120, 170, r);
             }
             this.next_born = BORN_INTERVAL / 3;
         }
