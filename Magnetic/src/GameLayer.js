@@ -18,7 +18,9 @@ var KeyCode_Z = 90,
     LEFT_GATE_TAG = 103,
     RIGHT_GATE_TAG = 104,
     MenuUI_ZORDER = 300,
-    GuideUI_ZORDER = 301;
+    MenuUI_TAG = 300,
+    GuideUI_ZORDER = 301,
+    GuideUI_TAG = 301;
 
 var GameLayer = cc.Layer.extend({
 
@@ -288,6 +290,7 @@ var GameLayer = cc.Layer.extend({
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
                 target.f_player.jump();
+                target.f_player.setScale(0.9,0.9);
                 target.f_player.attraction(1);
                 break;
             case KeyCode_X:
@@ -299,7 +302,7 @@ var GameLayer = cc.Layer.extend({
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
                 target.s_player.jump();
-
+                target.s_player.setScale(0.9,0.9);
                 target.s_player.attraction(4);
                 break;
             default :
@@ -319,12 +322,14 @@ var GameLayer = cc.Layer.extend({
                 target.f_player.isMagnet = false;
                 target.f_player.normal(0);
                 target.f_player.resetJump();
+                target.f_player.setScale(1.0,1.0);
                 break;
             case KeyCode_X:
             case KeyCode_Z:
                 target.s_player.isMagnet = false;
                 target.s_player.normal(3);
                 target.s_player.resetJump();
+                target.s_player.setScale(1.0,1.0);
                 break;
             default :
                 break;
@@ -399,6 +404,8 @@ var GameLayer = cc.Layer.extend({
         back.scaleX = 1.4;
         back.scaleY = 1.2;
         var target = this;
+        var menu_layer = new cc.Layer();
+        menu_layer.setPosition(cc.p(0,0));
         var spriteFrame = cc.spriteFrameCache;
         var btn_1p_spriteFrame = spriteFrame.getSpriteFrame("1pBtn.png");
         var btn_1p = new cc.MenuItemImage(btn_1p_spriteFrame,btn_1p_spriteFrame,null/*function () {
@@ -420,7 +427,7 @@ var GameLayer = cc.Layer.extend({
         },this);
         btn_2p.setPosition(cc.p(cc.winSize.width / 2 + 77,230));
 
-        var btn_4p_spriteFrame = spriteFrame.getSpriteFrame("2pBtn.png");
+        var btn_4p_spriteFrame = spriteFrame.getSpriteFrame("4pBtn.png");
         var btn_4p = new cc.MenuItemImage(btn_4p_spriteFrame,btn_4p_spriteFrame,null/*function () {
             target.runAction(new cc.Sequence(
                 new cc.CallFunc(hideUI),
@@ -476,35 +483,20 @@ var GameLayer = cc.Layer.extend({
 
 //        this.addChild(btn_2p,MenuUI_ZORDER);
 //        this.addChild(btn_4p,MenuUI_ZORDER);
-        this.addChild(btn_help,MenuUI_ZORDER);
-        this.addChild(btn_setting,MenuUI_ZORDER);
-        this.addChild(logo_png,MenuUI_ZORDER);
-        this.addChild(menu,MenuUI_ZORDER);
+        menu_layer.addChild(btn_help);
+        menu_layer.addChild(btn_setting);
+        menu_layer.addChild(logo_png);
+        menu_layer.addChild(menu);
+        this.addChild(menu_layer,MenuUI_ZORDER,MenuUI_TAG);
     },
     playWith1P : function () {
         console.log("1p");
     },
     playWith2P : function () {
         console.log("2p");
+        this.getChildByTag(MenuUI_TAG).removeFromParent();
+        this.guideUI2P();
 
-
-        this.createPhysicsWorld();
-//
-        this.setupDebugNode();
-
-        this.createWalls();
-
-        this.createPlayers();
-
-        this.createMagnetSystem();
-
-        this.createItems();
-
-        this.createGameController();
-
-        this.isBegin = true;
-        this.isOver = false;
-        this.inTitle = false;
     },
     playWith4P : function () {
         console.log("4p");
@@ -515,12 +507,76 @@ var GameLayer = cc.Layer.extend({
     helpMenu  : function () {
 
     },
-    guideUI : function () {
+    guideUI2P : function () {//2p guideUI init
+        var target  = this;
         var spriteFrameCache = cc.spriteFrameCache;
-        var guide = new cc.Sprite(spriteFrameCache.getSpriteFrame("guidePic.png"));
-        var guide_text = new cc.Sprite(spriteFrameCache.getSpriteFrame("guideText.png"));
-        var confirm_btn = new cc.Sprite(spriteFrameCache.getSpriteFrame("confirmBtn.png"));
+        var guide_layer = new cc.Layer();
+        guide_layer.setPosition(cc.p(0,0));
 
-        this.addChild();
+        var guide_pic = new cc.Sprite(spriteFrameCache.getSpriteFrame("guidePic.png"));
+        guide_pic.setPosition(cc.p(cc.winSize.width / 2 ,cc.winSize.height + 200));
+        guide_pic.runAction(new cc.Sequence(
+            new cc.DelayTime(0.1),
+            new cc.EaseBackOut(new cc.MoveTo(1.0,cc.p(cc.winSize.width / 2 ,520)))
+        ));
+        var guide_text = new cc.Sprite(spriteFrameCache.getSpriteFrame("guideText.png"));
+        guide_text.setPosition(cc.p(-300 , 180));
+        guide_text.runAction(new cc.Sequence(
+            new cc.DelayTime(0.3),
+            new cc.EaseBackOut(new cc.MoveTo(1.0,cc.p(cc.winSize.width / 2 ,180)))
+        ));
+
+        var confirm_btn_frame = spriteFrameCache.getSpriteFrame("confirmBtn.png")
+        var confirm_btn = new cc.MenuItemImage(confirm_btn_frame,confirm_btn_frame,function () {
+            target.runAction(new cc.Sequence(
+                new cc.CallFunc(hideUI),
+                new cc.DelayTime(2),
+                new cc.CallFunc(target.initAfterMenu,target)
+            ));
+        },this);
+        confirm_btn.setPosition(cc.p(cc.winSize.width - 200 , 60));
+        var menu = new cc.Menu(confirm_btn);
+        menu.setPosition(cc.p(0,0));
+
+        function hideUI () {
+            guide_pic.runAction(new cc.Sequence(
+                new cc.DelayTime(0.3),
+                new cc.EaseBackIn(new cc.MoveTo(1.0,cc.p(cc.winSize.width / 2 ,cc.winSize.height + 200)))
+            ));
+            guide_text.runAction(new cc.Sequence(
+                new cc.DelayTime(0.1),
+                new cc.EaseBackIn(new cc.MoveTo(1.0,cc.p(-500 ,guide_text.y)))
+            ));
+            menu.runAction(new cc.Sequence(
+                new cc.DelayTime(0.5),
+                new cc.EaseBackOut(new cc.MoveTo(1.0,cc.p(cc.winSize.height + 200 ,menu.y)))
+            ));
+        }
+
+        guide_layer.addChild(guide_pic);
+        guide_layer.addChild(guide_text);
+        guide_layer.addChild(menu);
+        this.addChild(guide_layer,GuideUI_ZORDER,GuideUI_TAG);
+    },
+    initAfterMenu : function () {
+            this.getChildByTag(GuideUI_TAG).removeFromParent();
+
+            this.createPhysicsWorld();
+//
+            this.setupDebugNode();
+
+            this.createWalls();
+
+            this.createPlayers();
+
+            this.createMagnetSystem();
+
+            this.createItems();
+
+            this.createGameController();
+
+            this.isBegin = true;
+            this.isOver = false;
+            this.inTitle = false;
     }
 });

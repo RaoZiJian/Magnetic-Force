@@ -157,6 +157,9 @@ ScoreController.HIT_NOTING = 0;
 ScoreController.HIT_FP_HOUSE = 1;
 ScoreController.HIT_SP_HOUSE = 2;
 
+OneGoalController.FP_GET_SCORE = 3;
+OneGoalController.SP_GET_SCORE = 4;
+OneGoalController.NO_ONE_GET_SCORE = 5;
 
 var OneGoalController = GameController.extend({
 
@@ -165,6 +168,14 @@ var OneGoalController = GameController.extend({
 
     game_time : GAME_TIME_LENGTH,
 
+    ctor : function(game_layer){
+        this._super(game_layer);
+
+        this.fp_score = 0;
+        this.sp_score = 0;
+        this.game_time = GAME_TIME_LENGTH;
+    },
+
 
     update : function (dt) {
         this.game_time -= dt;
@@ -172,12 +183,23 @@ var OneGoalController = GameController.extend({
 
     isGameOver : function () {
 
-//        if () {
-//
-//        }
+        if (this.game_time < 0) {
 
+            return true;
+
+        }
 
         return false;
+    },
+
+    addFpScore : function () {
+
+        this.fp_score ++;
+    },
+
+    addSpScore : function () {
+
+        this.sp_score ++;
     },
 
     gameOverAction : function () {
