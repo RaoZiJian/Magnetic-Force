@@ -157,10 +157,6 @@ ScoreController.HIT_NOTING = 0;
 ScoreController.HIT_FP_HOUSE = 1;
 ScoreController.HIT_SP_HOUSE = 2;
 
-OneGoalController.FP_GET_SCORE = 3;
-OneGoalController.SP_GET_SCORE = 4;
-OneGoalController.NO_ONE_GET_SCORE = 5;
-
 var OneGoalController = GameController.extend({
 
     fp_score : 0,
@@ -220,3 +216,7 @@ var OneGoalController = GameController.extend({
     }
 
 });
+
+OneGoalController.FP_GET_SCORE = 3;
+OneGoalController.SP_GET_SCORE = 4;
+OneGoalController.NO_ONE_GET_SCORE = 5;

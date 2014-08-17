@@ -20,6 +20,7 @@
         "src/Wall.js",
         "src/GameLayer.js",
         "src/OneGoalLayer.js",
+        "src/SceneController.js",
         "src/PlayerBody.js",
         "src/TestLayer.js",
         "src/Item.js",
@@ -29,6 +30,5 @@
         "src/OverLayer.js",
         "src/BackGroundLayer.js",
         "src/Config.js"
-
     ]
 }
