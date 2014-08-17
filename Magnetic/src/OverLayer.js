@@ -92,7 +92,9 @@ var OverLayer = cc.Layer.extend({
         if ( !this.clicked ){
             this.clicked = true;
             this.gameLayer && this.gameLayer.clear();
-            nextLevel(cc.director.getRunningScene(), false);
+            
+            var layer = nextLevel(cc.director.getRunningScene(), true);
+            current_level == 0 ? layer.guideUIP : layer.guideUI2P();
         }
     },
 
