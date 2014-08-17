@@ -28,6 +28,12 @@ var ScoreController = GameController.extend({
     fp_hp_label : null,
     sp_hp_label : null,
     game_layer : null,
+    fp_score_num : 0,
+    sp_score_num : 0,
+    fp_lat_score : false,
+    fp_last_score : false,
+    fp_deviation_time : 3,
+    sp_deviation_time : 3,
 
     ctor : function(game_layer){
         this._super(game_layer);
@@ -36,19 +42,31 @@ var ScoreController = GameController.extend({
 
         this.fp_hp_label = cc.LabelTTF.create("3");
         this.sp_hp_label = cc.LabelTTF.create("3");
+
+        this.fp_lat_score = false;
+        this.sp_last_score = false;
+        this.fp_score_num = 0;
+        this.sp_score_num = 0;
+        this.fp_deviation_time = 3;
+        this.sp_deviation_time = 3;
+
+
         this.fp_hp_label.setPosition(winSize.width/10, winSize.height * 2/3);
         this.sp_hp_label.setPosition(winSize.width * 9/10, winSize.height * 2/3);
         this.fp_hp_label.setFontSize(50);
         this.sp_hp_label.setFontSize(50);
         game_layer.addChild(this.fp_hp_label);
         game_layer.addChild(this.sp_hp_label);
-//        this.showHP(200,200,3);
+//        this.showHP(500,500,3);
     },
 
     hitSpHouse : function(){
         this.sp_hp --;
 
-//        this.showHP(cc.winSize.width,570,this.sp_hp);
+        if (this.fp_last_score && this.sp_deviation_time > 0) {
+
+        }
+        this.showHP(cc.winSize.width + 7,570,this.sp_hp);
 
         if ( this.sp_hp >= 0) {
             this.sp_hp_label.setString(this.sp_hp);
@@ -87,7 +105,7 @@ var ScoreController = GameController.extend({
     hitFpHouse : function(){
         this.fp_hp --;
 
-//        this.showHP(0,570,this.fp_hp);
+        this.showHP(0 - 7,570,this.fp_hp);
 
         if ( this.fp_hp >= 0) {
             this.fp_hp_label.setString(this.fp_hp);
@@ -95,7 +113,7 @@ var ScoreController = GameController.extend({
 
             var spriteFrameCache = cc.spriteFrameCache;
             var leftSpriteFrame = null;
-            console.log(this.fp_hp);
+//            console.log(this.fp_hp);
             switch (this.fp_hp) {
                 case 2:
                     leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleB.png");
@@ -157,24 +175,51 @@ var ScoreController = GameController.extend({
         this.game_layer = null;
     },
     showHP : function (x,y,hp) {
+        console.log("aaa");
         var gameLayer  = this.game_layer;
         var spriteFrameCache = cc.spriteFrameCache;
         var hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
-        hpBoard.setAnchorPoint(cc.p(1,0));
-        hpBoard.rotation = 90;
         hpBoard.setPosition(cc.p(x,y));
-//        if( x < 20) {
-            hpBoard.rotationX = 180;
-//        }
-        var hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
-        hpBoard.addChild(hpText);
-        hpBoard.runAction(new cc.Sequence(
-            new cc.RotateBy(0.2,-90),
-            new cc.DelayTime(1),
-            new cc.RotateBy(0.2,90)
-        ));
+
+
+        if( x < 20) {
+            if( hp > 0) {
+                var hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+            }
+            hpText.setPosition(cc.p(130,90));
+            hpBoard.addChild(hpText);
+            hpBoard.rotation = -90;
+            hpBoard.setAnchorPoint(cc.p(0,0));
+            hpBoard.flippedX = true;
+            hpBoard.runAction(new cc.Sequence(
+                new cc.RotateBy(0.1,90),
+                new cc.DelayTime(1),
+                new cc.RotateBy(0.1,-90)
+            ));
+        }
+        else {
+            if( hp > 0) {
+                var hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+            }
+            hpText.setPosition(cc.p(100,90));
+            hpBoard.addChild(hpText);
+            hpBoard.setAnchorPoint(cc.p(1,0));
+            hpBoard.rotation = 90;
+            hpBoard.runAction(new cc.Sequence(
+                new cc.RotateBy(0.1,-90),
+                new cc.DelayTime(1),
+                new cc.RotateBy(0.1,90)
+            ));
+        }
+
+
 //        console.log(hp);
         gameLayer.addChild(hpBoard,400);
+    },
+    update : function (dt) {
+        this._super(dt);
+
+
     }
 });
 
