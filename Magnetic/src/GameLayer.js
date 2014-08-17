@@ -62,7 +62,7 @@ var GameLayer = cc.Layer.extend({
 
         this.createPlayers();
 
-//        this.createMagnetSystem();
+        this.createMagnetSystem();
 
 //        this.createItems();
 
