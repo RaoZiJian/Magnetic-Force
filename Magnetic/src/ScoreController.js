@@ -385,6 +385,11 @@ var OneGoalController = GameController.extend({
 
 
     update : function (dt) {
+
+        if( !this.game_layer.isBegin && this.game_layer.isOver){
+            return;
+        }
+
         this.game_time -= dt;
 
         this.game_time_show_interval -= dt;
@@ -401,15 +406,17 @@ var OneGoalController = GameController.extend({
                     new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
                 );
                 this.game_time_label.runAction(action);
+            }else{
+                var action = new cc.Sequence(
+                    new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) )
+                );
+                this.game_time_label.runAction(action);
             }
 
         }
 
         if(this.game_time <= 10){
 
-            this.game_time_label.stopAllActions();
-            this.fp_score_label.stopAllActions();
-            this.sp_score_label.stopAllActions();
             this.fp_score_label.setScale(1.0, 1.0);
             this.sp_score_label.setScale(1.0, 1.0);
 
@@ -428,10 +435,15 @@ var OneGoalController = GameController.extend({
     isGameOver : function () {
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
 
+            this.game_time_label.setString("0");
+
             return true;
         }
 
         if (this.game_time < 0) {
+
+            this.game_time_label.setString("0");
+
             return true;
         }
         return false;
