@@ -40,9 +40,12 @@ var GameLayer = cc.Layer.extend({
 
     gameController : null,
 
-    ctor : function () {
+    ctor : function (showMenu) {
         this._super();
         winSize = cc.director.getWinSize();
+        if (showMenu)
+            this.initWithMenu();
+        else this.init();
     },
     init : function(){
 
@@ -143,11 +146,17 @@ var GameLayer = cc.Layer.extend({
     },
 
     createPhysicsWorld : function () {
-
         Physics.init(this.parent);
         this.space = Physics.world;
         // Gravity
         this.space.gravity = cp.v(0, -300);
+
+        //ccs.A
+        Physics.addCollisionHandler(Player.COL_TYPE, Bomb.COL_TYPE, null, this.playerTouchBomb, null, null);
+        Physics.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
+        Physics.addCollisionHandler(Player.COL_TYPE, Trampoline.COL_TYPE, null, this.playerHitTrampoline, null, null);
+        Physics.addCollisionHandler(Player.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
+        Physics.addCollisionHandler(Bomb.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
     },
     setupDebugNode : function (){
         this.debugNode = cc.PhysicsDebugNode.create( this.space );
@@ -194,6 +203,12 @@ var GameLayer = cc.Layer.extend({
 //            //console.log(s_player_label.innerHTML);
 //        };
 
+        //button listener
+        cc.eventManager.addListener({
+            event : cc.EventListener.KEYBOARD,
+            onKeyPressed : this.onKeyPressed,
+            onKeyReleased: this.onKeyReleased
+        }, this);
     },
     createMagnetSystem : function () {
 
@@ -242,22 +257,8 @@ var GameLayer = cc.Layer.extend({
     onEnter : function () {
         this._super();
         this.scheduleUpdate();
-
-        //button listener
-        cc.eventManager.addListener({
-            event : cc.EventListener.KEYBOARD,
-            onKeyPressed : this.onKeyPressed,
-            onKeyReleased: this.onKeyReleased
-        }, this);
         //setup game begin.
         this.isBegin = true;
-
-        //ccs.A
-        Physics.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
-        Physics.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
-        Physics.addCollisionHandler(Player.COL_TYPE, Trampoline.COL_TYPE, null, this.playerHitTrampoline, null, null);
-        Physics.addCollisionHandler(Player.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
-        Physics.addCollisionHandler(Bomb.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
     },
     clear : function() {
         MagneticSystem.clear();
@@ -265,6 +266,7 @@ var GameLayer = cc.Layer.extend({
         Physics.clear();
     },
     onExit : function () {
+        cc.eventManager.removeListeners(this);
         this.unscheduleAllCallbacks();
         this.unscheduleUpdate();
         this._super();
@@ -328,7 +330,7 @@ var GameLayer = cc.Layer.extend({
                 break;
         }
     },
-    playerTouchItem : function (arb, space, ptr) {
+    playerTouchBomb : function (arb, space, ptr) {
 //        var shapes = arb.getShapes();
 //        var player = shapes[0];
 //        var item = shapes[1];
@@ -522,28 +524,3 @@ var GameLayer = cc.Layer.extend({
         this.addChild();
     }
 });
-
-
-GameLayer.create = function () {
-    var gameLayer = new GameLayer();
-    if (gameLayer && gameLayer.init()) {
-        return gameLayer;
-    }
-    return null;
-};
-
-GameLayer.createWithMenu = function() {
-    var gameScene = new cc.Scene();
-    gameLayer = new GameLayer();
-    if(gameLayer && gameLayer.initWithMenu()) {
-        gameScene.addChild(gameLayer);
-        return gameScene;
-    }
-    return null;
-}
-GameLayer.createScene = function () {
-    var gameScene = new cc.Scene();
-    gameLayer = GameLayer.create();
-    gameScene.addChild(gameLayer);
-    return gameScene;
-};
