@@ -1,5 +1,8 @@
 var OneGoalLayer = GameLayer.extend({
 
+    showMenu : function() {
+    },
+
     createItems : function (){
         this.itemLayer = new OneGoalItemsLayer(this);
         this.addChild(this.itemLayer, ITEM_ZORDER);
