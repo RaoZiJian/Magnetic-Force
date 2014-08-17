@@ -38,7 +38,9 @@ var res = {
     Pipe : "res/Pipe.plist",
 
     GuideUI_png : "res/guideUI.png",
-    GuideUI_plist : "res/guideUI.plist"
+    GuideUI_plist : "res/guideUI.plist",
+
+    LuckiestGuy_ttf : "res/LuckiestGuy.ttf"
 };
 
 var g_resources = [];
