@@ -152,16 +152,29 @@ var MagneticSystem = {
         }
 
         //if attract , add top f
-        if ( this.f_player.isMagnet && this.f_player.isAttract){
+//        if ( this.f_player.isMagnet && this.f_player.isAttract){
+//
+//            fp_f.x += PLAYER_ATTRACT_TOP_FORCE.x;
+//            fp_f.y += PLAYER_ATTRACT_TOP_FORCE.y;
+//
+//        }
+//        if ( this.s_player.isMagnet && this.s_player.isAttract){
+//
+//            sp_f.x += PLAYER_ATTRACT_TOP_FORCE.x;
+//            sp_f.y += PLAYER_ATTRACT_TOP_FORCE.y;
+//        }
 
-            fp_f.x += PLAYER_ATTRACT_TOP_FORCE.x;
-            fp_f.y += PLAYER_ATTRACT_TOP_FORCE.y;
 
+        //calculate jump_f
+        fp_f = pAddp(fp_f, this.f_player.jump_f);
+        sp_f = pAddp(sp_f, this.s_player.jump_f);
+
+        //calculate airstream force
+        if (this.f_player.y > winSize.height * 1/2){
+            fp_f = pAddp(fp_f, cp.v(0, - this.f_player.y / (winSize.height - this.f_player.y) * AIR_STREAM_FORCE ));
         }
-        if ( this.s_player.isMagnet && this.s_player.isAttract){
-
-            sp_f.x += PLAYER_ATTRACT_TOP_FORCE.x;
-            sp_f.y += PLAYER_ATTRACT_TOP_FORCE.y;
+        if (this.s_player.y > winSize.height * 1/2){
+            sp_f = pAddp(sp_f, cp.v(0, - this.s_player.y / (winSize.height - this.s_player.y) * AIR_STREAM_FORCE ));
         }
 
 
@@ -225,4 +238,10 @@ var p2pAngle = function(p1, p2){
     var angle = Math.atan2(y, x);
 
     return angle;
+};
+
+
+var pAddp = function(p1, p2){
+    var p = cp.v(p1.x + p2.x , p1.y + p2.y);
+    return p;
 };

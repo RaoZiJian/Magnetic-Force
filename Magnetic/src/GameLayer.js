@@ -180,11 +180,15 @@ var GameLayer = cc.Layer.extend({
     update : function( delta ) {
         this.space.step( delta );
 
-        MagneticSystem.update(delta);
-        this.f_player.phyUpdate();
-        this.s_player.phyUpdate();
+//        if ( this.isBegin && !this.isOver){
+            this.f_player.phyUpdate();
+            this.s_player.phyUpdate();
 
-        this.itemLayer.update(delta);
+            MagneticSystem.update(delta);
+            this.itemLayer.update(delta);
+
+//        }
+
     },
     onEnter : function () {
         this._super();
@@ -213,6 +217,11 @@ var GameLayer = cc.Layer.extend({
     },
     onKeyPressed : function (key,event) {
         var target = event.getCurrentTarget();
+
+        if ( !target.isBegin || target.isOver){
+            return;
+        }
+
         switch (key) {
             case KeyCode_M:
                 target.f_player.isMagnet = true;
@@ -243,16 +252,23 @@ var GameLayer = cc.Layer.extend({
     },
     onKeyReleased : function (key,event) {
         var target = event.getCurrentTarget();
+
+        if ( !target.isBegin || target.isOver){
+            return;
+        }
+
         switch (key) {
             case KeyCode_M:
             case KeyCode_N:
                 target.f_player.isMagnet = false;
                 target.f_player.normal(0);
+                target.f_player.resetJump();
                 break;
             case KeyCode_X:
             case KeyCode_Z:
                 target.s_player.isMagnet = false;
                 target.s_player.normal(3);
+                target.s_player.resetJump();
                 break;
             default :
                 break;
