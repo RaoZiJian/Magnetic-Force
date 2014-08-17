@@ -10,7 +10,7 @@ var BackGroundElastricity = 1.2;
 
 
 //item
-var ITEM_MAXSPEED = 620,
+var ITEM_MAXSPEED = 950,
     ITEM_WEIGHT_FACTOR = 770,
     ITEM_INIT_FRICTION = 0.25,
     ITEM_INIT_ELASTICITY = 0.3,
@@ -32,8 +32,8 @@ var INITIAL_BOMB_NUMBER = 4,
 
 //magnet system
 var EFFECTIVE_MAGNET_DIS = 900;
-var PLAYER_INIT_MH = 450;
-var SAFE_DIS_ADD = 0.5;
+var PLAYER_INIT_MH = 800;
+var SAFE_DIS_ADD = 0.7;
 var REPULSIVE_FORCE_MUTIPLE = 2;
 
 
@@ -48,11 +48,11 @@ var PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5;
 
 
 //bomb
-var EXPLODE_TIME = 8+Math.random()*5;
+var EXPLODE_TIME = 20+Math.random()*5;
 var EXPLODE_WARNNING_TIME = 3;//the bomb will be explode
 var EXPLODE_DEVIATION_TIME = 8;
-var EXPLODE_WEIGHT = 10;
-var EXPLODE_RADIUS = 2;
+var EXPLODE_WEIGHT = 5;
+var EXPLODE_RADIUS = 30;
 
 var EXPLODE_ELASTICITY = 10;
 var BOMB_JUMP_ADD_SPEED = 60;
