@@ -5,20 +5,26 @@ var OneGoalLayer = GameLayer.extend({
 //        this.addChild(this.itemLayer, ITEM_ZORDER);
 //    },
 
-//    createGameController : function(){
-//        this.gameController = new OneGoalController(this);
-//    },
+    createGameController : function(){
+        this.gameController = new OneGoalController(this);
+    },
 
-//    checkResult : function () {
-//        var result = this.itemLayer.checkForGoal();
-//
-//    },
+    checkResult : function () {
+        var result = this.itemLayer.checkForGoal();
+        if (result == OneGoalItemsLayer.FP_GET_SCORE)
+            this.gameController.addFpScore();
+        else if (result = OneGoalItemsLayer.SP_GET_SCORE)
+            this.gameController.addSpScore();
 
-//    onEnter : function () {
-//        this._super();
-//        Physics.addCollisionHandler(Player.COL_TYPE, Bomb.EXPLODE_COL_TYPE, null, this.playerBeExplode, null, null);
-//    },
-//
+        if (this.gameController.isGameOver()) {
+            this.gameController.gameOverAction();
+        }
+    },
+
+    createWalls : function () {
+        Level.createLevel(res.Level1, this);
+    },
+
     playerTouchBomb : function (arb, space, ptr) {
         var shapes = arb.getShapes();
         var player = shapes[0].obj.view;

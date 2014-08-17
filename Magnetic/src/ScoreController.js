@@ -180,11 +180,8 @@ var OneGoalController = GameController.extend({
     isGameOver : function () {
 
         if (this.game_time < 0) {
-
             return true;
-
         }
-
         return false;
     },
 
@@ -206,7 +203,6 @@ var OneGoalController = GameController.extend({
         var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
 
         this.game_layer.getParent().addChild( over_layer );
-
     },
 
     clear : function() {

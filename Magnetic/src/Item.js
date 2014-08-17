@@ -209,10 +209,10 @@ var Bomb = Item.extend({
 
     captured : function (nasty) {
         if (nasty) {
-            this.color = cc.color(255, 0, 0, 128);
+            this.color = cc.color(255, 0, 0, 100);
         }
         else {
-            this.color = cc.color(0, 0, 255, 128);
+            this.color = cc.color(0, 0, 255, 100);
         }
     },
 
@@ -264,6 +264,13 @@ Bomb.create = function (file, type, x, y, sOrR) {
 };
 
 
+var TrampolineNoTex = cc.Class.extend({
+    ctor : function (objDesc) {
+        var x = parseInt(objDesc.x), y = parseInt(objDesc.y), w = parseInt(objDesc.width), h = parseInt(objDesc.height);
+        var phyObj = new StaticObject(x, y, w, h, this);
+        phyObj.shape.setCollisionType(Trampoline.COL_TYPE);
+    }
+});
 
 var Trampoline = cc.Sprite.extend({
     texfile : res.Tube,
