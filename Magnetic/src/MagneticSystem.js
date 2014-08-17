@@ -31,6 +31,13 @@ var MagneticSystem = {
         this.other_items = [];
     },
 
+    clear : function(){
+        this.f_player = null;
+        this.s_player = null;
+        this.other_items = null;
+        this.game_layer = null;
+    },
+
     update : function (dt){
 
 
