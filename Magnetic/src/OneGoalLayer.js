@@ -5,6 +5,23 @@ var OneGoalLayer = GameLayer.extend({
 //        this.addChild(this.itemLayer, ITEM_ZORDER);
 //    },
 
+    createBackground : function() {
+        // Add Tube Particle system
+        this.forceEmitter = new cc.ParticleSystem(res.Pipe);
+        this.forceEmitter.setPosition(cc.winSize.width/2, cc.winSize.height - 100);
+        this.forceEmitter.scaleX = 0.5;
+        this.addChild(this.forceEmitter, TUBE_ZORDER-1);
+
+        var background = new cc.Sprite(res.BackgroundA);
+        this.addChild(background, BACK_ZORDER,BACK_TAG);
+        var bg2 = new cc.Sprite(res.BackgroundB);
+        this.addChild(bg2, BACK_ZORDER,BACK_TAG);
+        background.x = cc.winSize.width/2;
+        background.y = cc.winSize.height/2;
+        bg2.x = cc.winSize.width/2;
+        bg2.y = cc.winSize.height/2;
+    },
+
     createGameController : function(){
         this.gameController = new OneGoalController(this);
     },
@@ -22,7 +39,7 @@ var OneGoalLayer = GameLayer.extend({
     },
 
     createWalls : function () {
-        Level.createLevel(res.Level1, this);
+        Level.createLevel(res.Level2, this);
     },
 
     playerTouchBomb : function (arb, space, ptr) {
@@ -39,5 +56,6 @@ var OneGoalLayer = GameLayer.extend({
         else if (player == gameLayer.s_player) {
             item.captured(false);
         }
+        return true;
     }
 });
