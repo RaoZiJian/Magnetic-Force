@@ -165,7 +165,7 @@ var ScoreController = GameController.extend({
 
         var isNaughtyWin = true;
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
-            isNaughtyWin = this.force_win == GameController.FP_WIN;
+            isNaughtyWin = this.force_win == GameController.SP_WIN;
         }
         else isNaughtyWin = this.sp_hp === 0;
 
@@ -291,7 +291,7 @@ var OneGoalController = GameController.extend({
 
         var isNaughtyWin = true;
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
-            isNaughtyWin = this.force_win == GameController.FP_WIN;
+            isNaughtyWin = this.force_win == GameController.SP_WIN;
         }
         else isNaughtyWin = this.fp_score > this.sp_score;
 

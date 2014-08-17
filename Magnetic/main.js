@@ -3,7 +3,9 @@ cc.game.onStart = function(){
 	cc.view.resizeWithBrowserSize(true);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
-        cc.director.runScene(nextLevel(true));
+        gameScene = new cc.Scene();
+        nextLevel(gameScene, false, 0);
+        cc.director.runScene(gameScene);
     }, this);
 };
 cc.game.run();
