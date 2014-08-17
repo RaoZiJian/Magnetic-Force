@@ -60,4 +60,4 @@ var BOMB_JUMP_ADD_SPEED = 60;
 
 var GLOBAL_COL_TYPE = 0;
 
-var GAME_INIT_HP = 5;
+var GAME_INIT_HP = 1;
