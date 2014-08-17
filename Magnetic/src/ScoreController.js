@@ -165,6 +165,14 @@ var OneGoalController = GameController.extend({
 
     game_time : GAME_TIME_LENGTH,
 
+    ctor : function(game_layer){
+        this._super(game_layer);
+
+        this.fp_score = 0;
+        this.sp_score = 0;
+        this.game_time = GAME_TIME_LENGTH;
+    },
+
 
     update : function (dt) {
         this.game_time -= dt;
@@ -172,12 +180,23 @@ var OneGoalController = GameController.extend({
 
     isGameOver : function () {
 
-//        if () {
-//
-//        }
+        if (this.game_time < 0) {
 
+            return true;
+
+        }
 
         return false;
+    },
+
+    addFpScore : function () {
+
+        this.fp_score ++;
+    },
+
+    addSpScore : function () {
+
+        this.sp_score ++;
     },
 
     gameOverAction : function () {
