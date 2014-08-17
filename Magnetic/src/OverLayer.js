@@ -86,8 +86,7 @@ var OverLayer = cc.Layer.extend({
 
     playAgain : function(){
         this.gameLayer && this.gameLayer.clear();
-        var newScene = nextLevel();
-        cc.director.runScene(newScene);
+        replayLevel(cc.director.getRunningScene(), false);
     },
 
     backToMainMenu : function (){
