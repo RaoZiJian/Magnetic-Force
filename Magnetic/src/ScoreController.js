@@ -128,7 +128,7 @@ var ScoreController = GameController.extend({
             this.sp_deviation_time = SCORE_DEVIATION_MORE;
         }
 
-        this.showHP(0 - 7,570,this.fp_hp);
+        this.showHP(0-7,570,this.fp_hp);
 
         if ( this.fp_hp >= 0) {
             this.fp_hp_label.setString(this.fp_hp);
