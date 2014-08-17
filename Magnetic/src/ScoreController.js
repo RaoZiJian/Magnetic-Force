@@ -330,21 +330,104 @@ var OneGoalController = GameController.extend({
 
     game_time : GAME_TIME_LENGTH,
 
+    fp_score_label : null,
+    sp_score_label : null,
+    game_time_label : null,
+
+    game_time_show_interval : 5,
+    game_time_show_interval_last_ten : 0,
+
     ctor : function(game_layer){
         this._super(game_layer);
 
         this.fp_score = 0;
         this.sp_score = 0;
         this.game_time = GAME_TIME_LENGTH;
+
+        this.fp_score_label = cc.LabelTTF.create("0", "LuckiestGuy", 100);
+        this.fp_score_label.setColor( cc.color( 123, 0, 255) );
+        this.fp_score_label.lineWidth = 10;
+        this.fp_score_label.strokeStyle = cc.color(0,0,0);
+        this.sp_score_label = cc.LabelTTF.create("0", "LuckiestGuy", 100);
+        this.sp_score_label.setColor( cc.color( 255, 0, 0) );
+        this.sp_score_label.lineWidth = 10;
+        this.sp_score_label.strokeStyle = cc.color(0,0,0);
+        this.game_time_label = cc.LabelTTF.create(""+GAME_TIME_LENGTH, "LuckiestGuy", 100);
+        this.game_time_label.setColor( cc.color( 255, 255, 0) );
+        this.game_time_label.lineWidth = 10;
+        this.game_time_label.strokeStyle = cc.color(0,0,0);
+
+        this.fp_score_label.setPosition( 100, 500 );
+        this.sp_score_label.setPosition( 1180, 500 );
+        this.game_time_label.setPosition( 640, 600 );
+
+        this.fp_score_label.setScale(0,0);
+        this.sp_score_label.setScale(0,0);
+        this.game_time_label.setScale(0,0);
+
+        var action = new cc.Sequence(
+            new cc.DelayTime(1),
+            new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) ),
+            new cc.DelayTime(1.5),
+            new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
+        );
+
+        this.game_layer.addChild(this.fp_score_label);
+        this.game_layer.addChild(this.sp_score_label);
+        this.game_layer.addChild(this.game_time_label);
+
+        this.fp_score_label.runAction(action);
+        this.sp_score_label.runAction(action.clone());
+        this.game_time_label.runAction(action.clone());
+
+
     },
 
 
     update : function (dt) {
         this.game_time -= dt;
+
+        this.game_time_show_interval -= dt;
+
+        if(this.game_time_show_interval < 0 && this.game_time >= 9.5){
+            this.game_time_show_interval = 5;
+
+            this.game_time_label.setString("" + Math.floor(this.game_time + 0.5));
+
+            if (this.game_time > 10){
+                var action = new cc.Sequence(
+                    new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) ),
+                    new cc.DelayTime(1.5),
+                    new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
+                );
+                this.game_time_label.runAction(action);
+            }
+
+        }
+
+        if(this.game_time <= 10){
+
+            this.game_time_label.stopAllActions();
+            this.fp_score_label.stopAllActions();
+            this.sp_score_label.stopAllActions();
+            this.fp_score_label.setScale(1.0, 1.0);
+            this.sp_score_label.setScale(1.0, 1.0);
+
+            this.game_time_show_interval_last_ten -= dt;
+
+            if (this.game_time_show_interval_last_ten <= 0){
+                this.game_time_show_interval_last_ten = 1;
+
+                this.game_time_label.setString("" + Math.floor(this.game_time + 0.5));
+
+            }
+        }
+
     },
 
     isGameOver : function () {
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
+
             return true;
         }
 
@@ -358,11 +441,31 @@ var OneGoalController = GameController.extend({
 
         this.fp_score ++;
 
+        this.fp_score_label.setString("" + this.fp_score);
+
+        var action = new cc.Sequence(
+            new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) ),
+            new cc.DelayTime(1.5),
+            new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
+        );
+
+        this.fp_score_label.runAction(action);
+
     },
 
     addSpScore : function () {
 
         this.sp_score ++;
+
+        this.sp_score_label.setString("" + this.sp_score);
+
+        var action = new cc.Sequence(
+            new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) ),
+            new cc.DelayTime(1.5),
+            new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
+        );
+
+        this.sp_score_label.runAction(action);
 
     },
 

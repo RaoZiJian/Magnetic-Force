@@ -4,7 +4,7 @@ cc.game.onStart = function(){
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
         gameScene = new cc.Scene();
-        nextLevel(gameScene, false, 0);
+        nextLevel(gameScene, true, 0);
         cc.director.runScene(gameScene);
     }, this);
 };
