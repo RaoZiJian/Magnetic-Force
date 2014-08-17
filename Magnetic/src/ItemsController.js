@@ -167,7 +167,7 @@ var OneGoalItemsLayer = ItemsLayer.extend({
         // Check for the only one goal
         var delete_items = [],
             items = this.children,
-            ret = OneGoalItemsLayer.NO_ONE_GET_SCORE;
+            ret = OneGoalController.NO_ONE_GET_SCORE;
 
         for (var i = 0; i<items.length; i++){
 

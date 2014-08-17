@@ -210,9 +210,13 @@ var Bomb = Item.extend({
     captured : function (nasty) {
         if (nasty) {
             this.color = cc.color(255, 0, 0, 100);
+            this.nastyDog = true;
+            this.naughtyDog = false;
         }
         else {
             this.color = cc.color(0, 0, 255, 100);
+            this.nastyDog = false;
+            this.naughtyDog = true;
         }
     },
 
