@@ -49,14 +49,6 @@ var GameLayer = cc.Layer.extend({
         if (showMenu)
             this.initWithMenu();
         else this.init();
-
-        //button listener
-        cc.eventManager.removeAllListeners();
-        cc.eventManager.addListener({
-            event : cc.EventListener.KEYBOARD,
-            onKeyPressed : this.onKeyPressed,
-            onKeyReleased: this.onKeyReleased
-        }, this);
     },
     init : function(){
 
@@ -243,6 +235,14 @@ var GameLayer = cc.Layer.extend({
         this.scheduleUpdate();
         //setup game begin.
         this.isBegin = true;
+        
+        //button listener
+        cc.eventManager.removeAllListeners();
+        cc.eventManager.addListener({
+            event : cc.EventListener.KEYBOARD,
+            onKeyPressed : this.onKeyPressed,
+            onKeyReleased: this.onKeyReleased
+        }, this);
     },
     clear : function() {
         MagneticSystem.clear();
@@ -250,7 +250,7 @@ var GameLayer = cc.Layer.extend({
         Physics.clear();
     },
     onExit : function () {
-        //cc.eventManager.removeListeners(this);
+        cc.eventManager.removeAllListeners();
         this.unscheduleAllCallbacks();
         this.unscheduleUpdate();
         this._super();
