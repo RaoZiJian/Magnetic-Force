@@ -74,10 +74,17 @@ var OverLayer = cc.Layer.extend({
     },
 
     playAgain : function(){
-        console.log("play again");
+
+        MagneticSystem.clear();
+        ScoreController.clear();
+        Physics.clear();
+
+        var newScene = GameLayer.createScene();
+
+        cc.director.runScene(newScene);
 
 
-        
+
     },
 
     backToMainMenu : function (){

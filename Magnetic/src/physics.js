@@ -46,26 +46,23 @@ var Physics = {
         }
     },
     removeShape: function(shape) {
-        if (this.inited) {
             if (shape.body.isStatic())
-                Physics.world.removeStaticShape();
-            else Physics.world.removeShape();
-        }
+                Physics.world.removeStaticShape(shape);
+            else Physics.world.removeShape(shape);
     },
     removeBody: function (body){
-        if (this.inited)
             Physics.world.removeBody(body);
     },
 
     clear:function() {
         if (this.inited) {
-            var space = this.world;
-            for (var i = this.handlers.length-1; i >= 0; --i) {
-                var handler = this.handlers[i];
-                space.removeCollisionHandler(handler[0], handler[1]);
-            }
-            space.eachShape(this.removeShape);
-            space.eachBody(this.removeBody);
+//            var space = this.world;
+//            for (var i = this.handlers.length-1; i >= 0; --i) {
+//                var handler = this.handlers[i];
+//                space.removeCollisionHandler(handler[0], handler[1]);
+//            }
+//            space.eachShape(this.removeShape);
+//            space.eachBody(this.removeBody);
         }
     }
 };

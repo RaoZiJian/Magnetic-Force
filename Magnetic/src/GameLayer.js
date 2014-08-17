@@ -22,6 +22,7 @@ var KeyCode_Z = 90,
 var GameLayer = cc.Layer.extend({
 
     isBegin : false,
+    isOver : false,
 
     space : null,
 

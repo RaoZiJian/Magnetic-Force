@@ -10,8 +10,6 @@ var ScoreController = {
     sp_hp_label : null,
     game_layer : null,
 
-    isGameOver : false,
-
     init : function(game_layer){
         this.fp_hp = GAME_INIT_HP;
         this.sp_hp = GAME_INIT_HP;
@@ -27,7 +25,6 @@ var ScoreController = {
 
         this.game_layer = game_layer;
 
-        this.isGameOver = false;
     },
 
     hitSpHouse : function(){
@@ -65,7 +62,7 @@ var ScoreController = {
 
         }
 
-        if (this.sp_hp === 0 && !this.isGameOver){
+        if (this.sp_hp === 0 && !this.game_layer.isOver){
             this.gameOver();
         }
     },
@@ -107,7 +104,7 @@ var ScoreController = {
             }
         }
 
-        if (  this.fp_hp === 0 && !this.isGameOver){
+        if (  this.fp_hp === 0 && !this.game_layer.isOver){
             this.gameOver();
         }
 
@@ -115,7 +112,7 @@ var ScoreController = {
 
     gameOver : function (){
 
-        this.isGameOver = true;
+        this.game_layer.isOver = true;
 
 
         var isNaughtyWin = this.sp_hp === 0;
@@ -133,8 +130,15 @@ var ScoreController = {
             armature.removeFromParent();
         }
 
+    },
+
+    clear : function(){
+        this.fp_hp = GAME_INIT_HP;
+        this.sp_hp = GAME_INIT_HP;
+
+        this.fp_hp_label = null;
+        this.sp_hp_label = null;
+        this.game_layer = null;
     }
-
-
 
 };
