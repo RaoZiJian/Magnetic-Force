@@ -55,18 +55,18 @@ var GameLayer = cc.Layer.extend({
         this.createBackground();
 
         this.createPhysicsWorld();
-
-        this.setupDebugNode();
-
-        this.createWalls();
+//
+//        this.setupDebugNode();
+//
+//        this.createWalls();
 
         this.createPlayers();
 
-        this.createMagnetSystem();
+//        this.createMagnetSystem();
 
-        this.createItems();
+//        this.createItems();
 
-        this.createScoreController();
+//        this.createScoreController();
 
         return true;
     },
@@ -107,7 +107,7 @@ var GameLayer = cc.Layer.extend({
         var backGround = new BackGroundLayer();
         this.addChild(backGround,BACK_ZORDER,BACK_TAG);
 
-//        this.showMenu();
+        this.showMenu();
     },
 
     createPhysicsWorld : function () {
@@ -136,6 +136,7 @@ var GameLayer = cc.Layer.extend({
         this.f_player = new Player("robot", 50, winSize.width/6*5, 57);
         //var index = [5];
         this.f_player.getAnimation().playWithIndex(0);
+        this.f_player.visible = false;
         this.addChild(this.f_player, PLAYER_ZORDER);
 //        this.f_player.isMagnetUpdated = function () {
 //           var f_player_label = window.document.getElementById("f_player_magnet");
@@ -150,6 +151,7 @@ var GameLayer = cc.Layer.extend({
 
         this.s_player = new Player("robot", 50, winSize.width/6, 57);
         this.s_player.getAnimation().playWithIndex(3);
+        this.s_player.visible = false;
         this.addChild(this.s_player, PLAYER_ZORDER);
 //        this.s_player.isMagnetUpdated = function () {
 //            var s_player_label = window.document.getElementById("s_player_magnet");
@@ -178,13 +180,16 @@ var GameLayer = cc.Layer.extend({
     },
 
     update : function( delta ) {
-        this.space.step( delta );
+        if(this.isBegin){
+            this.space.step( delta );
 
-        MagneticSystem.update(delta);
-        this.f_player.phyUpdate();
-        this.s_player.phyUpdate();
+            MagneticSystem.update(delta);
+            this.f_player.phyUpdate();
+            this.s_player.phyUpdate();
 
-        this.itemLayer.update(delta);
+            this.itemLayer.update(delta);
+        }
+
     },
     onEnter : function () {
         this._super();
@@ -197,7 +202,7 @@ var GameLayer = cc.Layer.extend({
             onKeyReleased: this.onKeyReleased
         }, this);
         //setup game begin.
-        this.isBegin = true;
+        this.isBegin = false;
 
         //ccs.A
         Physics.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
@@ -326,18 +331,36 @@ var GameLayer = cc.Layer.extend({
         var back = this.getChildByTag(BACK_TAG);
         back.scaleX = 1.4;
         back.scaleY = 1.2;
-
+        var target = this;
         var spriteFrame = cc.spriteFrameCache;
         var btn_1p_spriteFrame = spriteFrame.getSpriteFrame("1pBtn.png");
-        var btn_1p = new cc.MenuItemImage(btn_1p_spriteFrame,btn_1p_spriteFrame,hideUI,this);
+        var btn_1p = new cc.MenuItemImage(btn_1p_spriteFrame,btn_1p_spriteFrame,null/*function () {
+            target.runAction(new cc.Sequence(
+                new cc.CallFunc(hideUI),
+                new cc.DelayTime(2.5),
+                new cc.CallFunc(target.playWith1P.call(target))
+            ));
+        }*/,this);
         btn_1p.setPosition(cc.p(cc.winSize.width / 2 - 47,340));
 
         var btn_2p_spriteFrame = spriteFrame.getSpriteFrame("2pBtn.png");
-        var btn_2p = new cc.MenuItemImage(btn_2p_spriteFrame,btn_2p_spriteFrame,hideUI,this);
+        var btn_2p = new cc.MenuItemImage(btn_2p_spriteFrame,btn_2p_spriteFrame,function () {
+            target.runAction(new cc.Sequence(
+                new cc.CallFunc(hideUI),
+                new cc.DelayTime(2),
+                new cc.CallFunc(target.playWith2P,target)
+            ));
+        },this);
         btn_2p.setPosition(cc.p(cc.winSize.width / 2 + 77,230));
 
         var btn_4p_spriteFrame = spriteFrame.getSpriteFrame("2pBtn.png");
-        var btn_4p = new cc.MenuItemImage(btn_4p_spriteFrame,btn_4p_spriteFrame,hideUI,this);
+        var btn_4p = new cc.MenuItemImage(btn_4p_spriteFrame,btn_4p_spriteFrame,null/*function () {
+            target.runAction(new cc.Sequence(
+                new cc.CallFunc(hideUI),
+                new cc.DelayTime(2.5),
+                new cc.CallFunc(target.playWith4P)
+            ));
+        },*/,this);
         btn_4p.setPosition(cc.p(cc.winSize.width / 2 - 55,125));
 
         var btn_help = new cc.Sprite(spriteFrame.getSpriteFrame("helpBtn.png"));
@@ -366,43 +389,65 @@ var GameLayer = cc.Layer.extend({
                 new cc.DelayTime(0.2),
                 new cc.EaseBackIn(new cc.MoveTo(0.9,cc.p(-500,btn_4p.y))))
             );
+            btn_help.runAction(new cc.Sequence(
+                    new cc.DelayTime(0.5),
+                    new cc.EaseSineOut(new cc.MoveTo(1.0,cc.p(btn_help.x,-100))))
+            );
+            btn_setting.runAction(new cc.Sequence(
+                    new cc.DelayTime(0.5),
+                    new cc.EaseSineOut(new cc.MoveTo(1.0,cc.p(btn_setting.x,-100))))
+            );
+            back.runAction(new cc.Sequence(
+                    new cc.DelayTime(1.5),
+                    new cc.ScaleTo(0.8,1.0,1.0)
+                )
+            );
         }
 
         var menu = cc.Menu.create(btn_1p,btn_2p,btn_4p);
         menu.setPosition(cc.p(0,0));
-        this.addChild(menu,MenuUI_ZORDER);
+
 //        this.addChild(btn_2p,MenuUI_ZORDER);
 //        this.addChild(btn_4p,MenuUI_ZORDER);
-//        this.addChild(btn_help,MenuUI_ZORDER);
-//        this.addChild(btn_setting,MenuUI_ZORDER);
+        this.addChild(btn_help,MenuUI_ZORDER);
+        this.addChild(btn_setting,MenuUI_ZORDER);
         this.addChild(logo_png,MenuUI_ZORDER);
-
-//        var closeItem = cc.MenuItemImage.create(
-//            res.CloseNormal_png,
-//            res.CloseSelected_png,
-//            function () {
-//                cc.log("Menu is clicked!");
-//            }, this);
-//        closeItem.attr({
-//            x: size.width - 20,
-//            y: 20,
-//            anchorX: 0.5,
-//            anchorY: 0.5
-//        });
+        this.addChild(menu,MenuUI_ZORDER);
     },
     playWith1P : function () {
-        console.log("hhh");
+        console.log("1p");
     },
     playWith2P : function () {
+        console.log("2p");
 
+
+        this.createPhysicsWorld();
+//
+        this.setupDebugNode();
+
+        this.createWalls();
+
+//        this.createPlayers();
+        this.s_player.visible = true;
+        this.f_player.visible = true;
+        this.createMagnetSystem();
+
+        this.createItems();
+
+        this.createScoreController();
+
+        this.isBegin = true;
     },
     playWith4P : function () {
-
+        console.log("4p");
     },
     settingMenu : function () {
 
     },
     helpMenu  : function () {
+
+    },
+    hideUI : function () {
 
     }
 });
