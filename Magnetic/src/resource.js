@@ -40,7 +40,7 @@ var res = {
     GuideUI_png : "res/guideUI.png",
     GuideUI_plist : "res/guideUI.plist",
 
-    EnergyBall : "res/energyBall.png"
+    EnergyBall : "res/energyBall.png",
     LuckiestGuy_ttf : "res/LuckiestGuy.ttf"
 };
 
