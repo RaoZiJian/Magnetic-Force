@@ -109,10 +109,10 @@ var OneGoalItemsLayer = ItemsLayer.extend({
         //apply veloci to item.
 
         if ( x < winSize.width / 2 ){
-            item.phyObj.body.applyImpulse( cp.v(150, 150) , cp.v(0,0));
+            item.phyObj.body.applyImpulse( cp.v(50, 20) , cp.v(0,0));
         }
         else{
-            item.phyObj.body.applyImpulse( cp.v(-150, 150) , cp.v(0,0));
+            item.phyObj.body.applyImpulse( cp.v(-50, 20) , cp.v(0,0));
         }
 
 
@@ -143,8 +143,8 @@ var OneGoalItemsLayer = ItemsLayer.extend({
             if (children.length < MAX_BOMB_NUMBER){
 //                this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height);
                 r = BOMB_R + Math.round(Math.random() * BOMB_R_VAR);
-                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 56, 123, r);
-                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 1224, 123, r);
+                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 160, 180, r);
+                this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 1120, 180, r);
             }
             this.next_born = BORN_INTERVAL / 3;
         }
@@ -181,6 +181,16 @@ var OneGoalItemsLayer = ItemsLayer.extend({
                 }
 
                 delete_items.push(item);
+
+                //explode
+                var explode = ccs.Armature.create("explode");
+                explode.setPosition(cc.p(item.x , item.y));
+                explode.scaleX = 3;
+                explode.scaleY = 3;
+                explode.getAnimation().playWithIndex(0);
+                cc.audioEngine.playEffect(res.explosion_ogg,false);
+                explode.getAnimation().movementEvent = this.explodeCallBack;
+                this.game_layer.addChild(explode);
             }
         }
 
@@ -190,6 +200,15 @@ var OneGoalItemsLayer = ItemsLayer.extend({
             deleteItem.die();
         }
         return ret;
+    },
+
+
+    explodeCallBack : function (armature, movementType, movementID) {
+        if (movementType == ccs.MovementEventType.complete) {
+//            console.log("explode");
+//            armature.getAnimation().playWithIndex(0);
+            armature.removeFromParent();
+        }
     }
 
 });

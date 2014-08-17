@@ -213,11 +213,13 @@ var OneGoalController = GameController.extend({
     addFpScore : function () {
 
         this.fp_score ++;
+
     },
 
     addSpScore : function () {
 
         this.sp_score ++;
+
     },
 
     gameOverAction : function () {
