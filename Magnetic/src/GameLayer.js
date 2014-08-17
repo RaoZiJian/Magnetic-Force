@@ -244,7 +244,7 @@ var GameLayer = cc.Layer.extend({
     },
     clear : function() {
         MagneticSystem.clear();
-        this.gameController.clear();
+        this.gameController && this.gameController.clear();
         Physics.clear();
     },
     onExit : function () {
@@ -481,8 +481,8 @@ var GameLayer = cc.Layer.extend({
     },
     playWith2P : function () {
         this.getChildByTag(MenuUI_TAG).removeFromParent();
-        this.guideUI2P();
-
+        this.clear();
+        nextLevel(cc.director.getRunningScene(), false, 1);
     },
     playWith4P : function () {
         console.log("4p");
