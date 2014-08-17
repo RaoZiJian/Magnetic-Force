@@ -49,6 +49,14 @@ var GameLayer = cc.Layer.extend({
         if (showMenu)
             this.initWithMenu();
         else this.init();
+
+        //button listener
+        cc.eventManager.removeAllListeners();
+        cc.eventManager.addListener({
+            event : cc.EventListener.KEYBOARD,
+            onKeyPressed : this.onKeyPressed,
+            onKeyReleased: this.onKeyReleased
+        }, this);
     },
     init : function(){
 
@@ -179,12 +187,6 @@ var GameLayer = cc.Layer.extend({
 //            //console.log(s_player_label.innerHTML);
 //        };
 
-        //button listener
-        cc.eventManager.addListener({
-            event : cc.EventListener.KEYBOARD,
-            onKeyPressed : this.onKeyPressed,
-            onKeyReleased: this.onKeyReleased
-        }, this);
     },
     createMagnetSystem : function () {
 
@@ -248,7 +250,7 @@ var GameLayer = cc.Layer.extend({
         Physics.clear();
     },
     onExit : function () {
-        cc.eventManager.removeListeners(this);
+        //cc.eventManager.removeListeners(this);
         this.unscheduleAllCallbacks();
         this.unscheduleUpdate();
         this._super();
@@ -256,7 +258,7 @@ var GameLayer = cc.Layer.extend({
     onKeyPressed : function (key,event) {
         var target = event.getCurrentTarget();
 
-        if ( !target.isBegin || target.isOver){
+        if ( !target.isBegin || target.isOver || !target.f_player || !target.s_player){
             return;
         }
 
@@ -292,7 +294,7 @@ var GameLayer = cc.Layer.extend({
     onKeyReleased : function (key,event) {
         var target = event.getCurrentTarget();
 
-        if ( !target.isBegin || target.isOver){
+        if ( !target.isBegin || target.isOver || !target.f_player || !target.s_player){
             return;
         }
 
