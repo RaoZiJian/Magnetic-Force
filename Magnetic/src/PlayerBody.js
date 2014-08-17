@@ -159,6 +159,34 @@ var Player = ccs.Armature.extend({
 //
 //        this.runAction(cc.animate(mouthOpen));
 
+    },
+    repulsion : function (index) {
+        var old_index = this.getAnimation().getCurrentMovementID();
+        var current_name = this.getAnimation().getAnimationData().movementNames[index];
+//        console.log(current_name);
+        if (old_index !== current_name) {
+
+            this.getAnimation().playWithIndex(index);
+        }
+
+    },
+    attraction : function (index) {
+        var old_index = this.getAnimation().getCurrentMovementID();
+        var current_name = this.getAnimation().getAnimationData().movementNames[index];
+//        console.log(current_name);
+        if (old_index !== current_name) {
+
+            this.getAnimation().playWithIndex(index);
+        }
+    },
+    normal : function (index) {
+        var old_index = this.getAnimation().getCurrentMovementID();
+        var current_name = this.getAnimation().getAnimationData().movementNames[index];
+//        console.log(current_name);
+        if (old_index !== current_name) {
+
+            this.getAnimation().playWithIndex(index);
+        }
     }
 
 
