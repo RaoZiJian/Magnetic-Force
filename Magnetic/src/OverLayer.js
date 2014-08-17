@@ -46,23 +46,38 @@ var OverLayer = cc.Layer.extend({
 
         var game_over_logo = new cc.Sprite("#gameOverUI.png");
 
-        var play_again_btn = new cc.MenuItemSprite("#againBtn.png", "#againBtn.png", this.playAgain, this);
 
-        var back_to_main_menu_btn = new cc.MenuItemSprite("#backBtn.png", "#backBtn.png", this.backToMainMenu, this);
+        var spriteFrameCache = cc.spriteFrameCache;
+        var again_btn_frame = spriteFrameCache.getSpriteFrame("againBtn.png");
+        var play_again_btn = new cc.MenuItemImage(again_btn_frame, again_btn_frame, this.playAgain, this);
 
+        var back_to_main_menu_frame = spriteFrameCache.getSpriteFrame("backBtn.png");
+        var back_to_main_menu_btn = new cc.MenuItemImage(back_to_main_menu_frame, back_to_main_menu_frame, this.backToMainMenu, this);
+
+        play_again_btn.setPosition(-60, -80);
+        back_to_main_menu_btn.setPosition(60, -190);
+
+        var menu = cc.Menu.create(play_again_btn, back_to_main_menu_btn);
 //        var settings_btn = new cc.MenuItemSprite("");
 
         this.addChild(game_over_logo);
-        this.addChild(play_again_btn);
-        this.addChild(back_to_main_menu_btn);
+        this.addChild(menu);
 
         game_over_logo.setPosition(winSize.width/2, winSize.height * 2/3);
-        play_again_btn.setPosition(winSize.width/2, winSize.height /2);
-        back_to_main_menu_btn.setPosition(winSize.width/2, winSize.height/2 - 150);
+        menu.setPosition(winSize.width/2 , winSize.height /2);
+
+        game_over_logo.setScale(0, 0);
+        menu.setScale(0, 0);
+
+        game_over_logo.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.5, 1.0, 1.0)));
+        menu.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.5, 1.0, 1.0)));
     },
 
     playAgain : function(){
         console.log("play again");
+
+
+        
     },
 
     backToMainMenu : function (){
