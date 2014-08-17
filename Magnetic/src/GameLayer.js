@@ -217,20 +217,25 @@ var GameLayer = cc.Layer.extend({
             case KeyCode_M:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = false;
+                target.f_player.repulsion(2);
                 break;
             case KeyCode_N:
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
                 target.f_player.jump();
+                target.f_player.attraction(1);
                 break;
             case KeyCode_X:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = false;
+                target.s_player.repulsion(5);
                 break;
             case KeyCode_Z:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
                 target.s_player.jump();
+
+                target.s_player.attraction(4);
                 break;
             default :
                 break;
@@ -240,16 +245,14 @@ var GameLayer = cc.Layer.extend({
         var target = event.getCurrentTarget();
         switch (key) {
             case KeyCode_M:
-                target.f_player.isMagnet = false;
-                break;
             case KeyCode_N:
                 target.f_player.isMagnet = false;
+                target.f_player.normal(0);
                 break;
             case KeyCode_X:
-                target.s_player.isMagnet = false;
-                break;
             case KeyCode_Z:
                 target.s_player.isMagnet = false;
+                target.s_player.normal(3);
                 break;
             default :
                 break;
@@ -326,14 +329,38 @@ var GameLayer = cc.Layer.extend({
 
         var spriteFrame = cc.spriteFrameCache;
         var btn_1p = new cc.Sprite(spriteFrame.getSpriteFrame("1pBtn.png"));
+        btn_1p.setPosition(cc.p(cc.winSize.width / 2 - 47,340));
         var btn_2p = new cc.Sprite(spriteFrame.getSpriteFrame("2pBtn.png"));
+        btn_2p.setPosition(cc.p(cc.winSize.width / 2 + 77,230));
         var btn_4p = new cc.Sprite(spriteFrame.getSpriteFrame("4pBtn.png"));
+        btn_4p.setPosition(cc.p(cc.winSize.width / 2 - 55,125));
         var btn_help = new cc.Sprite(spriteFrame.getSpriteFrame("helpBtn.png"));
+        btn_help.setPosition(cc.p(cc.winSize.width - 55,55));
         var btn_setting = new cc.Sprite(spriteFrame.getSpriteFrame("settingsBtn.png"));
+        btn_setting.setPosition(cc.p(55,55));
+
         var logo_png = new cc.Sprite(spriteFrame.getSpriteFrame("logo.png"));
         logo_png.setAnchorPoint(cc.p(0,0));
-        logo_png.setPosition(cc.p(50,300));
+        logo_png.setPosition(cc.p(40,320));
+        this.addChild(btn_1p,MenuUI_ZORDER);
+        this.addChild(btn_2p,MenuUI_ZORDER);
+        this.addChild(btn_4p,MenuUI_ZORDER);
+        this.addChild(btn_help,MenuUI_ZORDER);
+        this.addChild(btn_setting,MenuUI_ZORDER);
         this.addChild(logo_png,MenuUI_ZORDER);
+
+//        var closeItem = cc.MenuItemImage.create(
+//            res.CloseNormal_png,
+//            res.CloseSelected_png,
+//            function () {
+//                cc.log("Menu is clicked!");
+//            }, this);
+//        closeItem.attr({
+//            x: size.width - 20,
+//            y: 20,
+//            anchorX: 0.5,
+//            anchorY: 0.5
+//        });
     }
 });
 
