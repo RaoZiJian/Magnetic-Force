@@ -401,21 +401,29 @@ var GameLayer = cc.Layer.extend({
         var spriteFrame = cc.spriteFrameCache;
         var btn_1p_spriteFrame = spriteFrame.getSpriteFrame("1pBtn.png");
         var btn_1p = new cc.MenuItemImage(btn_1p_spriteFrame,btn_1p_spriteFrame,function () {
-            target.runAction(new cc.Sequence(
-                new cc.CallFunc(hideUI),
-                new cc.DelayTime(2.5),
-                new cc.CallFunc(this.playWith1P, this)
-            ));
+            if(!this.clicked){
+                this.clicked = true;
+                target.runAction(new cc.Sequence(
+                    new cc.CallFunc(hideUI),
+                    new cc.DelayTime(2.5),
+                    new cc.CallFunc(this.playWith1P, this)
+                ));
+            }
+
         },this);
         btn_1p.setPosition(cc.p(cc.winSize.width / 2 - 47,340));
 
         var btn_2p_spriteFrame = spriteFrame.getSpriteFrame("2pBtn.png");
         var btn_2p = new cc.MenuItemImage(btn_2p_spriteFrame,btn_2p_spriteFrame,function () {
-            target.runAction(new cc.Sequence(
-                new cc.CallFunc(hideUI),
-                new cc.DelayTime(2),
-                new cc.CallFunc(this.playWith2P, this)
-            ));
+            if(!this.clicked){
+                this.clicked = true;
+                target.runAction(new cc.Sequence(
+                    new cc.CallFunc(hideUI),
+                    new cc.DelayTime(2),
+                    new cc.CallFunc(this.playWith2P, this)
+
+                ));
+            }
         },this);
         btn_2p.setPosition(cc.p(cc.winSize.width / 2 + 77,230));
 
@@ -527,11 +535,15 @@ var GameLayer = cc.Layer.extend({
 
         var confirm_btn_frame = spriteFrameCache.getSpriteFrame("confirmBtn.png")
         var confirm_btn = new cc.MenuItemImage(confirm_btn_frame,confirm_btn_frame,function () {
-            target.runAction(new cc.Sequence(
-                new cc.CallFunc(hideUI),
-                new cc.DelayTime(2.3),
-                new cc.CallFunc(target.initAfterMenu,target)
-            ));
+            if( !this.clicked_1){
+                this.clicked_1 = true;
+
+                target.runAction(new cc.Sequence(
+                    new cc.CallFunc(hideUI),
+                    new cc.DelayTime(2.3),
+                    new cc.CallFunc(target.initAfterMenu,target)
+                ));
+            }
         },this);
         confirm_btn.setPosition(cc.p(cc.winSize.width - 200 , 60));
         var menu = new cc.Menu(confirm_btn);
@@ -578,11 +590,15 @@ var GameLayer = cc.Layer.extend({
 
         var confirm_btn_frame = spriteFrameCache.getSpriteFrame("confirmBtn.png")
         var confirm_btn = new cc.MenuItemImage(confirm_btn_frame,confirm_btn_frame,function () {
-            target.runAction(new cc.Sequence(
-                new cc.CallFunc(hideUI),
-                new cc.DelayTime(2.3),
-                new cc.CallFunc(target.initAfterMenu,target)
-            ));
+            if(!this.clicked_2){
+                this.clicked_2 = true;
+
+                target.runAction(new cc.Sequence(
+                    new cc.CallFunc(hideUI),
+                    new cc.DelayTime(2.3),
+                    new cc.CallFunc(target.initAfterMenu,target)
+                ));
+            }
         },this);
         confirm_btn.setPosition(cc.p(cc.winSize.width - 200 , 60));
         var menu = new cc.Menu(confirm_btn);

@@ -10,6 +10,7 @@ var OverLayer = cc.Layer.extend({
     ctor : function(gameLayer) {
         this._super();
         this.gameLayer = gameLayer;
+        this.clicked = false;
     },
 
     init : function() {
@@ -21,6 +22,7 @@ var OverLayer = cc.Layer.extend({
     },
 
     onEnter : function() {
+        this.clicked = false;
 
         this._super();
 
@@ -87,8 +89,11 @@ var OverLayer = cc.Layer.extend({
     },
 
     playAgain : function(){
-        this.gameLayer && this.gameLayer.clear();
-        nextLevel(cc.director.getRunningScene(), false);
+        if ( !this.clicked ){
+            this.clicked = true;
+            this.gameLayer && this.gameLayer.clear();
+            nextLevel(cc.director.getRunningScene(), false);
+        }
     },
 
     backToMainMenu : function (){
