@@ -68,6 +68,10 @@ var GAME_INIT_HP = 1;
 
 var Global_Value = {
 
-    
+    initWithConfig : function(config){
 
-}
+    }
+
+};
+
+

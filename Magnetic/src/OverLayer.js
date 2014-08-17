@@ -37,7 +37,7 @@ var OverLayer = cc.Layer.extend({
 
         this.win_logo.runAction(
             new cc.Sequence(
-                new cc.DelayTime(2),
+                new cc.DelayTime(1),
                 new cc.EaseBackOut(new cc.ScaleTo(0.8, 1.0, 1.0)),
                 new cc.DelayTime(2),
                 new cc.EaseBackIn(new cc.ScaleTo(0.5, 0.0, 0.0)),
@@ -46,9 +46,14 @@ var OverLayer = cc.Layer.extend({
         );
 
 
+
     },
 
     showOverMenu : function (){
+
+        var cover = cc.LayerColor.create(cc.color(0,0,0, 80), winSize.width, winSize.height);
+        this.addChild(cover, 0);
+
 
         var game_over_logo = new cc.Sprite("#gameOverUI.png");
 
