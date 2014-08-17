@@ -56,7 +56,7 @@ var Physics = {
         if (this.inited)
             Physics.world.removeBody(body);
     },
-    
+
     clear:function() {
         if (this.inited) {
             var space = this.world;

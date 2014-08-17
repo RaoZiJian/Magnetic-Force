@@ -199,17 +199,15 @@ var GameLayer = cc.Layer.extend({
         this.isBegin = true;
 
         //ccs.A
-
         Physics.addCollisionHandler(Player.COL_TYPE, Item.COL_TYPE, null, this.playerTouchItem, null, null);
         Physics.addCollisionHandler(Player.COL_TYPE, Wall.COL_TYPE, null, this.playerHitGround, null, null);
         Physics.addCollisionHandler(Player.COL_TYPE, Trampoline.COL_TYPE, null, this.playerHitTrampoline, null, null);
         Physics.addCollisionHandler(Player.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
         Physics.addCollisionHandler(Bomb.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
-
     },
     onExit : function () {
-        this.unscheduleUpdate();
-        this.space.removeCollisionHandler(Player.COL_TYPE,Item.COL_TYPE);
+        this.unscheduleAllCallbacks();
+        Physics.clear();
         this._super();
     },
     onKeyPressed : function (key,event) {
@@ -274,13 +272,6 @@ var GameLayer = cc.Layer.extend({
 //            armature.eatItem();
 //        }
 
-//        var parentLayer = player.obj.view.parent;
-//        if(!parentLayer.isEffectPlaying){
-//
-//                cc.audioEngine.playEffect(res.hit2_ogg,false);
-//            parentLayer.isEffectPlaying = true;
-//            parentLayer.scheduleOnce(parentLayer.resetEffect, 2);
-//        }
         return true;
     },
     playerHitGround : function (arb, space, ptr) {
@@ -325,6 +316,8 @@ var GameLayer = cc.Layer.extend({
         var spriteFrameCache = cc.spriteFrameCache;
         spriteFrameCache.addSpriteFrames(res.Bomb_plist);
         spriteFrameCache.addSpriteFrames(res.House_plist);
+        spriteFrameCache.addSpriteFrames(res.game_ui_plist);
+        spriteFrameCache.addSpriteFrames(res.over_ui_plist);
         spriteFrameCache.addSpriteFrames(res.Menu_plist);
 
     },

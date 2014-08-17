@@ -86,13 +86,12 @@ var Player = ccs.Armature.extend({
 
     jump : function (factor){
         factor = factor || 1;
-        if(this.y < 90){
+        if(this.y < PLAYER_JUMP_TOP){
             this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y * factor;
         }
     },
 
     hitGround : function (point){
-
         if (this.fire_emitter) {
             var emitter_pos = this.convertToNodeSpace(point);
             this.fire_emitter.setPosition( emitter_pos );
@@ -119,9 +118,7 @@ var Player = ccs.Armature.extend({
                 cc.audioEngine.playEffect(res.Frict1_ogg , false);
                 this.scheduleOnce(this.resetFrictPlaying, 3.5);
             }
-
         }
-
     },
     resetFrictPlaying : function() {
         this.isFrictPlaying = false;
@@ -132,7 +129,6 @@ var Player = ccs.Armature.extend({
     },
 
     eatItem : function () {
-        console.log("bbbbbbbbbbbbbb");
         // create sprite sheet
 //        cc.spriteFrameCache.addSpriteFrames(res.Robot_plist);
 //        this.spriteSheet = cc.SpriteBatchNode.create(res.Robot_png);

@@ -28,7 +28,10 @@ var res = {
     Menu_png : "res/menuUI.png",
     Menu_plist : "res/menuUI.plist",
     game_ui_plist : "res/gameUI.plist",
-    game_ui_png : "res/gameUI.png"
+    game_ui_png : "res/gameUI.png",
+
+    over_ui_plist : "res/overUI.plist",
+    over_ui_png : "res/overUI.png"
 };
 
 var g_resources = [];
