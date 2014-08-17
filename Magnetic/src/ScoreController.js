@@ -260,7 +260,7 @@ var ScoreController = GameController.extend({
             if(this.sp_deviation_time < 0) {
                 var sp_text = null;
                 switch (this.sp_score_num){
-                    case 1:
+//                    case 1:
                     case 2:
                         sp_text = new cc.Sprite(spriteFrame.getSpriteFrame("bleeding.png"));
 //                        cc.audioEngine.playEffect(res.bleeding_ogg,false);
@@ -289,7 +289,7 @@ var ScoreController = GameController.extend({
             if(this.fp_deviation_time < 0) {
                 var fp_text = null;
                 switch (this.fp_score_num){
-                    case 1:
+//                    case 1:
                     case 2:
                         fp_text = new cc.Sprite(spriteFrame.getSpriteFrame("bleeding.png"));
 

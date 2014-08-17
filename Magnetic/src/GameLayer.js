@@ -104,7 +104,11 @@ var GameLayer = cc.Layer.extend({
     },
     createBackground : function() {
 
-        var tubeX = cc.winSize.width / 2 - 5, tubeY = cc.winSize.height + 185;
+
+        var tubeX = cc.winSize.width / 2 - 5, tubeY = cc.winSize.height - 185;
+        if(this.inTitle) {
+            tubeY = cc.winSize.height + 185;
+        }
         var tube = new cc.Sprite(res.Tube);
         tube.x = tubeX;
         tube.y = tubeY;
@@ -114,7 +118,7 @@ var GameLayer = cc.Layer.extend({
 
         // Add Tube Particle system
         this.forceEmitter = new cc.ParticleSystem(res.Pipe);
-        this.forceEmitter.setPosition(tubeX, tubeY+tube.height/2 - 370);
+        this.forceEmitter.setPosition(tubeX, cc.winSize.height - 185 + tube.height/2);
         this.addChild(this.forceEmitter, TUBE_ZORDER-1);
 
         var backGround = new BackGroundLayer();
@@ -298,7 +302,7 @@ var GameLayer = cc.Layer.extend({
 
         switch (key) {
             case KeyCode_N:
-                target.f_player.setScale(1.0,1.0);
+                target.f_player.setScale(1/0.9,1/0.9);
             case KeyCode_M:
                 target.f_player.isMagnet = false;
                 target.f_player.normal(0);
