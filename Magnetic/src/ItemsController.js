@@ -152,7 +152,7 @@ var OneGoalItemsLayer = ItemsLayer.extend({
                 this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 160, 170, r);
                 this.addItem("#bomb1.png", Item.CIRCLE_SHAPE, 1120, 170, r);
             }
-            this.next_born = BORN_INTERVAL / 3;
+            this.next_born = ITEM_BORN_INTERVAL - ITEM_BORN_INTERVAL_VAR + Math.random() * ITEM_BORN_INTERVAL_VAR * 2;
         }
         this.next_born -= dt;
 

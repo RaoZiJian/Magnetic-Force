@@ -71,6 +71,8 @@ var ITEM_FIRE_SPEED = 40;
 var ITEM_FIRE_ANGLE = 50;
 var ITEM_FIRE_SPEED_VAR = 25;
 var ITEM_FIRE_ANGLE_VAR = 5;
+var ITEM_BORN_INTERVAL = 3;
+var ITEM_BORN_INTERVAL_VAR = 2;
 
 
 var Global_Value = {
