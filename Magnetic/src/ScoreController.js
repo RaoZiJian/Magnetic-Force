@@ -160,14 +160,21 @@ ScoreController.HIT_SP_HOUSE = 2;
 
 var OneGoalController = GameController.extend({
 
-    game_time : 0,
+    fp_score : 0,
+    sp_score : 0,
+
+    game_time : GAME_TIME_LENGTH,
+
 
     update : function (dt) {
-        this.game_time += dt;
+        this.game_time -= dt;
     },
 
     isGameOver : function () {
 
+//        if () {
+//
+//        }
 
 
         return false;
@@ -176,7 +183,7 @@ var OneGoalController = GameController.extend({
     gameOverAction : function () {
         this.game_layer.isOver = true;
 
-        var isNaughtyWin = true;
+        var isNaughtyWin = this.fp_score > this.sp_score;
 
         var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
 

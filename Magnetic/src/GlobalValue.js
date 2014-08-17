@@ -65,6 +65,8 @@ var GLOBAL_COL_TYPE = 0;
 
 var GAME_INIT_HP = 3;
 
+var GAME_TIME_LENGTH = 30;
+
 
 var Global_Value = {
 
@@ -113,7 +115,7 @@ var Global_Value = {
 
 
         for ( var key in config){
-            if (window[key] !== undefined) {
+            if (config[key] !== undefined) {
                 window[key] = config[key];
             }
         }
