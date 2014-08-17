@@ -36,6 +36,9 @@ var GameLayer = cc.Layer.extend({
     itemLayer : null,
 
     isEffectPlaying: false,
+
+    gameController : null,
+
     ctor : function () {
         this._super();
         winSize = cc.director.getWinSize();
@@ -66,8 +69,7 @@ var GameLayer = cc.Layer.extend({
 
         this.createItems();
 
-        this.createScoreController();
-
+        this.createGameController();
         this.isBegin = true;
         this.isOver = false;
         this.inTitle = false;
@@ -202,24 +204,32 @@ var GameLayer = cc.Layer.extend({
         this.addChild(this.itemLayer, ITEM_ZORDER);
     },
 
-    createScoreController : function(){
-      ScoreController.init(this);
+    createGameController : function(){
+      this.gameController = new ScoreController(this);
+    },
+
+    checkResult : function () {
+        var result = this.itemLayer.checkForGoal();
+        if (result != ScoreController.HIT_NOTING) {
+            this.gameController.gameOverAction();
+        }
     },
 
     update : function( delta ) {
         if(this.isBegin && !this.inTitle){
             this.space.step( delta );
 
-//        if ( this.isBegin && !this.isOver){
             this.f_player.phyUpdate();
             this.s_player.phyUpdate();
 
             MagneticSystem.update(delta);
             this.itemLayer.update(delta);
 
+            if (!this.isOver)
+                this.checkResult();
         }
-
     },
+
     onEnter : function () {
         this._super();
         this.scheduleUpdate();
@@ -242,7 +252,7 @@ var GameLayer = cc.Layer.extend({
     },
     clear : function() {
         MagneticSystem.clear();
-        ScoreController.clear();
+        this.gameController.clear();
         Physics.clear();
     },
     onExit : function () {
@@ -478,7 +488,7 @@ var GameLayer = cc.Layer.extend({
 
         this.createItems();
 
-        this.createScoreController();
+        this.createGameController();
 
         this.isBegin = true;
         this.isOver = false;

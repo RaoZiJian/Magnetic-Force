@@ -2,7 +2,22 @@
  * Created by chenryoutou on 14-8-16.
  */
 
-var ScoreController = {
+var GameController = cc.Class.extend({
+    game_layer : null,
+    ctor : function(game_layer) {
+        this.game_layer = game_layer;
+    },
+
+    isGameOver : function () {
+        return false;
+    },
+
+    gameOverAction : function () {},
+
+    clear : function() {}
+});
+
+var ScoreController = GameController.extend({
 
     fp_hp : GAME_INIT_HP,
     sp_hp : GAME_INIT_HP,
@@ -10,7 +25,8 @@ var ScoreController = {
     sp_hp_label : null,
     game_layer : null,
 
-    init : function(game_layer){
+    ctor : function(game_layer){
+        this._super(game_layer);
         this.fp_hp = GAME_INIT_HP;
         this.sp_hp = GAME_INIT_HP;
 
@@ -22,9 +38,6 @@ var ScoreController = {
         this.sp_hp_label.setFontSize(50);
         game_layer.addChild(this.fp_hp_label);
         game_layer.addChild(this.sp_hp_label);
-
-        this.game_layer = game_layer;
-
     },
 
     hitSpHouse : function(){
@@ -60,10 +73,6 @@ var ScoreController = {
                 this.game_layer.addChild(explode);
             }
 
-        }
-
-        if (this.sp_hp === 0 && !this.game_layer.isOver){
-            this.gameOver();
         }
     },
 
@@ -103,18 +112,18 @@ var ScoreController = {
                 this.game_layer.addChild(explode);
             }
         }
-
-        if (  this.fp_hp === 0 && !this.game_layer.isOver){
-            this.gameOver();
-        }
-
     },
 
-    gameOver : function (){
+    isGameOver : function () {
+        if (this.fp_hp === 0 || this.sp_hp === 0){
+            return true;
+        }
+        else
+            return false;
+    },
 
+    gameOverAction : function () {
         this.game_layer.isOver = true;
-
-
         var isNaughtyWin = this.sp_hp === 0;
 
         var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
@@ -128,7 +137,6 @@ var ScoreController = {
 //            armature.getAnimation().playWithIndex(0);
             armature.removeFromParent();
         }
-
     },
 
     clear : function(){
@@ -139,5 +147,12 @@ var ScoreController = {
         this.sp_hp_label = null;
         this.game_layer = null;
     }
+});
 
-};
+ScoreController.HIT_NOTING = 0;
+ScoreController.HIT_FP_HOUSE = 1;
+ScoreController.HIT_SP_HOUSE = 2;
+
+var DeathController = GameController.extend({
+
+});
