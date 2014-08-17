@@ -327,25 +327,53 @@ var GameLayer = cc.Layer.extend({
         back.scaleY = 1.2;
 
         var spriteFrame = cc.spriteFrameCache;
-        var btn_1p = new cc.Sprite(spriteFrame.getSpriteFrame("1pBtn.png"));
+        var btn_1p_spriteFrame = spriteFrame.getSpriteFrame("1pBtn.png");
+        var btn_1p = new cc.MenuItemImage(btn_1p_spriteFrame,btn_1p_spriteFrame,hideUI,this);
         btn_1p.setPosition(cc.p(cc.winSize.width / 2 - 47,340));
-        var btn_2p = new cc.Sprite(spriteFrame.getSpriteFrame("2pBtn.png"));
+
+        var btn_2p_spriteFrame = spriteFrame.getSpriteFrame("2pBtn.png");
+        var btn_2p = new cc.MenuItemImage(btn_2p_spriteFrame,btn_2p_spriteFrame,hideUI,this);
         btn_2p.setPosition(cc.p(cc.winSize.width / 2 + 77,230));
-        var btn_4p = new cc.Sprite(spriteFrame.getSpriteFrame("4pBtn.png"));
+
+        var btn_4p_spriteFrame = spriteFrame.getSpriteFrame("2pBtn.png");
+        var btn_4p = new cc.MenuItemImage(btn_4p_spriteFrame,btn_4p_spriteFrame,hideUI,this);
         btn_4p.setPosition(cc.p(cc.winSize.width / 2 - 55,125));
+
         var btn_help = new cc.Sprite(spriteFrame.getSpriteFrame("helpBtn.png"));
         btn_help.setPosition(cc.p(cc.winSize.width - 55,55));
+
         var btn_setting = new cc.Sprite(spriteFrame.getSpriteFrame("settingsBtn.png"));
         btn_setting.setPosition(cc.p(55,55));
 
         var logo_png = new cc.Sprite(spriteFrame.getSpriteFrame("logo.png"));
         logo_png.setAnchorPoint(cc.p(0,0));
         logo_png.setPosition(cc.p(40,320));
-        this.addChild(btn_1p,MenuUI_ZORDER);
-        this.addChild(btn_2p,MenuUI_ZORDER);
-        this.addChild(btn_4p,MenuUI_ZORDER);
-        this.addChild(btn_help,MenuUI_ZORDER);
-        this.addChild(btn_setting,MenuUI_ZORDER);
+
+        function hideUI () {
+            logo_png.runAction( new cc.Sequence(
+                new cc.DelayTime(0.5),
+                new cc.EaseSineOut(new cc.MoveTo(1.0,cc.p(logo_png.x,cc.winSize.height + 300))))
+            );
+            btn_1p.runAction( new cc.Sequence(
+                 new cc.EaseBackIn(new cc.MoveTo(0.9,cc.p(-500,btn_1p.y))))
+            );
+            btn_2p.runAction( new cc.Sequence(
+                 new cc.DelayTime(0.1),
+                 new cc.EaseBackIn(new cc.MoveTo(0.9,cc.p(cc.winSize.width + 500,btn_2p.y))))
+            );
+            btn_4p.runAction( new cc.Sequence(
+                new cc.DelayTime(0.2),
+                new cc.EaseBackIn(new cc.MoveTo(0.9,cc.p(-500,btn_4p.y))))
+            );
+        }
+
+        var menu = cc.Menu.create(btn_1p,btn_2p,btn_4p);
+        menu.setPosition(cc.p(0,0));
+        this.addChild(menu,MenuUI_ZORDER);
+//        this.addChild(btn_2p,MenuUI_ZORDER);
+//        this.addChild(btn_4p,MenuUI_ZORDER);
+//        this.addChild(btn_help,MenuUI_ZORDER);
+//        this.addChild(btn_setting,MenuUI_ZORDER);
         this.addChild(logo_png,MenuUI_ZORDER);
 
 //        var closeItem = cc.MenuItemImage.create(
@@ -360,6 +388,21 @@ var GameLayer = cc.Layer.extend({
 //            anchorX: 0.5,
 //            anchorY: 0.5
 //        });
+    },
+    playWith1P : function () {
+        console.log("hhh");
+    },
+    playWith2P : function () {
+
+    },
+    playWith4P : function () {
+
+    },
+    settingMenu : function () {
+
+    },
+    helpMenu  : function () {
+
     }
 });
 
