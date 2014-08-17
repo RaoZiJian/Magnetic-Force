@@ -17,7 +17,8 @@ var KeyCode_Z = 90,
     MAP_ZORDER = 1,
     LEFT_GATE_TAG = 103,
     RIGHT_GATE_TAG = 104,
-    MenuUI_ZORDER = 300;
+    MenuUI_ZORDER = 300,
+    GuideUI_ZORDER = 301;
 
 var GameLayer = cc.Layer.extend({
 
@@ -381,7 +382,7 @@ var GameLayer = cc.Layer.extend({
         spriteFrameCache.addSpriteFrames(res.game_ui_plist);
         spriteFrameCache.addSpriteFrames(res.over_ui_plist);
         spriteFrameCache.addSpriteFrames(res.Menu_plist);
-
+        spriteFrameCache.addSpriteFrames(res.GuideUI_plist) ;
     },
     showMenu : function () {
         var back = this.getChildByTag(BACK_TAG);
@@ -476,6 +477,7 @@ var GameLayer = cc.Layer.extend({
     playWith2P : function () {
         console.log("2p");
 
+
         this.createPhysicsWorld();
 //
         this.setupDebugNode();
@@ -502,6 +504,14 @@ var GameLayer = cc.Layer.extend({
     },
     helpMenu  : function () {
 
+    },
+    guideUI : function () {
+        var spriteFrameCache = cc.spriteFrameCache;
+        var guide = new cc.Sprite(spriteFrameCache.getSpriteFrame("guidePic.png"));
+        var guide_text = new cc.Sprite(spriteFrameCache.getSpriteFrame("guideText.png"));
+        var confirm_btn = new cc.Sprite(spriteFrameCache.getSpriteFrame("confirmBtn.png"));
+
+        this.addChild();
     }
 });
 
