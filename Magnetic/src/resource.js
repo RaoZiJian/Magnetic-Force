@@ -41,6 +41,7 @@ var res = {
     GuideUI_plist : "res/guideUI.plist",
 
     EnergyBall : "res/energyBall.png"
+    LuckiestGuy_ttf : "res/LuckiestGuy.ttf"
 };
 
 var g_resources = [];
