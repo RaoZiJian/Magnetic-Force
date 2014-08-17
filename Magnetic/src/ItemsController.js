@@ -102,5 +102,36 @@ var OneGoalItemsLayer = ItemsLayer.extend({
 
     checkForGoal : function() {
         // Check for the only one goal
+        var delete_items = [],
+            items = this.children,
+            ret = OneGoalItemsLayer.NO_ONE_GET_SCORE;
+
+        for (var i = 0; i<items.length; i++){
+
+            var item = items[i];
+            if (item.dead || !item instanceof Item) continue;
+
+            var i_pos = item.getPosition();
+
+//            if (cc.rectContainsPoint(Level.fp_gate_info, i_pos)){
+//                //sp get goal.
+//                ret = ScoreController.HIT_FP_HOUSE;
+//                delete_items.push(item);
+//            }
+//
+//            else if (cc.rectContainsPoint(Level.sp_gate_info, i_pos)){
+//                //fp get goal
+//                ret = ScoreController.HIT_SP_HOUSE;
+//                delete_items.push(item);
+//            }
+        }
+
+        for ( var i = 0; i < delete_items.length; i++){
+            var deleteItem = delete_items[i];
+
+            deleteItem.die();
+        }
+        return ret;
     }
+
 });
