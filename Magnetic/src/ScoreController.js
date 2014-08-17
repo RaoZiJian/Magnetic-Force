@@ -390,15 +390,17 @@ var OneGoalController = GameController.extend({
                     new cc.EaseBackIn( new cc.ScaleTo(0.5, 0.0, 0.0) )
                 );
                 this.game_time_label.runAction(action);
+            }else{
+                var action = new cc.Sequence(
+                    new cc.EaseBackOut( new cc.ScaleTo(0.8, 1.0, 1.0) )
+                );
+                this.game_time_label.runAction(action);
             }
 
         }
 
         if(this.game_time <= 10){
 
-            this.game_time_label.stopAllActions();
-            this.fp_score_label.stopAllActions();
-            this.sp_score_label.stopAllActions();
             this.fp_score_label.setScale(1.0, 1.0);
             this.sp_score_label.setScale(1.0, 1.0);
 
