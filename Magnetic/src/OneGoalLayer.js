@@ -6,7 +6,7 @@ var OneGoalLayer = GameLayer.extend({
     },
 
     createGameController : function(){
-        this.gameController = new ScoreController(this);
+        this.gameController = new OneGoalController(this);
     },
 
     checkResult : function () {

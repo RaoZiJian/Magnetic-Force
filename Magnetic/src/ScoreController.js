@@ -158,7 +158,7 @@ ScoreController.HIT_FP_HOUSE = 1;
 ScoreController.HIT_SP_HOUSE = 2;
 
 
-var DeathController = GameController.extend({
+var OneGoalController = GameController.extend({
 
     game_time : 0,
 
