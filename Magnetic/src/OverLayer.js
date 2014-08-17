@@ -46,9 +46,9 @@ var OverLayer = cc.Layer.extend({
 
         var game_over_logo = new cc.Sprite("#gameOverUI.png");
 
-        var play_again_btn = new cc.MenuItemSprite("againBtn.png");
+        var play_again_btn = new cc.MenuItemSprite("againBtn.png", "againBtn.png", this.playAgain, this);
 
-        var back_to_main_menu_btn = new cc.MenuItemSprite("backBtn.png");
+        var back_to_main_menu_btn = new cc.MenuItemSprite("backBtn.png", "backBtn.png", this.backToMainMenu, this);
 
 //        var settings_btn = new cc.MenuItemSprite("");
 
