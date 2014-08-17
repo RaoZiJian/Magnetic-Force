@@ -274,7 +274,7 @@ var GameLayer = cc.Layer.extend({
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
                 target.f_player.jump();
-                target.f_player.setScale(0.9,0.9);
+                target.f_player.setScale(0.95,0.95);
                 target.f_player.attraction(1);
                 break;
             case KeyCode_X:
@@ -286,7 +286,7 @@ var GameLayer = cc.Layer.extend({
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
                 target.s_player.jump();
-                target.s_player.setScale(0.9,0.9);
+                target.s_player.setScale(0.95,0.95);
                 target.s_player.attraction(4);
                 break;
             default :
@@ -302,7 +302,7 @@ var GameLayer = cc.Layer.extend({
 
         switch (key) {
             case KeyCode_N:
-                target.f_player.setScale(1/0.9,1/0.9);
+                target.f_player.setScale(1/0.95,1/0.95);
             case KeyCode_M:
                 target.f_player.isMagnet = false;
                 target.f_player.normal(0);

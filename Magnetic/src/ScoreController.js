@@ -272,12 +272,18 @@ var ScoreController = GameController.extend({
                     default :
                         break;
                 }
-                this.game_layer.addChild(sp_text);
-                sp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
-                sp_text.runAction(cc.sequence(
+                if(sp_text){
+                    sp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
+                    this.game_layer.addChild(sp_text);
+
+                    sp_text.runAction(cc.sequence(
                         cc.delayTime(1.0),
-                    cc.scaleTo(0.5,0,0)
-                ));
+                        cc.scaleTo(0.5,0,0)
+                    ));
+                }
+
+
+
                 this.sp_last_score = false;
                 this.sp_deviation_time = SCORE_DEVIATION_MORE;
                 this.sp_score_num = 0;
@@ -303,12 +309,15 @@ var ScoreController = GameController.extend({
                     default :
                         break;
                 }
-                fp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
-                this.game_layer.addChild(fp_text);
-                fp_text.runAction(cc.sequence(
+                if(fp_text){
+                    fp_text.setPosition(cc.p(cc.winSize.width/2,cc.winSize.height/2 + 150));
+                    this.game_layer.addChild(fp_text);
+                    fp_text.runAction(cc.sequence(
                         cc.delayTime(1.0),
-                    cc.scaleTo(0.5,0,0)
-                ));
+                        cc.scaleTo(0.5,0,0)
+                    ));
+                }
+
                 this.fp_last_score = false;
                 this.fp_deviation_time = SCORE_DEVIATION_MORE;
                 this.fp_score_num = 0;
