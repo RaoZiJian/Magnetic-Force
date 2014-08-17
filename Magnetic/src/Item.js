@@ -159,7 +159,6 @@ var Bomb = Item.extend({
     update : function (dt) {
         this._super();
         this.time -= dt;
-        //console.log(this.time);
 
         if (!this.isExplode && this.time < EXPLODE_WARNNING_TIME) {
             if (!this.isWarnning) {
@@ -177,8 +176,6 @@ var Bomb = Item.extend({
                 this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
                 this.bomb_armature.phyObj.setFriction(0);
                 this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
-//        var body = this.phyObj.body;
-//        body.setMoment(Infinity);
                 this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
 
                 this.bomb_armature.scaleX = 2;
@@ -193,35 +190,13 @@ var Bomb = Item.extend({
             }
         }
 
-//        if (!this.isExplode && this.time < 0) {
-//            this.isExplode = true;
-//            this.bomb_armature = ccs.Armature.create("explode");
-//            this.bomb_armature.retain();
-//            var origin = this.getPosition();
-//
-//            this.bomb_armature.phyObj = new CircleObject(EXPLODE_WEIGHT, EXPLODE_RADIUS, this.maxSpeed, this.bomb_armature, origin);
-//            this.bomb_armature.phyObj.setFriction(0);
-//            this.bomb_armature.phyObj.setElasticity(EXPLODE_ELASTICITY);
-////        var body = this.phyObj.body;
-////        body.setMoment(Infinity);
-//            this.bomb_armature.phyObj.shape.setCollisionType(Bomb.EXPLODE_COL_TYPE);
-//
-//            this.bomb_armature.scaleX = 2;
-//            this.bomb_armature.scaleY = 2;
-//            this.bomb_armature.getAnimation().playWithIndex(0);
-//            this.bomb_armature.setPosition(origin);
-//            this.getParent().addChild(this.bomb_armature);
-//        }
-//        console.log("explode : " + this.isExplode + "ecplodedddd " + this.isEndExplode);
         if (this.isExplode && !this.isEndExplode) {
 
             if (this.bomb_armature.getAnimation().isComplete()) {
                 this.isEndExplode = true;
-//                console.log("explode : " + this.isExplode + "ecplodedddd " + this.isEndExplode);
                 this.bomb_armature.phyObj.removeSelf();
                 this.bomb_armature.removeFromParent();
                 this.bomb_armature = null;
-//                this.die();
             }
         }
     },
@@ -311,3 +286,20 @@ var CornerTrampoline = Trampoline.extend({
     }
 });
 CornerTrampoline.COL_TYPE = GLOBAL_COL_TYPE++;
+
+var Platform = cc.Sprite.extend({
+    texfile : res.Tube,
+    phyObj : null,
+
+    ctor : function (objDesc) {
+        this._super(this.texfile);
+        var x = parseInt(objDesc.x), y = parseInt(objDesc.y), w = parseInt(objDesc.width), h = parseInt(objDesc.height);
+        this.x = x + w/2;
+        this.y = y + h;
+        this.scaleX = w / this.width;
+        this.scaleY = h / this.height;
+        this.rotation = 180;
+
+        this.phyObj = new StaticObject(x, y, w, h, this);
+    }
+});
