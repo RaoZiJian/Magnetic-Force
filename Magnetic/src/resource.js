@@ -18,6 +18,10 @@ var res = {
     hit2_ogg:"res/audio/hit2.ogg",
     hit3_ogg:"res/audio/hit3.ogg",
     explosion_ogg:"res/audio/explosion.ogg",
+    bleeding_ogg : "res/audio/bleeding.ogg",
+    DunkMonster_ogg : "res/audio/DunkMonster.ogg",
+    NastyWins_ogg : "res/audio/NastyWins.ogg",
+    NaughtWIns_ogg : "res/audio/NaughtyWins.ogg",
 
     Fire_plist : "res/fire.plist",
     Gate_plist:"res/gate.plist",

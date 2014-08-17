@@ -24,7 +24,20 @@
                 <key>offset</key>
                 <string>{0,-13}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{7,26},{790,480}}</string>
+                <key>sourceSize</key>
+                <string>{804,506}</string>
+            </dict>
+            <key>guidePicB.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,637},{790,480}}</string>
+                <key>offset</key>
+                <string>{0,-13}</string>
+                <key>rotated</key>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{7,26},{790,480}}</string>
                 <key>sourceSize</key>
@@ -51,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>guideUI.png</string>
             <key>size</key>
-            <string>{1024,1024}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:20a521b1e3e2b6af47bf73fa5df9ae32$</string>
+            <string>$TexturePacker:SmartUpdate:5c6ac20c6c85396af58465bd72a5a053:2623967294948b8e7a983b086478c489:a993d13519fd16b80e2263e916456afc$</string>
             <key>textureFileName</key>
             <string>guideUI.png</string>
         </dict>
