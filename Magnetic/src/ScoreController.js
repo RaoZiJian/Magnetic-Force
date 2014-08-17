@@ -117,12 +117,11 @@ var ScoreController = {
 
         var isNaughtyWin = this.sp_hp === 0;
 
-        var over_layer = OverLayer.create(isNaughtyWin);
+        var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
 
         this.game_layer.getParent().addChild( over_layer );
-
-
     },
+
     explodeCallBack : function (armature, movementType, movementID) {
         if (movementType == ccs.MovementEventType.complete) {
 //            console.log("explode");

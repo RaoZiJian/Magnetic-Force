@@ -183,11 +183,13 @@ var GameLayer = cc.Layer.extend({
         if(this.isBegin){
             this.space.step( delta );
 
-            MagneticSystem.update(delta);
+//        if ( this.isBegin && !this.isOver){
             this.f_player.phyUpdate();
             this.s_player.phyUpdate();
 
+            MagneticSystem.update(delta);
             this.itemLayer.update(delta);
+
         }
 
     },
@@ -211,13 +213,23 @@ var GameLayer = cc.Layer.extend({
         Physics.addCollisionHandler(Player.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
         Physics.addCollisionHandler(Bomb.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
     },
+    clear : function() {
+        MagneticSystem.clear();
+        ScoreController.clear();
+        Physics.clear();
+    },
     onExit : function () {
         this.unscheduleAllCallbacks();
-        Physics.clear();
+        this.unscheduleUpdate();
         this._super();
     },
     onKeyPressed : function (key,event) {
         var target = event.getCurrentTarget();
+
+        if ( !target.isBegin || target.isOver){
+            return;
+        }
+
         switch (key) {
             case KeyCode_M:
                 target.f_player.isMagnet = true;
@@ -248,16 +260,23 @@ var GameLayer = cc.Layer.extend({
     },
     onKeyReleased : function (key,event) {
         var target = event.getCurrentTarget();
+
+        if ( !target.isBegin || target.isOver){
+            return;
+        }
+
         switch (key) {
             case KeyCode_M:
             case KeyCode_N:
                 target.f_player.isMagnet = false;
                 target.f_player.normal(0);
+                target.f_player.resetJump();
                 break;
             case KeyCode_X:
             case KeyCode_Z:
                 target.s_player.isMagnet = false;
                 target.s_player.normal(3);
+                target.s_player.resetJump();
                 break;
             default :
                 break;
