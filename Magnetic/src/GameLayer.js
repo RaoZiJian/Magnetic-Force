@@ -206,9 +206,14 @@ var GameLayer = cc.Layer.extend({
         Physics.addCollisionHandler(Player.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
         Physics.addCollisionHandler(Bomb.COL_TYPE, CornerTrampoline.COL_TYPE, null, this.hitTrampoline, null, null);
     },
+    clear : function() {
+        MagneticSystem.clear();
+        ScoreController.clear();
+        Physics.clear();
+    },
     onExit : function () {
         this.unscheduleAllCallbacks();
-        Physics.clear();
+        this.unscheduleUpdate();
         this._super();
     },
     onKeyPressed : function (key,event) {

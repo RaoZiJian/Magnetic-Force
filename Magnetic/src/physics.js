@@ -5,6 +5,8 @@ var Physics = {
     scene:null,
     inited: null,
     handlers: [],
+    shapes: [],
+    bodies: [],
 
     calculVector: function(a) {
         /*var s = a.a, d = a.b;
@@ -45,24 +47,50 @@ var Physics = {
             this.handlers.push([a, b]);
         }
     },
-    removeShape: function(shape) {
-            if (shape.body.isStatic())
-                Physics.world.removeStaticShape(shape);
-            else Physics.world.removeShape(shape);
+    registerShape: function(shape) {
+        Physics.shapes.push(shape);
     },
-    removeBody: function (body){
-            Physics.world.removeBody(body);
+    registerBody: function (body){
+        Physics.bodies.push(body);
     },
 
-    clear:function() {
+    _realClear: function() {
         if (this.inited) {
-//            var space = this.world;
-//            for (var i = this.handlers.length-1; i >= 0; --i) {
-//                var handler = this.handlers[i];
-//                space.removeCollisionHandler(handler[0], handler[1]);
-//            }
-//            space.eachShape(this.removeShape);
-//            space.eachBody(this.removeBody);
+            var space = this.world, handler, shape, body;
+            // Remove handlers
+            for (var i = this.handlers.length-1; i >= 0; --i) {
+                handler = this.handlers[i];
+                space.removeCollisionHandler(handler[0], handler[1]);
+            }
+            this.handlers = [];
+
+            // Remove shapes
+            for (var i = this.shapes.length-1; i >= 0; --i) {
+                shape = this.shapes[i];
+                if (!space.containsShape(shape))
+                    continue;
+                if (shape.body.isStatic())
+                    space.removeStaticShape(shape);
+                else space.removeShape(shape);
+            }
+            this.shapes = [];
+
+            // Remove bodies
+            for (var i = this.bodies.length-1; i >= 0; --i) {
+                body = this.bodies[i];
+                if (!space.containsBody(body))
+                    continue;
+                space.removeBody(body);
+            }
+            this.bodies = [];
+        }
+    },
+    clear:function() {
+        var space = this.world;
+        if (space) {
+            space.eachShape(this.registerShape);
+            space.eachBody(this.registerBody);
+            space.addPostStepCallback(this._realClear.bind(this));
         }
     }
 };
