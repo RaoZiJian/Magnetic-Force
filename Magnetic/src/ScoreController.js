@@ -8,6 +8,10 @@ var GameController = cc.Class.extend({
         this.game_layer = game_layer;
     },
 
+    update : function (dt) {
+
+    },
+
     isGameOver : function () {
         return false;
     },
@@ -153,6 +157,63 @@ ScoreController.HIT_NOTING = 0;
 ScoreController.HIT_FP_HOUSE = 1;
 ScoreController.HIT_SP_HOUSE = 2;
 
-var DeathController = GameController.extend({
+
+var OneGoalController = GameController.extend({
+
+    fp_score : 0,
+    sp_score : 0,
+
+    game_time : GAME_TIME_LENGTH,
+
+    ctor : function(game_layer){
+        this._super(game_layer);
+
+        this.fp_score = 0;
+        this.sp_score = 0;
+        this.game_time = GAME_TIME_LENGTH;
+    },
+
+
+    update : function (dt) {
+        this.game_time -= dt;
+    },
+
+    isGameOver : function () {
+
+        if (this.game_time < 0) {
+
+            return true;
+
+        }
+
+        return false;
+    },
+
+    addFpScore : function () {
+
+        this.fp_score ++;
+    },
+
+    addSpScore : function () {
+
+        this.sp_score ++;
+    },
+
+    gameOverAction : function () {
+        this.game_layer.isOver = true;
+
+        var isNaughtyWin = this.fp_score > this.sp_score;
+
+        var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
+
+        this.game_layer.getParent().addChild( over_layer );
+
+    },
+
+    clear : function() {
+
+
+
+    }
 
 });
