@@ -4,6 +4,7 @@ var ItemsLayer = cc.Layer.extend({
     game_layer : null,
 
     next_born : 0,
+    inited : false,
 
 //    born_iron_interval : 1,
 //    born_bomb_interval : 1,
@@ -11,7 +12,6 @@ var ItemsLayer = cc.Layer.extend({
     ctor : function(game_layer){
         this._super();
         this.game_layer = game_layer;
-        this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height, INITIAL_BOMB_NUMBER);
     },
 
     addItem : function (tex, type, x, y, sOrR, friction, elasticity) {
@@ -42,6 +42,10 @@ var ItemsLayer = cc.Layer.extend({
 
         var children = this.children;
 
+        if (!this.inited) {
+            this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height, INITIAL_BOMB_NUMBER);
+            this.inited = true;
+        }
         if (this.next_born <= 0) {
             if (children.length < MAX_BOMB_NUMBER)
                 this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height);
@@ -147,7 +151,6 @@ var OneGoalItemsLayer = ItemsLayer.extend({
 
         if (this.next_born <= 0) {
             if (children.length < MAX_BOMB_NUMBER){
-//                this.bornItems("#bomb1.png", cc.winSize.width/2, cc.winSize.height);
                 r = BOMB_R + Math.round(Math.random() * BOMB_R_VAR);
                 this.addItem(res.EnergyBall, Item.CIRCLE_SHAPE, 160, 170, r);
                 this.addItem(res.EnergyBall, Item.CIRCLE_SHAPE, 1120, 170, r);
