@@ -86,7 +86,7 @@ var ItemsLayer = cc.Layer.extend({
         for ( var i = 0; i < delete_items.length; i++){
             var deleteItem = delete_items[i];
 
-            deleteItem.die();
+            deleteItem.die && deleteItem.die();
         }
         return ret;
     }
@@ -208,7 +208,7 @@ var OneGoalItemsLayer = ItemsLayer.extend({
         for ( var i = 0; i < delete_items.length; i++){
             var deleteItem = delete_items[i];
 
-            deleteItem.die();
+            deleteItem.die && deleteItem.die();
         }
         return ret;
     },
