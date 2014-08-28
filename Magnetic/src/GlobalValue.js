@@ -57,18 +57,17 @@ var EXPLODE_WARNNING_TIME = 3;//the bomb will be explode
 var EXPLODE_DEVIATION_TIME = 8;
 var EXPLODE_WEIGHT = 5;
 var EXPLODE_RADIUS = 50;
-
 var EXPLODE_ELASTICITY = 10;
 var BOMB_JUMP_ADD_SPEED = 60;
+
 
 var GLOBAL_COL_TYPE = 0;
 
 var GAME_INIT_HP = 3;
-
 var GAME_TIME_LENGTH = 30;
 
 
-var SCORE_DEVIATION_MORE = 1.5;
+var SCORE_DEVIATION_MORE = 1.5;//double goal devation time
 
 var ITEM_FIRE_SPEED = 40;
 var ITEM_FIRE_ANGLE = 50;

@@ -174,10 +174,10 @@ var MagneticSystem = {
 
         //calculate airstream force
         if (this.f_player.y > AIR_EFFECTIVE_HEIGHT){
-            fp_f = pAddp(fp_f, cp.v(0, - this.f_player.y / (winSize.height - this.f_player.y) * AIR_STREAM_FORCE ));
+            fp_f = pAddp(fp_f, cp.v(0, - this.f_player.y / (cc.winSize.height - this.f_player.y) * AIR_STREAM_FORCE ));
         }
         if (this.s_player.y > AIR_EFFECTIVE_HEIGHT){
-            sp_f = pAddp(sp_f, cp.v(0, - this.s_player.y / (winSize.height - this.s_player.y) * AIR_STREAM_FORCE ));
+            sp_f = pAddp(sp_f, cp.v(0, - this.s_player.y / (cc.winSize.height - this.s_player.y) * AIR_STREAM_FORCE ));
         }
 
 

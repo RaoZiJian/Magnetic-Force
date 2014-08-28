@@ -33,12 +33,10 @@ var ScoreController = GameController.extend({
 
     fp_hp : GAME_INIT_HP,
     sp_hp : GAME_INIT_HP,
-    fp_hp_label : null,
-    sp_hp_label : null,
     fp_score_num : 0,
     sp_score_num : 0,
-    fp_lat_score : false,
     fp_last_score : false,
+    sp_last_score : false,
     fp_deviation_time : SCORE_DEVIATION_MORE,
     sp_deviation_time : SCORE_DEVIATION_MORE,
 
@@ -47,42 +45,29 @@ var ScoreController = GameController.extend({
         this.fp_hp = GAME_INIT_HP;
         this.sp_hp = GAME_INIT_HP;
 
-        this.fp_hp_label = cc.LabelTTF.create("3");
-        this.sp_hp_label = cc.LabelTTF.create("3");
-
-        this.fp_lat_score = false;
+        this.fp_last_score = false;
         this.sp_last_score = false;
         this.fp_score_num = 0;
         this.sp_score_num = 0;
         this.fp_deviation_time = SCORE_DEVIATION_MORE;
         this.sp_deviation_time = SCORE_DEVIATION_MORE;
-
-
-        this.fp_hp_label.setPosition(winSize.width/10, winSize.height * 2/3);
-        this.sp_hp_label.setPosition(winSize.width * 9/10, winSize.height * 2/3);
-        this.fp_hp_label.setFontSize(50);
-        this.sp_hp_label.setFontSize(50);
-//        game_layer.addChild(this.fp_hp_label);
-//        game_layer.addChild(this.sp_hp_label);
-//        this.showHP(500,500,3);
     },
-
     hitSpHouse : function(){
         this.sp_hp --;
 
-        if(!this.fp_last_score) {
-            console.log("aaa");
-            this.fp_last_score = true;
-            this.fp_deviation_time = SCORE_DEVIATION_MORE;
+        //
+        if(!this.fp_last_score) {//not goal before
+            this.fp_last_score = true;//first goal
+            this.fp_deviation_time = SCORE_DEVIATION_MORE;//reset goal time
             this.fp_score_num = 1;
-        }else if (this.sp_deviation_time > 0) {
+        }else if (this.sp_deviation_time > 0) {//next goal in deviation time
             this.fp_score_num++;
-            this.fp_deviation_time = SCORE_DEVIATION_MORE;
+            this.fp_deviation_time = SCORE_DEVIATION_MORE;//reset goal time
         }
+
         this.showHP(cc.winSize.width + 7,570,this.sp_hp);
 
         if ( this.sp_hp >= 0) {
-            this.sp_hp_label.setString(this.sp_hp);
             var rightGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(RIGHT_GATE_TAG);
 
             var spriteFrameCache = cc.spriteFrameCache;
@@ -96,6 +81,8 @@ var ScoreController = GameController.extend({
                     break;
                 case 0:
                     rightSpriteFrame = spriteFrameCache.getSpriteFrame("redD.png");
+                    break;
+                default :
                     break;
             }
             if (rightSpriteFrame) {
@@ -113,17 +100,15 @@ var ScoreController = GameController.extend({
 
         }
     },
-
-
     hitFpHouse : function(){
         this.fp_hp --;
 
-        if(!this.sp_last_score) {
+        if(!this.sp_last_score) {//not goal before
 
-            this.sp_last_score = true;
-            this.sp_deviation_time = SCORE_DEVIATION_MORE;
+            this.sp_last_score = true;//first goal
+            this.sp_deviation_time = SCORE_DEVIATION_MORE;//reset goal time
             this.sp_score_num = 1;
-        }else if (this.sp_deviation_time > 0) {
+        }else if (this.sp_deviation_time > 0) {//next goal in deviation time
             this.sp_score_num++;
             this.sp_deviation_time = SCORE_DEVIATION_MORE;
         }
@@ -131,7 +116,6 @@ var ScoreController = GameController.extend({
         this.showHP(0-7,570,this.fp_hp);
 
         if ( this.fp_hp >= 0) {
-            this.fp_hp_label.setString(this.fp_hp);
             var leftGate = this.game_layer.getChildByTag(BACK_TAG).getChildByTag(LEFT_GATE_TAG);
 
             var spriteFrameCache = cc.spriteFrameCache;
@@ -146,6 +130,8 @@ var ScoreController = GameController.extend({
                     break;
                 case 0:
                     leftSpriteFrame = spriteFrameCache.getSpriteFrame("purpleD.png");
+                    break;
+                default :
                     break;
             }
             if (leftSpriteFrame) {
@@ -163,7 +149,6 @@ var ScoreController = GameController.extend({
             }
         }
     },
-
     isGameOver : function () {
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
             return true;
@@ -172,10 +157,10 @@ var ScoreController = GameController.extend({
         if (this.fp_hp === 0 || this.sp_hp === 0){
             return true;
         }
-        else
+        else {
             return false;
+        }
     },
-
     gameOverAction : function () {
         this.game_layer.isOver = true;
 
@@ -183,82 +168,80 @@ var ScoreController = GameController.extend({
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
             isNaughtyWin = this.force_win == GameController.SP_WIN;
         }
-        else isNaughtyWin = this.sp_hp === 0;
+        else{
+            isNaughtyWin = this.sp_hp === 0;
+        }
 
         var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
 
-        this.game_layer.getParent().addChild( over_layer );
+        this.game_layer.getParent().addChild( over_layer,OverLayer_ZORDER);
     },
-
-    explodeCallBack : function (armature, movementType, movementID) {
-        if (movementType == ccs.MovementEventType.complete) {
-//            console.log("explode");
-//            armature.getAnimation().playWithIndex(0);
+    explodeCallBack : function (armature, movementType, movementID) {//when the explode action playing will call
+        if (movementType == ccs.MovementEventType.complete) {//explode action play complete
             armature.removeFromParent();
         }
     },
-
     clear : function(){
         this.fp_hp = GAME_INIT_HP;
         this.sp_hp = GAME_INIT_HP;
-
-        this.fp_hp_label = null;
-        this.sp_hp_label = null;
+        this.fp_score_num = 0;
+        this.sp_score_num = 0;
+        this.fp_last_score = false;
+        this.sp_last_score = false;
+        this.fp_deviation_time = SCORE_DEVIATION_MORE;
+        this.sp_deviation_time = SCORE_DEVIATION_MORE;
         this.game_layer = null;
     },
     showHP : function (x,y,hp) {
-        console.log("aaa");
         var gameLayer  = this.game_layer;
         var spriteFrameCache = cc.spriteFrameCache;
         var hpBoard = null;//new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
-
-
         var hpText = null;
-        if( x < 20) {
-            hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoardB.png"));
-            if( hp > 0) {
-               hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
+        if (hp > 0) {
+            if(x < 20) {
+                hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoardB.png"));
+                hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
                 hpText.setPosition(cc.p(130,90));
                 hpBoard.addChild(hpText);
+                hpBoard.rotation = -90;
+                hpBoard.setAnchorPoint(cc.p(0,0));
+                hpBoard.runAction(new cc.Sequence(
+                    new cc.RotateBy(0.1,90),
+                    new cc.DelayTime(1),
+                    new cc.RotateBy(0.1,-90)
+                ));
             }
-
-
-            hpBoard.rotation = -90;
-            hpBoard.setAnchorPoint(cc.p(0,0));
-            hpBoard.runAction(new cc.Sequence(
-                new cc.RotateBy(0.1,90),
-                new cc.DelayTime(1),
-                new cc.RotateBy(0.1,-90)
-            ));
-        }
-        else {
-            hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
-            if( hp > 0) {
+            else {
+                hpBoard = new cc.Sprite(spriteFrameCache.getSpriteFrame("hpBoard.png"));
                 hpText = new cc.Sprite(spriteFrameCache.getSpriteFrame("hp" + hp + ".png"));
                 hpText.setPosition(cc.p(100,90));
                 hpBoard.addChild(hpText);
+                hpBoard.setAnchorPoint(cc.p(1,0));
+                hpBoard.rotation = 90;
+                hpBoard.runAction(new cc.Sequence(
+                    new cc.RotateBy(0.1,-90),
+                    new cc.DelayTime(1),
+                    new cc.RotateBy(0.1,90)
+                ));
             }
-
-            hpBoard.setAnchorPoint(cc.p(1,0));
-            hpBoard.rotation = 90;
-            hpBoard.runAction(new cc.Sequence(
-                new cc.RotateBy(0.1,-90),
-                new cc.DelayTime(1),
-                new cc.RotateBy(0.1,90)
-            ));
         }
 
-        hpBoard.setPosition(cc.p(x,y));
-//        console.log(hp);
-        gameLayer.addChild(hpBoard,400);
+
+        if (hpBoard) {
+            hpBoard.setPosition(cc.p(x,y));
+
+            gameLayer.addChild(hpBoard,400);
+        }
+
     },
     update : function (dt) {
         this._super(dt);
         var spriteFrame = cc.spriteFrameCache;
-        if(this.sp_last_score) {
+        var sp_text = null;//show when second player score more than 1
+        var fp_text = null;//show when first player score more than 1
+        if(this.sp_last_score) {//if sp score
             this.sp_deviation_time -= dt;
             if(this.sp_deviation_time < 0) {
-                var sp_text = null;
                 switch (this.sp_score_num){
 //                    case 1:
                     case 2:
@@ -282,8 +265,6 @@ var ScoreController = GameController.extend({
                     ));
                 }
 
-
-
                 this.sp_last_score = false;
                 this.sp_deviation_time = SCORE_DEVIATION_MORE;
                 this.sp_score_num = 0;
@@ -293,7 +274,7 @@ var ScoreController = GameController.extend({
         if(this.fp_last_score) {
             this.fp_deviation_time -= dt;
             if(this.fp_deviation_time < 0) {
-                var fp_text = null;
+
                 switch (this.fp_score_num){
 //                    case 1:
                     case 2:
@@ -442,13 +423,13 @@ var OneGoalController = GameController.extend({
     },
 
     isGameOver : function () {
+
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
 
             this.game_time_label.setString("0");
 
             return true;
         }
-
         if (this.game_time < 0) {
 
             this.game_time_label.setString("0");
@@ -491,8 +472,8 @@ var OneGoalController = GameController.extend({
     },
 
     gameOverAction : function () {
-        this.game_layer.isOver = true;
 
+        this.game_layer.isOver = true;
         var isNaughtyWin = true;
         if (this.force_win == GameController.FP_WIN || this.force_win == GameController.SP_WIN) {
             isNaughtyWin = this.force_win == GameController.SP_WIN;
@@ -501,7 +482,7 @@ var OneGoalController = GameController.extend({
 
         var over_layer = OverLayer.create(isNaughtyWin, this.game_layer);
 
-        this.game_layer.getParent().addChild( over_layer );
+        this.game_layer.getParent().addChild( over_layer,OverLayer_ZORDER);
     },
 
     clear : function() {

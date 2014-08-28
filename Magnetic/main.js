@@ -3,9 +3,10 @@ cc.game.onStart = function(){
 	cc.view.resizeWithBrowserSize(true);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
-        gameScene = new cc.Scene();
-        nextLevel(gameScene, true, 0);
-        cc.director.runScene(gameScene);
+        loadResource();
+        var menuScene = MenuLayer.createScene();
+//        nextLevel(gameScene, true, 0);
+        cc.director.runScene(menuScene);
     }, this);
 };
 cc.game.run();

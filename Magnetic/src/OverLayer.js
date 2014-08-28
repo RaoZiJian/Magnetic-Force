@@ -12,7 +12,6 @@ var OverLayer = cc.Layer.extend({
         this.gameLayer = gameLayer;
         this.clicked = false;
     },
-
     init : function() {
         if ( !this._super() ) {
             return false;
@@ -20,7 +19,6 @@ var OverLayer = cc.Layer.extend({
 
         return true;
     },
-
     onEnter : function() {
         this.clicked = false;
 
@@ -35,7 +33,7 @@ var OverLayer = cc.Layer.extend({
 //            cc.audioEngine.playEffect(res.NastyWins_ogg,false);
         }
 
-        this.win_logo.setPosition(winSize.width/2, winSize.height/2);
+        this.win_logo.setPosition(cc.winSize.width/2, cc.winSize.height/2);
         this.win_logo.setScale(0, 0);
         this.addChild(this.win_logo);
 
@@ -52,10 +50,9 @@ var OverLayer = cc.Layer.extend({
 
 
     },
-
     showOverMenu : function (){
 
-        var cover = cc.LayerColor.create(cc.color(0,0,0, 80), winSize.width, winSize.height);
+        var cover = cc.LayerColor.create(cc.color(0,0,0, 80), cc.winSize.width, cc.winSize.height);
         this.addChild(cover, 0);
 
 
@@ -78,8 +75,8 @@ var OverLayer = cc.Layer.extend({
         this.addChild(game_over_logo);
         this.addChild(menu);
 
-        game_over_logo.setPosition(winSize.width/2, winSize.height * 2/3);
-        menu.setPosition(winSize.width/2 , winSize.height /2);
+        game_over_logo.setPosition(cc.winSize.width/2, cc.winSize.height * 2/3);
+        menu.setPosition(cc.winSize.width/2 , cc.winSize.height /2);
 
         game_over_logo.setScale(0, 0);
         menu.setScale(0, 0);
@@ -87,18 +84,23 @@ var OverLayer = cc.Layer.extend({
         game_over_logo.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.5, 1.0, 1.0)));
         menu.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.5, 1.0, 1.0)));
     },
-
     playAgain : function(){
         if ( !this.clicked ){
             this.clicked = true;
             this.gameLayer && this.gameLayer.clear();
 
-            var layer = nextLevel(cc.director.getRunningScene(), true);
-            current_level == 0 ? layer.guideUIP : layer.guideUI2P();
+            var layer = replayLevel(cc.director.getRunningScene());
+//            current_level == 0 ? layer.guideUIP : layer.guideUI2P();
         }
     },
-
     backToMainMenu : function (){
+        if (!this.isClicked) {
+            this.clicked = true;
+            this.gameLayer && this.gameLayer.clear();
+            this.parent.removeAllChildren(true);
+            var menuScene = MenuLayer.createScene();
+            cc.director.runScene(menuScene);
+        }
 
     }
 });

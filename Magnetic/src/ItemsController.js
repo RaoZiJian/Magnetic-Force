@@ -112,7 +112,7 @@ var OneGoalItemsLayer = ItemsLayer.extend({
 
         //apply veloci to item.
 
-        if ( x < winSize.width / 2 ){
+        if ( x < cc.winSize.width / 2 ){
             var veloci = ITEM_FIRE_SPEED - ITEM_FIRE_SPEED_VAR + Math.random() * ITEM_FIRE_SPEED_VAR * 2;
             var angle = cc.degreesToRadians(ITEM_FIRE_ANGLE - ITEM_FIRE_ANGLE_VAR + Math.random() * ITEM_FIRE_ANGLE_VAR * 2);
             var v = cp.v (veloci * Math.cos(angle) , veloci * Math.sin(angle) );

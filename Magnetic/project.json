@@ -22,13 +22,15 @@
         "src/OneGoalLayer.js",
         "src/SceneController.js",
         "src/PlayerBody.js",
-        "src/TestLayer.js",
         "src/Item.js",
         "src/ItemsController.js",
         "src/Level.js",
         "src/ScoreController.js",
         "src/OverLayer.js",
         "src/BackGroundLayer.js",
-        "src/Config.js"
+        "src/Config.js",
+        "src/MenuLayer.js",
+        "src/ResourceLoader.js",
+        "src/OrdinaryLayer.js"
     ]
 }
