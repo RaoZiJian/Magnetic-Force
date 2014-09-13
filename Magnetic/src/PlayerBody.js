@@ -208,6 +208,7 @@ var Player = ccs.Armature.extend({
     rocketEject : function(){
         if (this.rocketOpen) {
             this.rocketOpen = false;
+            this.setScale(PLAYER_SCALE,PLAYER_SCALE);
             var center_pos = this.phyObj.body.getPos();
             var radius = this.r;
             var sinR = this.phyObj.body.rot.y;
@@ -215,8 +216,8 @@ var Player = ccs.Armature.extend({
 
 
             var button_pos = pAddp(center_pos,cp.v(-radius * sinR,-radius * cosR));
-            console.log("angel : " + this.phyObj.body.a);
-            var impulse = cp.v(ROCKET_FORCE * cosR,ROCKET_FORCE * sinR);
+//            console.log("angel : " + this.phyObj.body.a);
+            var impulse = cp.v(-ROCKET_FORCE * sinR,ROCKET_FORCE * cosR);
             this.phyObj.body.applyImpulse(impulse,cp.v(0,0));
         }
 
