@@ -25,6 +25,8 @@ var Player = ccs.Armature.extend({
     isHitGround : false,
     isFrictPlaying : false,
 
+    rocketImpules : ROCKET_FORCE,
+
     ctor : function(file, r, x, y) {
         this._super(file);
 
@@ -95,10 +97,10 @@ var Player = ccs.Armature.extend({
 //            this.jump_f = cp.v(0, PLAYER_JUMP_FORCE); // be used in magnetic system.
         }
     },
-    isJump : false,
+    rocketOpen : true,
 //    jump_f : cp.v(0,0),
-    resetJump : function(){
-        this.isJump = false;
+    resetRocket : function(){
+        this.rocketOpen = true;
 //        this.jump_f.x = 0;
 //        this.jump_f.y = 0;
     },
@@ -168,6 +170,10 @@ var Player = ccs.Armature.extend({
 //        this.runAction(cc.animate(mouthOpen));
 
     },
+    /**
+     * player armature animation play
+     * @param index the animation index
+     */
     repulsion : function (index) {
         var old_index = this.getAnimation().getCurrentMovementID();
         var current_name = this.getAnimation().getAnimationData().movementNames[index];
@@ -195,6 +201,26 @@ var Player = ccs.Armature.extend({
 
             this.getAnimation().playWithIndex(index);
         }
+    },
+    /**
+     * player will be go by rocket
+     */
+    rocketEject : function(){
+        if (this.rocketOpen) {
+            this.rocketOpen = false;
+            this.setScale(PLAYER_SCALE,PLAYER_SCALE);
+            var center_pos = this.phyObj.body.getPos();
+            var radius = this.r;
+            var sinR = this.phyObj.body.rot.y;
+            var cosR = this.phyObj.body.rot.x;
+
+
+            var button_pos = pAddp(center_pos,cp.v(-radius * sinR,-radius * cosR));
+//            console.log("angel : " + this.phyObj.body.a);
+            var impulse = cp.v(-ROCKET_FORCE * sinR,ROCKET_FORCE * cosR);
+            this.phyObj.body.applyImpulse(impulse,cp.v(0,0));
+        }
+
     }
 
 

@@ -45,12 +45,6 @@ var GameLayer = cc.Layer.extend({
         this.walls = walls;
         this.init();
 
-        //button listener
-        cc.eventManager.addListener({
-            event : cc.EventListener.KEYBOARD,
-            onKeyPressed : this.onKeyPressed,
-            onKeyReleased: this.onKeyReleased
-        }, this);
     },
     init : function(){//init game
 
@@ -164,28 +158,32 @@ var GameLayer = cc.Layer.extend({
 
         switch (key) {
             case KeyCode_M:
-                target.f_player.isMagnet = true;
-                target.f_player.isAttract = false;
-                target.f_player.repulsion(2);
-                break;
-            case KeyCode_N:
+//                console.log("mmmm" );
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
-                target.f_player.jump();
-                target.f_player.setScale(0.95,0.95);
+                target.f_player.rocketEject();
+//                target.f_player.setScale(PLAYER_SCALE,PLAYER_SCALE);
                 target.f_player.attraction(1);
                 break;
-            case KeyCode_X:
-                target.s_player.isMagnet = true;
-                target.s_player.isAttract = false;
-                target.s_player.repulsion(5);
-                break;
+//            case KeyCode_N:
+//                target.f_player.isMagnet = true;
+//                target.f_player.isAttract = true;
+//                target.f_player.jump();
+//                target.f_player.setScale(0.95,0.95);
+//                target.f_player.attraction(1);
+//                break;
+//            case KeyCode_X:
+//                target.s_player.isMagnet = true;
+//                target.s_player.isAttract = false;
+//                target.s_player.repulsion(5);
+//                break;
             case KeyCode_Z:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
-                target.s_player.jump();
-                target.s_player.setScale(0.95,0.95);
-                target.s_player.attraction(4);
+                target.s_player.rocketEject();//rocket to go
+//                console.log("z :" + target.s_player.scale);
+//                target.s_player.setScale(PLAYER_SCALE,PLAYER_SCALE);
+                target.s_player.attraction(4);//animation
                 break;
             default :
                 break;
@@ -199,19 +197,23 @@ var GameLayer = cc.Layer.extend({
         }
 
         switch (key) {
-            case KeyCode_N:
-                target.f_player.setScale(1/0.95,1/0.95);
+//            case KeyCode_N:
+//                target.f_player.setScale(1/0.95,1/0.95);
             case KeyCode_M:
-                target.f_player.isMagnet = false;
+                target.f_player.setScale(1/PLAYER_SCALE,1/PLAYER_SCALE);
+                target.f_player.isAttract = false;
                 target.f_player.normal(0);
-                target.f_player.resetJump();
+                target.f_player.resetRocket();
                 break;
+//            case KeyCode_Z:
+//                target.s_player.setScale(1/0.9,1/0.9);
             case KeyCode_Z:
-                target.s_player.setScale(1/0.9,1/0.9);
-            case KeyCode_X:
-                target.s_player.isMagnet = false;
+//                console.log("ffffff :" + target.s_player.scale);
+                target.s_player.setScale(1/PLAYER_SCALE,1/PLAYER_SCALE);
+//                console.log("ffffff :" + target.s_player.scale);
+                target.s_player.isAttract = false;
                 target.s_player.normal(3);
-                target.s_player.resetJump();
+                target.s_player.resetRocket();
                 break;
             default :
                 break;
