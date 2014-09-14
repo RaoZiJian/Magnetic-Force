@@ -33,11 +33,15 @@ var INITIAL_BOMB_NUMBER = 4,
 //magnet system
 var EFFECTIVE_MAGNET_DIS = 900;
 var PLAYER_INIT_MH = 800;
-var SAFE_DIS_ADD = 0.7;
+var PLAYER_MH_INCREASE_FACTOR = 100;    // player magnetic increase factor
+var PLAYER_MH_DECREASE_FACTOR = 400;    //player magnetic decrease factor.
+var PLAYER_MH_MAX = 2000;   // player mh max
+var PLAYER_ITEM_MAGNETIC_FACTOR = 0.5;  // magnetic force between player and item can be different.  It is the same magnetic force when the value is equal to 1.
+var SAFE_DIS_ADD = 1;
 var REPULSIVE_FORCE_MUTIPLE = 2;
 var AIR_STREAM_FORCE = 100;
 var AIR_EFFECTIVE_HEIGHT = 400;
-
+var PLAYER_MAGNET_OFFSET = 30;  // player magnetic center offset on its head direction.
 
 //player
 var PLAYER_WEIGHT = 1,

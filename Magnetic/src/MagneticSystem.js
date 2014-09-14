@@ -185,7 +185,7 @@ var MagneticSystem = {
 
         fp_f = pAddp(fp_f, this.f_player.rocketForce);
         sp_f = pAddp(fp_f, this.s_player.rocketForce);
-        console.log("" + this.f_player.rocketForce.x + "   " + this.f_player.rocketForce.y);
+//        console.log("" + this.f_player.rocketForce.x + "   " + this.f_player.rocketForce.y);
 
         //calculate airstream force
         if (this.f_player.y > AIR_EFFECTIVE_HEIGHT){

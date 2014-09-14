@@ -88,6 +88,7 @@ var Player = ccs.Armature.extend({
 //            console.log("rock");
             this.rocketTime -= dt;
             this.calculateForce();
+//            console.log("lllll");
         }
         else
         {
@@ -228,7 +229,10 @@ var Player = ccs.Armature.extend({
             this.setRocket(false);
 //            this.isRocketOpen = false;
             this.setScale(PLAYER_SCALE,PLAYER_SCALE);
-            this.phyObj.body.applyImpulse(ROCKET_IMPULSE,cp.v(0,0));
+            var sinR = this.phyObj.body.rot.y;
+            var cosR = this.phyObj.body.rot.x;
+            var impules = cp.v(-ROCKET_IMPULSE * sinR,ROCKET_IMPULSE * cosR);
+            this.phyObj.body.applyImpulse(impules,cp.v(0,0));
         }
     },
     calculateForce : function (force) {
