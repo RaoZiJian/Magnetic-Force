@@ -6,7 +6,7 @@ var Config = [
     // Ordinary
     {
         EFFECTIVE_MAGNET_DIS : 900,
-        SAFE_DIS_ADD : 0.5,
+        SAFE_DIS_ADD : 0.8,
         MAX_BOMB_NUMBER:10
     },
 

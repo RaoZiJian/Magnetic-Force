@@ -19,14 +19,14 @@ var MagneticSystem = {
         this.f_player = f_player;
         this.s_player = s_player;
 
-        this.f_player.isMagnet = false;
-        this.f_player.isAttract = true;
+        this.f_player.isMagnet = true;
+        this.f_player.isAttract = false;
 
-        this.s_player.isMagnet = false;
-        this.s_player.isAttract = true;
+        this.s_player.isMagnet = true;
+        this.s_player.isAttract = false;
 
-        this.f_player.mh = PLAYER_INIT_MH;
-        this.s_player.mh = PLAYER_INIT_MH;
+        this.f_player.mh = 0;
+        this.s_player.mh = 0;
 
         this.other_items = [];
     },
@@ -52,14 +52,25 @@ var MagneticSystem = {
 //        }
 
 
+        // update player mh.
+        this.updatePlayerMH(dt);
+
+
 
 //        var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
         var fp_attract_dir = this.f_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
 //        var sp_attract_dir = this.s_player.isAttract ? 1 : -1;
         var sp_attract_dir = this.s_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
 
-        var fp_pos = this.f_player.phyObj.body.getPos();
-        var sp_pos = this.s_player.phyObj.body.getPos();
+
+        //var fp_pos = this.f_player.phyObj.body.getPos() + cp.v(this.f_player.phyObj.body.rot.y * 30, this.f_player.phyObj.body.rot.x * 30);
+        //var sp_pos = this.s_player.phyObj.body.getPos() + cp.v(this.s_player.phyObj.body.rot.y * 30, this.s_player.phyObj.body.rot.x * 30);
+
+        var fp_pos = pAddp(this.f_player.phyObj.body.getPos(), cp.v(-this.f_player.phyObj.body.rot.y * PLAYER_MAGNET_OFFSET, this.f_player.phyObj.body.rot.x * PLAYER_MAGNET_OFFSET));
+        var sp_pos = pAddp(this.s_player.phyObj.body.getPos(), cp.v(-this.s_player.phyObj.body.rot.y * PLAYER_MAGNET_OFFSET, this.s_player.phyObj.body.rot.x * PLAYER_MAGNET_OFFSET));
+
+        //console.log("aaa  " + SAFE_DIS_ADD );
+
 
         var fp_f = cp.v(0, 0);
         var sp_f = cp.v(0, 0);
@@ -85,8 +96,8 @@ var MagneticSystem = {
                 oi_f.x += magnet_f * Math.cos(angle) * fp_attract_dir;
                 oi_f.y += magnet_f * Math.sin(angle) * fp_attract_dir;
 
-                fp_f.x += - magnet_f * Math.cos(angle) * fp_attract_dir;
-                fp_f.y += - magnet_f * Math.sin(angle) * fp_attract_dir;
+                fp_f.x += - magnet_f * Math.cos(angle) * fp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
+                fp_f.y += - magnet_f * Math.sin(angle) * fp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
 
             }
 
@@ -99,8 +110,8 @@ var MagneticSystem = {
                 oi_f.x += magnet_f * Math.cos(angle) * sp_attract_dir;
                 oi_f.y += magnet_f * Math.sin(angle) * sp_attract_dir;
 
-                sp_f.x += - magnet_f * Math.cos(angle) * sp_attract_dir;
-                sp_f.y += - magnet_f * Math.sin(angle) * sp_attract_dir;
+                sp_f.x += - magnet_f * Math.cos(angle) * sp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
+                sp_f.y += - magnet_f * Math.sin(angle) * sp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
 
             }
 
@@ -168,9 +179,13 @@ var MagneticSystem = {
         //calculate jump_f
 //        fp_f = pAddp(fp_f, this.f_player.jump_f);
 //        sp_f = pAddp(sp_f, this.s_player.jump_f);
-        if (this.f_player.isJump) fp_f = pAddp(fp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.f_player.y + 100)  ) );
-        if (this.s_player.isJump) sp_f = pAddp(sp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.s_player.y + 100)  ) );
+//        if (this.f_player.isJump) fp_f = pAddp(fp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.f_player.y + 100)  ) );
+//        if (this.s_player.isJump) sp_f = pAddp(sp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.s_player.y + 100)  ) );
 
+
+        fp_f = pAddp(fp_f, this.f_player.rocketForce);
+        sp_f = pAddp(fp_f, this.s_player.rocketForce);
+        console.log("" + this.f_player.rocketForce.x + "   " + this.f_player.rocketForce.y);
 
         //calculate airstream force
         if (this.f_player.y > AIR_EFFECTIVE_HEIGHT){
@@ -214,6 +229,45 @@ var MagneticSystem = {
         }
 
 
+    },
+
+
+    updatePlayerMH : function (dt) {
+        // f_player
+        if ( this.f_player.isAttract ) {
+            if (this.f_player.mh < PLAYER_INIT_MH) {
+                this.f_player.mh = PLAYER_INIT_MH;
+            }
+            else if (this.f_player.mh < PLAYER_MH_MAX) {
+                this.f_player.mh += dt * PLAYER_MH_INCREASE_FACTOR;
+            }
+        }
+        else {
+            if (this.f_player.mh > 0) {
+                this.f_player.mh -= dt * PLAYER_MH_DECREASE_FACTOR;
+            }
+            else {
+                this.f_player.mh = 0;
+            }
+        }
+
+        // s_player
+        if (this.s_player.isAttract ) {
+            if (this.s_player.mh < PLAYER_INIT_MH) {
+                this.s_player.mh = PLAYER_INIT_MH;
+            }
+            else if (this.s_player.mh < PLAYER_MH_MAX) {
+                this.s_player.mh += dt * PLAYER_MH_INCREASE_FACTOR;
+            }
+        }
+        else {
+            if ( this.s_player.mh > 0) {
+                this.s_player.mh -= dt * PLAYER_MH_DECREASE_FACTOR;
+            }
+            else {
+                this.s_player.mh = 0;
+            }
+        }
     }
 
 
