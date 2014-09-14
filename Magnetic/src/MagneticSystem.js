@@ -179,9 +179,13 @@ var MagneticSystem = {
         //calculate jump_f
 //        fp_f = pAddp(fp_f, this.f_player.jump_f);
 //        sp_f = pAddp(sp_f, this.s_player.jump_f);
-        if (this.f_player.isJump) fp_f = pAddp(fp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.f_player.y + 100)  ) );
-        if (this.s_player.isJump) sp_f = pAddp(sp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.s_player.y + 100)  ) );
+//        if (this.f_player.isJump) fp_f = pAddp(fp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.f_player.y + 100)  ) );
+//        if (this.s_player.isJump) sp_f = pAddp(sp_f, cp.v (0, PLAYER_JUMP_FORCE *  300 / (this.s_player.y + 100)  ) );
 
+
+        fp_f = pAddp(fp_f, this.f_player.rocketForce);
+        sp_f = pAddp(fp_f, this.s_player.rocketForce);
+        console.log("" + this.f_player.rocketForce.x + "   " + this.f_player.rocketForce.y);
 
         //calculate airstream force
         if (this.f_player.y > AIR_EFFECTIVE_HEIGHT){
@@ -253,7 +257,7 @@ var MagneticSystem = {
                 this.s_player.mh = PLAYER_INIT_MH;
             }
             else if (this.s_player.mh < PLAYER_MH_MAX) {
-                this.s_player += dt * PLAYER_MH_INCREASE_FACTOR;
+                this.s_player.mh += dt * PLAYER_MH_INCREASE_FACTOR;
             }
         }
         else {
