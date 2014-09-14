@@ -31,7 +31,7 @@ var Player = ccs.Armature.extend({
 
     ctor : function(file, r, x, y) {
         this._super(file);
-
+        this.rocketForce = cp.v(0,0);
         var size = this.getContentSize(),
             sx = r / size.width, sy = r / size.height;
         this.scale = sx > sy ? sx * 2 : sy * 2;
