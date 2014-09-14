@@ -107,11 +107,11 @@ var GameLayer = cc.Layer.extend({
         if(this.isBegin){
             this.space.step( delta );
 
-            this.f_player.phyUpdate();
+            this.f_player.phyUpdate(delta);
             var x = this.f_player.x;
             if (x < -40 || x > cc.winSize.width + 40)
                 this.gameController.forceWin(GameController.SP_WIN);
-            this.s_player.phyUpdate();
+            this.s_player.phyUpdate(delta);
             x = this.s_player.x;
             if (x < -40 || x > cc.winSize.width + 40)
                 this.gameController.forceWin(GameController.FP_WIN);
@@ -203,7 +203,8 @@ var GameLayer = cc.Layer.extend({
                 target.f_player.setScale(1/PLAYER_SCALE,1/PLAYER_SCALE);
                 target.f_player.isAttract = false;
                 target.f_player.normal(0);
-                target.f_player.resetRocket();
+                console.log("mmmm release");
+                target.f_player.setRocket(true);
                 break;
 //            case KeyCode_Z:
 //                target.s_player.setScale(1/0.9,1/0.9);
@@ -213,7 +214,7 @@ var GameLayer = cc.Layer.extend({
 //                console.log("ffffff :" + target.s_player.scale);
                 target.s_player.isAttract = false;
                 target.s_player.normal(3);
-                target.s_player.resetRocket();
+                target.s_player.setRocket(true);
                 break;
             default :
                 break;

@@ -25,7 +25,9 @@ var Player = ccs.Armature.extend({
     isHitGround : false,
     isFrictPlaying : false,
 
-    rocketImpules : ROCKET_FORCE,
+    rocketMaxImpules : ROCKET_FORCE,
+    rocketForce : null,
+    rocketTime : ROCKET_FORCE_TIME,
 
     ctor : function(file, r, x, y) {
         this._super(file);
@@ -77,33 +79,37 @@ var Player = ccs.Armature.extend({
         this.phyObj.shape.setCollisionType(Player.COL_TYPE);
     },
 
-    phyUpdate : function() {
+    phyUpdate : function(dt) {
         var pos = this.phyObj.getPosition();
         this.x = pos.x;
         this.y = pos.y;
         this.rotation = -180 * this.phyObj.body.a / Math.PI;
-    },
-
-
-    jump : function (factor){
-//        factor = factor || 1;
-//        if(this.y < PLAYER_JUMP_TOP){
-//            this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y * factor;
-//        }
-
-        if (!this.isJump){
-            this.isJump = true;
-
-//            this.jump_f = cp.v(0, PLAYER_JUMP_FORCE); // be used in magnetic system.
+        if (!this.isRocketOpen && this.rocketTime > 0) {
+//            console.log("rock");
+            this.rocketTime -= dt;
+            this.calculateForce();
+        }
+        else
+        {
+            this.calculateForce(cp.v(0,0));
         }
     },
-    rocketOpen : true,
-//    jump_f : cp.v(0,0),
-    resetRocket : function(){
-        this.rocketOpen = true;
-//        this.jump_f.x = 0;
-//        this.jump_f.y = 0;
-    },
+
+//
+//    jump : function (factor){
+////        factor = factor || 1;
+////        if(this.y < PLAYER_JUMP_TOP){
+////            this.phyObj.body.vy += PLAYER_JUMP_ADD_SPEED_Y * factor;
+////        }
+//
+//        if (!this.isJump){
+//            this.isJump = true;
+//
+////            this.jump_f = cp.v(0, PLAYER_JUMP_FORCE); // be used in magnetic system.
+//        }
+//    },
+
+
 
     hitGround : function (point){
         if (this.fire_emitter) {
@@ -202,13 +208,32 @@ var Player = ccs.Armature.extend({
             this.getAnimation().playWithIndex(index);
         }
     },
+
+    isRocketOpen : true,
+//    jump_f : cp.v(0,0),
+    setRocket : function(isOpen){
+        this.isRocketOpen = isOpen;
+        this.rocketTime = ROCKET_FORCE_TIME;
+//        console.log("reset " + this.isRocketOpen + ",time : " + this.rocketTime);
+//        this.jump_f.x = 0;
+//        this.jump_f.y = 0;
+    },
     /**
      * player will be go by rocket
      */
     rocketEject : function(){
-        if (this.rocketOpen) {
-            this.rocketOpen = false;
+//        console.log("open "+ this.isRocketOpen);
+        if (this.isRocketOpen) {
+
+            this.setRocket(false);
+//            this.isRocketOpen = false;
             this.setScale(PLAYER_SCALE,PLAYER_SCALE);
+        }
+    },
+    calculateForce : function (force) {
+        if (force) {
+            this.rocketForce = force;
+        }else{
             var center_pos = this.phyObj.body.getPos();
             var radius = this.r;
             var sinR = this.phyObj.body.rot.y;
@@ -217,9 +242,11 @@ var Player = ccs.Armature.extend({
 
             var button_pos = pAddp(center_pos,cp.v(-radius * sinR,-radius * cosR));
 //            console.log("angel : " + this.phyObj.body.a);
-            var impulse = cp.v(-ROCKET_FORCE * sinR,ROCKET_FORCE * cosR);
-            this.phyObj.body.applyImpulse(impulse,cp.v(0,0));
+            this.rocketForce = cp.v(-ROCKET_FORCE * sinR,ROCKET_FORCE * cosR);
+//            console.log("force : " + this.rocketForce.x + ",y : " + this.rocketForce.y);
         }
+
+//        this.phyObj.body.applyImpulse(impulse,cp.v(0,0));
 
     }
 
