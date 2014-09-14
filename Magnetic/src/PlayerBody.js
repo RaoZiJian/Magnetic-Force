@@ -228,6 +228,7 @@ var Player = ccs.Armature.extend({
             this.setRocket(false);
 //            this.isRocketOpen = false;
             this.setScale(PLAYER_SCALE,PLAYER_SCALE);
+            this.phyObj.body.applyImpulse(ROCKET_IMPULSE,cp.v(0,0));
         }
     },
     calculateForce : function (force) {
@@ -242,7 +243,8 @@ var Player = ccs.Armature.extend({
 
             var button_pos = pAddp(center_pos,cp.v(-radius * sinR,-radius * cosR));
 //            console.log("angel : " + this.phyObj.body.a);
-            this.rocketForce = cp.v(-ROCKET_FORCE * sinR,ROCKET_FORCE * cosR);
+            var current_force = ROCKET_FORCE  * (this.rocketTime / ROCKET_FORCE_TIME) * ROCKET_FORCE_TIME_RATE;
+            this.rocketForce = cp.v(-current_force * sinR,current_force * cosR);
 //            console.log("force : " + this.rocketForce.x + ",y : " + this.rocketForce.y);
         }
 

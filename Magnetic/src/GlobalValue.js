@@ -50,7 +50,9 @@ var PLAYER_WEIGHT = 1,
     PLAYER_SCALE = 0.95,
 //    PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 1),
     PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5,
-    ROCKET_FORCE_TIME = 0.5,
+    ROCKET_FORCE_TIME = 0.5,//rocket contine time
+    ROCKET_FORCE_TIME_RATE = 1,//the rocket force will decrese with time,that is ratio of time effect the force
+    ROCKET_IMPULSE = 200,//when rocket open,it will have a impilse,it will make have a jump,and then will have a force continue
     ROCKET_FORCE = 300;
 
 
