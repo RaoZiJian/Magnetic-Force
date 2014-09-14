@@ -34,11 +34,11 @@ var INITIAL_BOMB_NUMBER = 4,
 var EFFECTIVE_MAGNET_DIS = 900;
 var PLAYER_INIT_MH = 800;
 var PLAYER_MH_INCREASE_FACTOR = 100;    // player magnetic increase factor
-var PLAYER_MH_DECREASE_FACTOR = 400;    //player magnetic decrease factor.
+var PLAYER_MH_DECREASE_FACTOR = 1000;    //player magnetic decrease factor.
 var PLAYER_MH_MAX = 2000;   // player mh max
 var PLAYER_ITEM_MAGNETIC_FACTOR = 0.5;  // magnetic force between player and item can be different.  It is the same magnetic force when the value is equal to 1.
 var SAFE_DIS_ADD = 1;
-var REPULSIVE_FORCE_MUTIPLE = 2;
+var REPULSIVE_FORCE_MUTIPLE = 2.5;
 var AIR_STREAM_FORCE = 100;
 var AIR_EFFECTIVE_HEIGHT = 400;
 var PLAYER_MAGNET_OFFSET = 30;  // player magnetic center offset on its head direction.
@@ -54,10 +54,10 @@ var PLAYER_WEIGHT = 1,
     PLAYER_SCALE = 0.95,
 //    PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 1),
     PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5,
-    ROCKET_FORCE_TIME = 0.5,//rocket contine time
+    ROCKET_FORCE_TIME = 2,//rocket contine time
     ROCKET_FORCE_TIME_RATE = 1,//the rocket force will decrese with time,that is ratio of time effect the force
     ROCKET_IMPULSE = 200,//when rocket open,it will have a impilse,it will make have a jump,and then will have a force continue
-    ROCKET_FORCE = 300;
+    ROCKET_FORCE = 500;
 
 
 //bomb
