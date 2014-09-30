@@ -48,7 +48,10 @@ var PLAYER_WEIGHT = 1,
     PLAYER_INIT_FRICTION = 0.25,
     PLAYER_INIT_ELASTICITY = 0.3,
 //    PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 1),
-    PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5;
+    PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5,
+    AIR_IIJECTON_FORCE = 200,
+    OFFSET_RADIAN = 1/6 * Math.PI,//the ball air injection offset for the buttom,it is a radian,because is a cycle.
+    FLOAT_HEIGHT = 20;
 
 
 //bomb
@@ -62,7 +65,7 @@ var BOMB_JUMP_ADD_SPEED = 60;
 
 
 var GLOBAL_COL_TYPE = 0;
-
+var PLAYER_SCALE = 0.95;
 var GAME_INIT_HP = 3;
 var GAME_TIME_LENGTH = 30;
 

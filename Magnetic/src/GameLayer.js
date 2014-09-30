@@ -6,6 +6,7 @@ var KeyCode_Z = 90,
     KeyCode_X = 88,
     KeyCode_N = 78,
     KeyCode_M = 77,
+    KeyCode_Enter = 13,
 
     BACK_ZORDER = 0,
     BACK_TAG = 33,
@@ -39,6 +40,8 @@ var GameLayer = cc.Layer.extend({
 
     walls : null,//the walls map
 
+    isShowGuide : false,
+
     ctor : function (walls) {//the walls map
         this._super();
 
@@ -46,11 +49,11 @@ var GameLayer = cc.Layer.extend({
         this.init();
 
         //button listener
-        cc.eventManager.addListener({
-            event : cc.EventListener.KEYBOARD,
-            onKeyPressed : this.onKeyPressed,
-            onKeyReleased: this.onKeyReleased
-        }, this);
+//        cc.eventManager.addListener({
+//            event : cc.EventListener.KEYBOARD,
+//            onKeyPressed : this.onKeyPressed,
+//            onKeyReleased: this.onKeyReleased
+//        }, this);
     },
     init : function(){//init game
 
@@ -113,11 +116,11 @@ var GameLayer = cc.Layer.extend({
         if(this.isBegin){
             this.space.step( delta );
 
-            this.f_player.phyUpdate();
+            this.f_player.phyUpdate(delta);
             var x = this.f_player.x;
             if (x < -40 || x > cc.winSize.width + 40)
                 this.gameController.forceWin(GameController.SP_WIN);
-            this.s_player.phyUpdate();
+            this.s_player.phyUpdate(delta);
             x = this.s_player.x;
             if (x < -40 || x > cc.winSize.width + 40)
                 this.gameController.forceWin(GameController.FP_WIN);
@@ -158,6 +161,13 @@ var GameLayer = cc.Layer.extend({
     onKeyPressed : function (key,event) {
         var target = event.getCurrentTarget();
 
+//        console.log("key value : " + key);
+
+        if (target.isShowGuide && key == KeyCode_Enter) {
+//            console.log("show guide aaaaaaaaaa");
+            target.isShowGuide = false;
+            target.startGame();
+        }
         if ( !target.isBegin || target.isOver || !target.f_player || !target.s_player){
             return;
         }
@@ -172,19 +182,23 @@ var GameLayer = cc.Layer.extend({
                 target.f_player.isMagnet = true;
                 target.f_player.isAttract = true;
                 target.f_player.jump();
-                target.f_player.setScale(0.95,0.95);
+                target.f_player.rocketEject(1);
+                target.f_player.setScale(PLAYER_SCALE,PLAYER_SCALE);
                 target.f_player.attraction(1);
                 break;
             case KeyCode_X:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = false;
                 target.s_player.repulsion(5);
+
                 break;
             case KeyCode_Z:
                 target.s_player.isMagnet = true;
                 target.s_player.isAttract = true;
+
                 target.s_player.jump();
-                target.s_player.setScale(0.95,0.95);
+                target.s_player.rocketEject(-1);
+                target.s_player.setScale(PLAYER_SCALE,PLAYER_SCALE);
                 target.s_player.attraction(4);
                 break;
             default :
@@ -200,14 +214,17 @@ var GameLayer = cc.Layer.extend({
 
         switch (key) {
             case KeyCode_N:
-                target.f_player.setScale(1/0.95,1/0.95);
+                target.f_player.setScale(1/PLAYER_SCALE,1/PLAYER_SCALE);
+                target.f_player.setRocket(true);
             case KeyCode_M:
                 target.f_player.isMagnet = false;
                 target.f_player.normal(0);
                 target.f_player.resetJump();
                 break;
             case KeyCode_Z:
-                target.s_player.setScale(1/0.9,1/0.9);
+                target.s_player.setScale(1/PLAYER_SCALE,1/PLAYER_SCALE);
+                target.s_player.setRocket(true);
+
             case KeyCode_X:
                 target.s_player.isMagnet = false;
                 target.s_player.normal(3);
@@ -251,6 +268,8 @@ var GameLayer = cc.Layer.extend({
         target.body.vy += BOMB_JUMP_ADD_SPEED * Trampoline.JUMP_FACTOR;
     },
     showGuideUI : function () {
+        console.log("show guide");
+        this.isShowGuide = true;
     },
     startGame : function () {
         var guideUI = this.getChildByTag(GuideUI_TAG);

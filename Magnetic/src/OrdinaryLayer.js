@@ -37,6 +37,7 @@ var OrdinaryLayer = GameLayer.extend({
         this.gameController = new ScoreController(this);
     },
     showGuideUI : function () {//2p guideUI init
+        this._super();
         var target  = this;
         var spriteFrameCache = cc.spriteFrameCache;
         var guideLayer = new cc.Layer();
