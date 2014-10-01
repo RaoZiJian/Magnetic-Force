@@ -24,7 +24,9 @@ var Player = ccs.Armature.extend({
 
     isHitGround : false,
     isFrictPlaying : false,
-
+    rocketForce : AIR_EFFECTIVE_HEIGHT,
+    isRocketOpen : true,
+    jumpTime : FLOAT_HEIGHT / 100,
     ctor : function(file, r, x, y) {
         this._super(file);
 
@@ -75,11 +77,19 @@ var Player = ccs.Armature.extend({
         this.phyObj.shape.setCollisionType(Player.COL_TYPE);
     },
 
-    phyUpdate : function() {
+    phyUpdate : function(dt) {
         var pos = this.phyObj.getPosition();
         this.x = pos.x;
         this.y = pos.y;
         this.rotation = -180 * this.phyObj.body.a / Math.PI;
+
+        if (this.isJump && this.jumpTime > 0) {
+            this.jumpTime -= dt;
+        }
+        else
+        {
+            this.resetJump();
+        }
     },
 
 
@@ -99,6 +109,7 @@ var Player = ccs.Armature.extend({
 //    jump_f : cp.v(0,0),
     resetJump : function(){
         this.isJump = false;
+        this.jumpTime = FLOAT_HEIGHT / 100;
 //        this.jump_f.x = 0;
 //        this.jump_f.y = 0;
     },
@@ -194,6 +205,24 @@ var Player = ccs.Armature.extend({
         if (old_index !== current_name) {
 
             this.getAnimation().playWithIndex(index);
+        }
+    },
+    setRocket : function(isOpen) {
+        this.isRocketOpen = isOpen;
+    },
+    rocketEject : function(rate){//if first player 1,else -1
+//        console.log("open "+ this.isRocketOpen);
+        if (this.isRocketOpen) {
+
+            this.setRocket(false);
+//            this.isRocketOpen = false;
+            this.setScale(PLAYER_SCALE,PLAYER_SCALE);
+            var sinR = this.phyObj.body.rot.y;
+            var cosR = this.phyObj.body.rot.x;
+            var newSin = sinR * Math.sin(OFFSET_RADIAN) + rate * cosR * Math.cos(OFFSET_RADIAN);
+            var newCos = cosR * Math.cos(OFFSET_RADIAN) - rate * sinR * Math.sin(OFFSET_RADIAN);
+            var impules = cp.v(-AIR_IIJECTON_FORCE * newSin,AIR_IIJECTON_FORCE * newCos);
+            this.phyObj.body.applyImpulse(impules,cp.v(0,0));//it si a impules,i think it will better than using force
         }
     }
 
