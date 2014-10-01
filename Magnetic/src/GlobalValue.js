@@ -37,6 +37,7 @@ var SAFE_DIS_ADD = 0.7;
 var REPULSIVE_FORCE_MUTIPLE = 2;
 var AIR_STREAM_FORCE = 100;
 var AIR_EFFECTIVE_HEIGHT = 400;
+var PLAYER_MAGNET_OFFSET = 30;  // player magnetic center offset on its head direction.
 
 
 //player
