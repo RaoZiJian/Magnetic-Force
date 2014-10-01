@@ -50,16 +50,21 @@ var MagneticSystem = {
 //        if ( !this.f_player.isMagnet && !this.s_player.isMagnet ){
 //            return;
 //        }
-
-
+        console.log("Angular velocity " + this.f_player.phyObj.body.w);
+        this.updatePlayerMH(dt);
+        this.updatePlayerWSpeed();
 
 //        var fp_attract_dir = this.f_player.isAttract ? 1 : -1;
         var fp_attract_dir = this.f_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
 //        var sp_attract_dir = this.s_player.isAttract ? 1 : -1;
         var sp_attract_dir = this.s_player.isAttract ? 1 : -1 * REPULSIVE_FORCE_MUTIPLE;
 
-        var fp_pos = this.f_player.phyObj.body.getPos();
-        var sp_pos = this.s_player.phyObj.body.getPos();
+//        var fp_pos = this.f_player.phyObj.body.getPos();
+//        var sp_pos = this.s_player.phyObj.body.getPos();
+
+        var fp_pos = pAddp(this.f_player.phyObj.body.getPos(), cp.v(-this.f_player.phyObj.body.rot.y * PLAYER_MAGNET_OFFSET, this.f_player.phyObj.body.rot.x * PLAYER_MAGNET_OFFSET));
+        var sp_pos = pAddp(this.s_player.phyObj.body.getPos(), cp.v(-this.s_player.phyObj.body.rot.y * PLAYER_MAGNET_OFFSET, this.s_player.phyObj.body.rot.x * PLAYER_MAGNET_OFFSET));
+
 
         var fp_f = cp.v(0, 0);
         var sp_f = cp.v(0, 0);
@@ -85,8 +90,8 @@ var MagneticSystem = {
                 oi_f.x += magnet_f * Math.cos(angle) * fp_attract_dir;
                 oi_f.y += magnet_f * Math.sin(angle) * fp_attract_dir;
 
-                fp_f.x += - magnet_f * Math.cos(angle) * fp_attract_dir;
-                fp_f.y += - magnet_f * Math.sin(angle) * fp_attract_dir;
+                fp_f.x += - magnet_f * Math.cos(angle) * fp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
+                fp_f.y += - magnet_f * Math.sin(angle) * fp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
 
             }
 
@@ -99,8 +104,8 @@ var MagneticSystem = {
                 oi_f.x += magnet_f * Math.cos(angle) * sp_attract_dir;
                 oi_f.y += magnet_f * Math.sin(angle) * sp_attract_dir;
 
-                sp_f.x += - magnet_f * Math.cos(angle) * sp_attract_dir;
-                sp_f.y += - magnet_f * Math.sin(angle) * sp_attract_dir;
+                sp_f.x += - magnet_f * Math.cos(angle) * sp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
+                sp_f.y += - magnet_f * Math.sin(angle) * sp_attract_dir * PLAYER_ITEM_MAGNETIC_FACTOR;
 
             }
 
@@ -214,7 +219,68 @@ var MagneticSystem = {
         }
 
 
+    },
+
+
+
+    updatePlayerMH : function (dt) {
+        // f_player
+        if (this.f_player.isMagnet) {
+            if (this.f_player.isAttract) {
+                if (this.f_player.mh < PLAYER_INIT_MH) {
+                    this.f_player.mh = PLAYER_INIT_MH;
+                }
+                else if (this.f_player.mh < PLAYER_MH_MAX) {
+                    this.f_player.mh += dt * PLAYER_MH_INCREASE_FACTOR;
+                }
+            }
+            else {
+                if (this.f_player.mh > 0) {
+                    this.f_player.mh -= dt * PLAYER_MH_DECREASE_FACTOR;
+                }
+                else {
+                    this.f_player.mh = 0;
+                }
+            }
+        }
+
+        // s_player
+        if (this.s_player.isMagnet) {
+            if (this.s_player.isAttract) {
+                if (this.s_player.mh < PLAYER_INIT_MH) {
+                    this.s_player.mh = PLAYER_INIT_MH;
+                }
+                else if (this.s_player.mh < PLAYER_MH_MAX) {
+                    this.s_player.mh += dt * PLAYER_MH_INCREASE_FACTOR;
+                }
+            }
+            else {
+                if (this.s_player.mh > 0) {
+                    this.s_player.mh -= dt * PLAYER_MH_DECREASE_FACTOR;
+                }
+                else {
+                    this.s_player.mh = 0;
+                }
+            }
+        }
+    },
+
+
+    updatePlayerWSpeed : function(){
+
+        //f_player
+        if (Math.abs(this.f_player.phyObj.body.w) > PLAYER_W_SPEED_MAX) {
+            if (this.f_player.phyObj.body.w > 0) this.f_player.phyObj.body.w = PLAYER_W_SPEED_MAX;
+            else this.f_player.phyObj.body.w = -PLAYER_W_SPEED_MAX;
+        }
+
+        //s_player
+        if (Math.abs(this.s_player.phyObj.body.w) > PLAYER_W_SPEED_MAX) {
+            if (this.s_player.phyObj.body.w > 0) this.s_player.phyObj.body.w = PLAYER_W_SPEED_MAX;
+            else this.s_player.phyObj.body.w = -PLAYER_W_SPEED_MAX;
+        }
     }
+
 
 
 };

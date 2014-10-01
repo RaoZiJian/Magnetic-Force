@@ -32,7 +32,12 @@ var INITIAL_BOMB_NUMBER = 4,
 
 //magnet system
 var EFFECTIVE_MAGNET_DIS = 900;
+var PLAYER_W_SPEED_MAX = 5;    //player max Angular velocity
 var PLAYER_INIT_MH = 800;
+var PLAYER_MH_INCREASE_FACTOR = 100;    // player magnetic increase factor
+var PLAYER_MH_DECREASE_FACTOR = 1000;    //player magnetic decrease factor.
+var PLAYER_MH_MAX = 2000;   // player mh max
+var PLAYER_ITEM_MAGNETIC_FACTOR = 0.5;  // magnetic force between player and item can be different.  It is the same magnetic force when the value is equal to 1.
 var SAFE_DIS_ADD = 0.7;
 var REPULSIVE_FORCE_MUTIPLE = 2;
 var AIR_STREAM_FORCE = 100;
@@ -51,7 +56,7 @@ var PLAYER_WEIGHT = 1,
 //    PLAYER_ATTRACT_TOP_FORCE = cp.v(0, 1),
     PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5,
     AIR_IIJECTON_FORCE = 200,
-    OFFSET_RADIAN = 1/6 * Math.PI,//the ball air injection offset for the buttom,it is a radian,because is a cycle.
+    OFFSET_RADIAN = 0 * Math.PI,//the ball air injection offset for the buttom,it is a radian,because is a cycle.
     FLOAT_HEIGHT = 20;
 
 

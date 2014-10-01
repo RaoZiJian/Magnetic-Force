@@ -68,7 +68,7 @@ var OrdinaryLayer = GameLayer.extend({
                 ));
             }
         },this);
-        confirmBtn.setPosition(cc.p(cc.winSize.width - 200 , 60));
+        confirmBtn.setPosition(cc.p(cc.winSize.width - 280 , 60));
         var menu = new cc.Menu(confirmBtn);
         menu.setPosition(cc.p(0,0));
 

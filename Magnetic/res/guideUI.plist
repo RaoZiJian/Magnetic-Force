@@ -7,20 +7,20 @@
             <key>confirmBtn.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{886,2},{297,85}}</string>
+                <string>{{886,2},{497,79}}</string>
                 <key>offset</key>
-                <string>{-1,0}</string>
+                <string>{1,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{4,1},{297,85}}</string>
+                <string>{{2,0},{497,79}}</string>
                 <key>sourceSize</key>
-                <string>{307,87}</string>
+                <string>{499,79}</string>
             </dict>
             <key>guidePic.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,155},{790,480}}</string>
+                <string>{{2,637},{790,480}}</string>
                 <key>offset</key>
                 <string>{0,-13}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>guidePicB.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,637},{790,480}}</string>
+                <string>{{2,155},{790,480}}</string>
                 <key>offset</key>
                 <string>{0,-13}</string>
                 <key>rotated</key>
@@ -66,7 +66,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5c6ac20c6c85396af58465bd72a5a053:2623967294948b8e7a983b086478c489:a993d13519fd16b80e2263e916456afc$</string>
+            <string>$TexturePacker:SmartUpdate:67862ad27a5899a23846573652a71494$</string>
             <key>textureFileName</key>
             <string>guideUI.png</string>
         </dict>
