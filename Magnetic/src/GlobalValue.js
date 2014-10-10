@@ -11,16 +11,16 @@ var BackGroundElastricity = 1.2;
 
 //item
 var ITEM_MAXSPEED = 900,
-    ITEM_WEIGHT_FACTOR = 770,
+    ITEM_WEIGHT_FACTOR = 800,
     ITEM_INIT_FRICTION = 0.25,
     ITEM_INIT_ELASTICITY = 0.3,
-    ITEM_MAX_SPEED = 500,
+    ITEM_MAX_SPEED = 900,
     ITEM_SCALE_FACTOR = 2.5;
 
 
 //item controller
 var INITIAL_BOMB_NUMBER = 4,
-    MAX_BOMB_NUMBER = 10,
+    MAX_BOMB_NUMBER = 6,
     BORN_INTERVAL = 8,
     PRIMI_BORN_NUMBER = 2,
     BORN_NUMBER_VAR = 1,
@@ -32,17 +32,17 @@ var INITIAL_BOMB_NUMBER = 4,
 
 //magnet system
 var EFFECTIVE_MAGNET_DIS = 900;
-var PLAYER_W_SPEED_MAX = 5;    //player max Angular velocity
+var PLAYER_W_SPEED_MAX = 2;    //player max Angular velocity
 var PLAYER_INIT_MH = 800;
 var PLAYER_MH_INCREASE_FACTOR = 100;    // player magnetic increase factor
 var PLAYER_MH_DECREASE_FACTOR = 1000;    //player magnetic decrease factor.
 var PLAYER_MH_MAX = 2000;   // player mh max
-var PLAYER_ITEM_MAGNETIC_FACTOR = 0.5;  // magnetic force between player and item can be different.  It is the same magnetic force when the value is equal to 1.
-var SAFE_DIS_ADD = 0.7;
+var PLAYER_ITEM_MAGNETIC_FACTOR = 0.2;  // magnetic force between player and item can be different.  It is the same magnetic force when the value is equal to 1.
+var SAFE_DIS_ADD = 0.6;
 var REPULSIVE_FORCE_MUTIPLE = 2;
 var AIR_STREAM_FORCE = 100;
 var AIR_EFFECTIVE_HEIGHT = 400;
-var PLAYER_MAGNET_OFFSET = 30;  // player magnetic center offset on its head direction.
+var PLAYER_MAGNET_OFFSET = 0;  // player magnetic center offset on its head direction.
 
 
 //player
@@ -57,7 +57,7 @@ var PLAYER_WEIGHT = 1,
     PLAYER_PARTICLE_RESET_POS_INTERVAL = 0.5,
     AIR_IIJECTON_FORCE = 200,
     OFFSET_RADIAN = 0 * Math.PI,//the ball air injection offset for the buttom,it is a radian,because is a cycle.
-    FLOAT_HEIGHT = 20;
+    FLOAT_HEIGHT = 40;
 
 
 //bomb
